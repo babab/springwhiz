@@ -1,0 +1,67 @@
+/*
+ * This file is part of springwhiz.
+ *
+ * springwhiz is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * springwhiz is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with springwhiz.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+body {
+    font-family: Monospace, serif;
+    font-size: 20px;
+    background-color: #000;
+    color: #F70;
+}
+a, a:visited, a:link, a:active  {
+    color: #F40;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: none;
+    color: #F70;
+    background-color: #FFF;
+}
+h1 {
+    font-size: 32px;
+}
+h2 {
+    font-size: 24px;
+}
+h1, h2, h3, h4, h5, h6 {
+    padding: 20px 0px 10px 0px;
+}
+p {
+    padding: 5px 0px 5px 0px;
+}
+#container {
+    margin-left: auto;
+    margin-right: auto;
+}
+#header, form {
+    text-align: center;
+}
+#content {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+    width: 85%;
+    font-size: 12px;
+}
+#q {
+    width: 100%;
+    height: 30px;
+    font-size: 27px;
+    border-radius: 5px;
+}
+div.spacer_y30 {
+    height: 30px;
+}

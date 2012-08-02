@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}start{% endblock %}
+
+{% block content %}
+<form>
+  <input type=text id=q>
+</form>
+
+<div class="spacer_y30"></div>
+
+<p>
+    Welcome to springwhiz, a free webapplication that gives you some tools
+    to enhance your browsing experience. It is your personal start page
+    with quick access to favorites and other neat stuff.
+    If you prefix your query with an '@' or '#' symbol, springwhiz will
+    run a command or browse to a favorite respectively.
+</p>
+<p>
+    If the prefix is not found your query will be send directly to
+    the duckduckgo.com search engine.
+    This means you can use the awesome !bang syntax duckduckgo offers to
+    search on hundreds of sites directly.
+</p>
+<p>
+    springwhiz is open source software release under the ISC license.
+    You are encouraged to run it on your own webserver and modify/extend
+    it to your needs.
+</p>
+
+<h2>Usage</h2>
+
+<pre>
+<strong>Basic commands</strong>
+
+command                      alias   description
+---------------------------- ------- ---------------------------------------
+@register                    @reg    Will bring you to the register dialog
+@login [&lt;username&gt;]          @li     Will bring you to the login dialog
+@logout [all]                @lo     Log out (from all your sessions)
+@help                        @h      Show this help information
+@notepad                     @np     Open notepad
+@bookmark &lt;subcommand&gt;       @bm     Execute a bookmark command
+
+
+<strong>Bookmark commands</strong>
+
+command                              description
+------------------------------------ ---------------------------------------
+#&lt;label&gt;                             Go to bookmark with &lt;label&gt;
+@bookmark add &lt;label&gt; &lt;url&gt;          Add bookmark
+@bookmark list                       List all bookmarks
+
+
+<strong>Duckduckgo.com bang syntax search</strong>
+
+bang                                 description
+------------------------------------ ---------------------------------------
+\&lt;string&gt;                            Browse to 1st result for string
+!yt &lt;string&gt;                         Search YouTube
+!g &lt;string&gt;                          Search Google
+!i &lt;string&gt;                          Search Google Images
+!m &lt;string&gt;                          Search Google Maps
+!synonyms &lt;string&gt;                   Search thesaurus.com
+
+For more info on Duckduckgo's bang search abilities enter '!bang' or visit
+<a href="https://duckduckgo.com/?q=!bang">this link</a>
+</pre>
+
+{% endblock %}
+
+{# vim: set et ts=2 sw=2 sts=2 ft=htmldjango: #}

@@ -22,7 +22,7 @@ except ImportError:
     print 'Move example.settings_local.py -> settings_local.py and edit it'
     sys.exit(1)
 
-DEPLOY_PATH = os.path.dirname(os.path.abspath(__file__))
+DEPLOY_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 DEBUG           = settings_local.DEBUG
 TEMPLATE_DEBUG  = settings_local.TEMPLATE_DEBUG

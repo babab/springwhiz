@@ -13,11 +13,10 @@
 # You should have received a copy of the GNU General Public License
 # along with springwhiz.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.conf.urls import patterns, include, url
-from django.contrib import admin
-admin.autodiscover()
+from django.shortcuts import render_to_response
+from django.template import RequestContext
 
-urlpatterns = patterns('',
-    url(r'^$', 'springwhiz.views.start', name='start'),
-    url(r'^admin/', include(admin.site.urls)),
-)
+def start(request):
+    data = {}
+    context = RequestContext(request)
+    return render_to_response('home.html', data, context)
