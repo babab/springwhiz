@@ -2,8 +2,8 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="{{ STATIC_URL }}reset.css">
-    <link rel="stylesheet" href="{{ STATIC_URL }}style.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/reset.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/main.css">
     <title>{% block title %}{% endblock %} | springwhiz</title>
   </head>
   <body>
@@ -11,13 +11,10 @@
       <div id="header">
         <h1>springwhiz</h1>
         <div id="topmenu">
-          <small>
-            not logged in
-            | <a href="#login">login</a>
-            | <a href="#register">register</a>
-          </small>
-          <small> | <a href="#help">help</a></small>
-          <br><br>
+          not logged in
+          | <a href="#login">login</a>
+          | <a href="#register">register</a>
+          | <a href="#help">help</a></small>
         </div>
       </div>
       <div id="content">
