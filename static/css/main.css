@@ -69,37 +69,33 @@ p {
     margin-left: 20px;
 }
 #content {
+    width: 520px;
     margin-left: auto;
     margin-right: auto;
     text-align: left;
     font-size: 12px;
 }
 
-form {
-    border-radius: 5px;
-}
 #q {
     width: 80%;
     background-color: #BEBEBE;
     height: 30px;
     font-size: 27px;
-    border-radius: 5px;
     border: none;
 }
 #qcontainer {
     height: 30px;
     font-size: 27px;
 }
-::-webkit-input-placeholder {
-    color: #696969;
-}
-
-:-moz-placeholder {
-    color: #696969;
+#qcancel {
+    font-size: 12px;
 }
 
 div.spacer_y30 {
     height: 30px;
+}
+div.spacer_y50 {
+    height: 50px;
 }
 .js {
     display: none;

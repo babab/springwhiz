@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="{{ STATIC_URL }}css/reset.css">
     <link rel="stylesheet" href="{{ STATIC_URL }}css/main.css">
     <script src="{{ STATIC_URL }}js/lib/jquery-1.7.2.min.js"></script>
+    {% block head %}{% endblock %}
     <title>{% block title %}{% endblock %} | springwhiz</title>
   </head>
   <body>
@@ -15,7 +16,7 @@
           not logged in
           | <a href="#login">login</a>
           | <a href="#register">register</a>
-          | <a href="#help">help</a></small>
+          | <a id="helplink" href="#">help</a></small>
         </div>
       </div>
       <div id="content">

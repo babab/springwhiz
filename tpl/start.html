@@ -1,14 +1,28 @@
 {% extends "base.html" %}
 
+{% block head %}
+  <script src="{{ STATIC_URL }}js/start.js"></script>
+  <script>
+    $(document).ready(start);
+  </script>
+{% endblock %}
+
 {% block title %}start{% endblock %}
 
 {% block content %}
-<form>
+<div class="spacer_y30"></div>
+<form method="post" action="/">
+  {% csrf_token %}
   <div id="qcontainer">
-    &gt; <input type="text" id="q" placeholder="Enter search string or command">
+    <span id="modesymbol">&gt;</span>
+    <input type="hidden" id="mode" name="mode" value="unset">
+    <input type="text" id="q" name="q">
   </div>
 </form>
 
+<div class="spacer_y30"></div>
+<span id="modeinfo">Enter search string or command</span>
+<a href="#" id="qcancel" class="js">[cancel]</a>
 <div class="spacer_y30"></div>
 
 <div id="help" class="js">
