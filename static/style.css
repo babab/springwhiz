@@ -18,17 +18,16 @@
 body {
     font-family: Monospace, serif;
     font-size: 20px;
-    background-color: #000;
-    color: #F70;
+    background-color: #BEBEBE;
 }
 a, a:visited, a:link, a:active  {
-    color: #F40;
+    color: #333;
     text-decoration: none;
 }
 a:hover {
     text-decoration: none;
-    color: #F70;
-    background-color: #FFF;
+    color: #FFF;
+    background-color: #333;
 }
 h1 {
     font-size: 32px;
@@ -42,26 +41,66 @@ h1, h2, h3, h4, h5, h6 {
 p {
     padding: 5px 0px 5px 0px;
 }
+
 #container {
     margin-left: auto;
     margin-right: auto;
+    width: 940px;
 }
-#header, form {
+#header, #content, form {
     text-align: center;
+}
+#header {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 20px;
+}
+#topmenu {
+    text-align: center;
+    font-size: 12px;
+}
+#footer {
+    text-align: center;
+    font-size:10px;
+    padding: 10px;
+    color: #333;
+}
+#footer a {
+    margin-left: 20px;
 }
 #content {
     margin-left: auto;
     margin-right: auto;
     text-align: left;
-    width: 85%;
     font-size: 12px;
 }
+
+form {
+    border-radius: 5px;
+}
 #q {
-    width: 100%;
+    width: 80%;
+    background-color: #BEBEBE;
     height: 30px;
     font-size: 27px;
     border-radius: 5px;
+    border: none;
 }
+#qcontainer {
+    height: 30px;
+    font-size: 27px;
+}
+::-webkit-input-placeholder {
+    color: #696969;
+}
+
+:-moz-placeholder {
+    color: #696969;
+}
+
 div.spacer_y30 {
     height: 30px;
+}
+.js {
+    display: none;
 }

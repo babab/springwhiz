@@ -10,11 +10,26 @@
     <div id="container">
       <div id="header">
         <h1>springwhiz</h1>
+        <div id="topmenu">
+          <small>
+            not logged in
+            | <a href="#login">login</a>
+            | <a href="#register">register</a>
+          </small>
+          <small> | <a href="#help">help</a></small>
+          <br><br>
+        </div>
       </div>
       <div id="content">
         {% block content %}
         {% endblock %}
       </div>
+    </div>
+    <div id="footer">
+      <a href="#">Django</a>
+      <strong>1.4.1</strong></a>
+    <a href="#">Python</a>
+      <strong>2.6.6</strong></a>
     </div>
     <script>
     </script>
