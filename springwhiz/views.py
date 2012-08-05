@@ -19,4 +19,4 @@ from django.template import RequestContext
 def start(request):
     data = {}
     context = RequestContext(request)
-    return render_to_response('home.html', data, context)
+    return render_to_response('start.html', data, context)
