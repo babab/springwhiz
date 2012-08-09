@@ -17,6 +17,10 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Bookmark(models.Model):
-    user = models.ForeignKey(User, unique=True)
+    user = models.ForeignKey(User)
     label = models.CharField(max_length=60)
     url = models.URLField()
+    share = models.BooleanField()
+
+    def __unicode__(self):
+        return '%s - %s' % (self.user, self.label)
