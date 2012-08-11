@@ -19,7 +19,7 @@ from django.template import RequestContext
 def query_handler(query):
     return redirect('https://duckduckgo.com?q=%s' % query)
 
-def start(request):
+def index(request):
     data = {}
 
     if request.POST:
@@ -39,4 +39,4 @@ def start(request):
             data = {'mode': mode, 'query': q}
 
     context = RequestContext(request)
-    return render_to_response('start.html', data, context)
+    return render_to_response('start/index.html', data, context)
