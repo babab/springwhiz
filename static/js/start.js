@@ -15,28 +15,34 @@
  * along with springwhiz.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-function start() {
-
+function start()
+{
+    // Settings
     var sprwz_prefix_command = '@';
     var sprwz_prefix_bookmark = '#';
 
+    // Hide divs (when javascript is enabled)
     $("#qcancel").hide();
     $("#help").hide();
 
+    // Show help when link is clicked
     $("#helplink").click(function(){
         $("#help").show(1200);
     });
 
+    // Focus on input field
     $("#q").focus();
+
+    // Mode handling
     modeinfo = document.getElementById('modeinfo');
     modesymbol = document.getElementById('modesymbol');
 
     var mode = 'default';
 
-    function modeReset() {
+    function defaultMode()
+    {
         q = $("#q").val();
 
-        mode = 'default';
         $("#mode").val('default');
         $("#modesymbol").css({'color': 'black'});
         $("#q").css({'color': 'black'});
@@ -46,93 +52,89 @@ function start() {
             modeinfo.innerHTML = 'Searching for: ' + q;
         modesymbol.innerHTML = "&gt;";
         $("#qcancel").hide();
-    };
+        mode = 'default';
+    }
 
     $("#qcancel").click(function(){
         $("#q").val('');
-        modeReset();
+        defaultMode();
+        $("#q").focus();
     });
 
     $("#q").keyup(function(){
         q = $("#q").val();
 
-        if (q[0] == sprwz_prefix_command || mode == 'command') {
+        switch(q[0]) {
+        case sprwz_prefix_command:
+            $("#q").val($("#q").val().slice(1));
+            modesymbol.innerHTML = sprwz_prefix_command;
+            $("#qcancel").show(2000);
             mode = 'command';
+            break;
+        case sprwz_prefix_bookmark:
+            $("#q").val($("#q").val().slice(1));
+            modesymbol.innerHTML = sprwz_prefix_bookmark;
+            $("#qcancel").show(2000);
+            mode = 'bookmark';
+            break;
+        case '!':
+            $("#q").val($("#q").val().slice(1));
+            modesymbol.innerHTML = '!';
+            $("#qcancel").show(2000);
+            mode = 'bang';
+            break;
+        case "\\":
+            $("#q").val($("#q").val().slice(1));
+            modesymbol.innerHTML = "\\";
+            $("#qcancel").show(2000);
+            mode = 'ddg1st';
+            break;
+        case ">":
+            $("#q").val($("#q").val().slice(1));
+            modesymbol.innerHTML = "&gt;";
+            mode = 'default';
+        }
+
+        switch (mode) {
+        case 'command':
             $("#mode").val('command');
             $("#modesymbol").css({'color': '#1E90FF'});
             $("#q").css({'color': '#1E90FF'});
-
-            if (q[0] == sprwz_prefix_command) {
-                $("#q").val($("#q").val().slice(1));
-                modesymbol.innerHTML = sprwz_prefix_command;
-                $("#qcancel").show(2000);
-            }
-
-            if (!q[1])
+            if (!q[0])
                 modeinfo.innerHTML = "Entering command";
             else
-                modeinfo.innerHTML = "Entering command '" + q.substr(1) + "'";
-        }
-        else if (q[0] == sprwz_prefix_bookmark || mode == 'bookmark') {
-            mode = 'bookmark';
+                modeinfo.innerHTML = "Entering command '" + q + "'";
+            break;
+        case 'bookmark':
             $("#mode").val('bookmark');
             $("#modesymbol").css({'color': '#00688b'});
             $("#q").css({'color': '#00688b'});
-
-            if (q[0] == sprwz_prefix_bookmark) {
-                $("#q").val($("#q").val().slice(1));
-                modesymbol.innerHTML = sprwz_prefix_bookmark;
-                $("#qcancel").show(2000);
-            }
-
-            if (!q[1])
+            if (!q[0])
                 modeinfo.innerHTML = "Go to bookmark with label";
             else
-                modeinfo.innerHTML = "Go to bookmark with label '"
-                        + q.substr(1) + "'";
-        }
-        else if (q[0] == '!' || mode == 'bang') {
-            mode = 'bang';
+                modeinfo.innerHTML = "Go to bookmark with label '" + q + "'";
+            break;
+        case 'bang':
             $("#mode").val('bang');
             $("#modesymbol").css({'color': '#8B4513'});
             $("#q").css({'color': '#8B4513'});
-
-            if (q[0] == '!') {
-                $("#q").val(
-                    $("#q").val().slice(1)
-                );
-                modesymbol.innerHTML = '!';
-                $("#qcancel").show(2000);
-            }
-
-            if (!q[1])
+            if (!q[0])
                 modeinfo.innerHTML = 'Searching using bang syntax';
             else
-                modeinfo.innerHTML = "Searching for '" + q.substr(1)
+                modeinfo.innerHTML = "Searching for '" + q
                         + "' using bang syntax";
-        }
-        else if (q[0] == "\\" || mode == 'ddg1st') {
-            mode = 'ddg1st';
+            break;
+        case 'ddg1st':
             $("#mode").val('ddg1st');
             $("#modesymbol").css({'color': '#228B22'});
             $("#q").css({'color': '#228B22'});
-
-            if (q[0] == "\\") {
-                $("#q").val(
-                    $("#q").val().slice(1)
-                );
-                modesymbol.innerHTML = "\\";
-                $("#qcancel").show(2000);
-            }
-
-            if (!q[1])
-                modeinfo.innerHTML = 'Go to first match ';
+            if (!q[0])
+                modeinfo.innerHTML = 'Go to first result ';
             else
-                modeinfo.innerHTML = 'Go to the first result for: '
-                                     + q.substr(1);
-        }
-        else {
-            modeReset();
+                modeinfo.innerHTML = 'Go to the first result for: ' + q;
+            break;
+        default:
+            defaultMode();
         }
     });
 };
