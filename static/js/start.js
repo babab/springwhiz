@@ -23,12 +23,6 @@ function start()
 
     // Hide divs (when javascript is enabled)
     $("#qcancel").hide();
-    $("#help").hide();
-
-    // Show help when link is clicked
-    $("#helplink").click(function(){
-        $("#help").show(1200);
-    });
 
     // Focus on input field
     $("#q").focus();
