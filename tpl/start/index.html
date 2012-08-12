@@ -10,6 +10,13 @@
 {% block title %}start{% endblock %}
 
 {% block content %}
+
+{% if message %}
+  <div id="message" class="{{ msg_type }}">
+    {{ message }}
+  </div>
+{% endif %}
+
 <div class="spacer_y30"></div>
 <form method="post" action="/">
   {% csrf_token %}

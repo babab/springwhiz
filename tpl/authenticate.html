@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}login{% endblock %}
+
+{% block content %}
+
+{% if message %}
+  <div id="message" class="{{ msg_type }}">
+    {{ message }}
+  </div>
+{% endif %}
+
+<div class="spacer_y30"></div>
+<form method="post" action="/login/">
+  <fieldset id="login">
+    {% csrf_token %}
+    <label for="username">username</label>
+    <input class="inp" type="text" id="username" name="username">
+    <label for="password">password</label>
+    <input class="inp" type="password" id="password" name="password">
+    <br>
+    <input type="submit" id="submit" name="submit" value="login">
+  </fieldset>
+</form>
+
+<div class="spacer_y30"></div>
+
+{% include "help.inc.html" %}
+
+{% endblock %}
+
+{# vim: set et ts=2 sw=2 sts=2 ft=htmldjango: #}

@@ -14,8 +14,13 @@
       <div id="header">
         <h1>springwhiz</h1>
         <div id="topmenu">
-          not logged in
-          | <a href="#login">login</a>
+          {% if user.is_authenticated %}
+            logged in as {{ user.username }}
+            | <a href="/logout/">logout</a>
+          {% else %}
+            not logged in
+            | <a href="/login/">login</a>
+          {% endif %}
           | <a href="#register">register</a>
           | <a id="helplink" href="#">help</a></small>
         </div>
