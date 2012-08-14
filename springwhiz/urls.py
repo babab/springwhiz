@@ -19,6 +19,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^$', include('start.urls')),
+    url(r'^register/$', 'springwhiz.views.register', name='register'),
     url(r'^login/$', 'springwhiz.views.login_view', name='login_view'),
     url(r'^logout/$', 'springwhiz.views.logout_view', name='logout_view'),
     url(r'^admin/', include(admin.site.urls)),

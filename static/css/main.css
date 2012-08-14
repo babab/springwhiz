@@ -100,15 +100,15 @@ div.spacer_y50 {
     display: none;
 }
 
-fieldset#login * {
+fieldset#auth * {
     margin-left: auto;
     margin-right: auto;
     margin-top: 10px;
 }
-fieldset#login label {
+fieldset#auth label {
     display: block;
 }
-fieldset#login input.inp {
+fieldset#auth input.inp {
     width: 300px;
     background-color: #BEBEBE;
     height: 30px;
