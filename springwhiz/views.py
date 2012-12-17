@@ -16,7 +16,7 @@
 from django import forms
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from django.shortcuts import render_to_response
+from django.shortcuts import redirect, render_to_response
 from django.template import RequestContext
 
 def register(request):
@@ -29,43 +29,38 @@ def register(request):
         password = request.POST['password']
         password2 = request.POST['password2']
         email = request.POST['email']
+        error = 0;
 
         if password != password2:
             data.update({'message': 'Passwords do not match, please try again.',
                     'msg_type': 'error'})
-            context = RequestContext(request)
-            return render_to_response('authenticate.html', data, context)
+            error += 1
 
         try:
             forms.EmailField().clean(email)
         except forms.ValidationError:
             data.update({'message': 'Invalid email address',
                     'msg_type': 'error'})
-            context = RequestContext(request)
-            return render_to_response('authenticate.html', data, context)
+            error += 1
 
         if User.objects.filter(username=username):
             data.update({'message': 'That username already exists.',
                     'msg_type': 'error'})
-            context = RequestContext(request)
-            return render_to_response('authenticate.html', data, context)
+            error += 1
 
         if User.objects.filter(email=email):
             data.update({'message': 'That email address already exists.',
                     'msg_type': 'error'})
-            context = RequestContext(request)
-            return render_to_response('authenticate.html', data, context)
+            error += 1
 
-        User.objects.create_user(username, email, password)
-        user = authenticate(username=username, password=password)
+        if not error:
+            User.objects.create_user(username, email, password)
+            user = authenticate(username=username, password=password)
 
-        if user is not None and user.is_active:
-            login(request, user)
-            data.update({'message': 'You have registered and logged in ' + \
-                    'succesfully', 'msg_type': 'message'})
+            if user is not None and user.is_active:
+                login(request, user)
 
-        context = RequestContext(request)
-        return render_to_response('start/index.html', data, context)
+            return redirect('http://localhost:8000/')
 
     context = RequestContext(request)
     return render_to_response('authenticate.html', data, context)
@@ -104,7 +99,4 @@ def logout_view(request):
     """Handle logging out"""
 
     logout(request)
-    data = {'message': 'You have logged out succesfully',
-            'msg_type': 'message'}
-    context = RequestContext(request)
-    return render_to_response('start/index.html', data, context)
+    return redirect('http://localhost:8000/')
