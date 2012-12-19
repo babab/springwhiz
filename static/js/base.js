@@ -15,13 +15,13 @@
  * along with springwhiz.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-$(document).ready(function ()
-{
-    $("#help").hide();
+(function ($) {
+    $(document).ready(function () {
+        $("#help").hide();
 
-    // Show help when link is clicked
-    $("#helplink").click(function(){
-        $("#help").show(1200);
+        // Show help when link is clicked
+        $("#helplink").click(function(){
+            $("#help").show(1200);
+        });
     });
-});
-
+})(jQuery);
