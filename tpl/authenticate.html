@@ -11,27 +11,62 @@
 {% endif %}
 
 <div class="spacer_y30"></div>
-<form method="post" action="/{{ auth_type }}/">
-  <fieldset id="auth">
-    {% csrf_token %}
-    <label for="username">username</label>
-    <input class="inp" type="text" id="username" name="username">
-    {% if auth_type == 'register' %}
-      <label for="email">email</label>
-      <input class="inp" type="text" id="email" name="email">
-    {% endif %}
-    <label for="password">password</label>
-    <input class="inp" type="password" id="password" name="password">
-    {% if auth_type == 'register' %}
-      <label for="password2">password (again)</label>
-      <input class="inp" type="password" id="password2" name="password2">
-    {% endif %}
-    <br>
-    <input type="submit" id="submit" name="submit" value="{{ auth_type }}">
-  </fieldset>
-</form>
 
-<div class="spacer_y30"></div>
+<form method="post" action="/{{ auth_type }}/" class="form-horizontal">
+  <div class="row">
+    <div class="span3"></div>
+    <div class="span6">
+      <div class="hero-unit white">
+        <fieldset id="auth">
+          {% csrf_token %}
+
+          <div class="control-group">
+            <label class="control-label" for="username">username</label>
+            <div class="controls">
+              <input class="inp" type="text" id="username" name="username"
+                     placeholder="username">
+            </div>
+          </div>
+
+          {% if auth_type == 'register' %}
+            <div class="control-group">
+              <label class="control-label" for="email">email</label>
+              <div class="controls">
+                <input class="inp" type="email" id="email" name="email"
+                       placeholder="email">
+              </div>
+            </div>
+          {% endif %}
+
+          <div class="control-group">
+            <label class="control-label" for="password">password</label>
+            <div class="controls">
+              <input class="inp" type="password" id="password" name="password"
+                     placeholder="password">
+            </div>
+          </div>
+
+          {% if auth_type == 'register' %}
+            <div class="control-group">
+              <label class="control-label" for="password2">password (again)</label>
+              <div class="controls">
+                <input class="inp" type="password" id="password2"
+                       name="password2" placeholder="password (again)">
+              </div>
+            </div>
+          {% endif %}
+
+          <div class="spacer_y30"></div>
+          <div class="centered">
+            <input type="submit" id="submit" name="submit"
+                   value="{{ auth_type }}" class="btn btn-large btn-success" />
+          </div>
+        </fieldset>
+      </div>
+    </div>
+    <div class="span3"></div>
+  </div>
+</form>
 
 {% include "help.inc.html" %}
 

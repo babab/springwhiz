@@ -18,9 +18,11 @@
 body {
     margin-top: 50px;
 }
-.hero-unit {
-    background-color: #FFF;
+.centered {
     text-align: center;
+}
+.white {
+    background-color: #FFF;
 }
 .js {
     display: none;
