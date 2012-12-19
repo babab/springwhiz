@@ -2,42 +2,74 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/reset.css">
+    <link rel="stylesheet"
+          href="{{ STATIC_URL }}libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet"
+          href="{{STATIC_URL}}libs/bootstrap/css/bootstrap-responsive.min.css">
     <link rel="stylesheet" href="{{ STATIC_URL }}css/main.css">
     <script src="{{ STATIC_URL }}libs/jquery-1.7.2.min.js"></script>
+    <script src="{{ STATIC_URL }}libs/bootstrap/js/bootstrap.min.js"></script>
     <script src="{{ STATIC_URL }}js/base.js"></script>
     {% block head %}{% endblock %}
     <title>{% block title %}{% endblock %} | springwhiz</title>
   </head>
   <body>
-    <div id="container">
-      <div id="header">
-        <h1>springwhiz</h1>
-        <div id="topmenu">
-          {% if user.is_authenticated %}
-          logged in as {{ user.username }}
-            | <a href="/logout/">logout</a>
-          {% else %}
-            not logged in
-            | <a href="/login/">login</a>
-            | <a href="/register/">register</a>
-          {% endif %}
-          | <a id="helplink" href="#">help</a></small>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse"
+             data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+
+          <p class="navbar-text pull-right">
+              {% if user.is_authenticated %}
+                logged in as {{ user.username }}
+              {% else %}
+                not logged in
+              {% endif %}
+          </p>
+
+          <a class="brand" href="/">springwhiz</a>
+
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              {% if user.is_authenticated %}
+                <li><a class="nav" href="/logout/">logout</a></li>
+              {% else %}
+                <li><a class="nav" href="/login/">login</a></li>
+                <li><a class="nav" href="/register/">register</a></li>
+              {% endif %}
+              <li>
+                <a id="helplink" class="nav" href="javascript:;">help</a>
+              </li>
+            </ul>
+            <!-- <form class="navbar-form pull-left"> -->
+            <!--   {% csrf_token %} -->
+            <!--   <div id="qcontainer"> -->
+            <!--     <span id="modesymbol">&gt;</span> -->
+            <!--     <input type="hidden" id="mode" name="mode" value="unset" /> -->
+            <!--     <input type="text" id="q" name="q" class="span3" -->
+            <!--            autocomplete="off" /> -->
+            <!--   </div> -->
+            <!-- </form> -->
+          </div>
         </div>
       </div>
-      <div id="content">
-        {% block content %}
-        {% endblock %}
-      </div>
+    </div>
+    <div class="container">
+      <div class="spacer_y30"></div>
+      {% block content %}
+      {% endblock %}
     </div>
     <div id="footer">
       <a href="#">Django</a>
       <strong>1.4.1</strong></a>
-    <a href="#">Python</a>
+      <a href="#">Python</a>
       <strong>2.6.6</strong></a>
     </div>
-    <script>
-    </script>
   </body>
 </html>
 

@@ -16,118 +16,42 @@
  */
 
 body {
-    font-family: Courier, serif;
-    background-color: #BEBEBE;
+    margin-top: 50px;
 }
-a, a:visited, a:link, a:active  {
-    color: #333;
-    text-decoration: none;
-}
-a:hover {
-    text-decoration: none;
-    color: #FFF;
-    background-color: #333;
-}
-h1 {
-    font-size: 32px;
-}
-h2 {
-    font-size: 24px;
-}
-h1, h2, h3, h4, h5, h6 {
-    padding: 20px 0px 10px 0px;
-}
-p {
-    padding: 5px 0px 5px 0px;
-}
-
-#container {
-    margin-left: auto;
-    margin-right: auto;
-    width: 940px;
-}
-#header, #content, form {
+.hero-unit {
+    background-color: #FFF;
     text-align: center;
 }
-#header {
-    padding-top: 10px;
-    padding-bottom: 10px;
-    font-size: 20px;
-}
-#topmenu {
-    text-align: center;
-    font-size: 12px;
+.js {
+    display: none;
 }
 #footer {
     text-align: center;
-    font-size:10px;
+    font-size: 12px;
     padding: 10px;
     color: #333;
 }
 #footer a {
     margin-left: 20px;
 }
-#content {
-    width: 520px;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: left;
-    font-size: 14px;
-}
-
 #q {
-    width: 80%;
-    background-color: #BEBEBE;
+    width: 85%;
     height: 30px;
     font-size: 27px;
-    border: none;
+    line-height: 27px;
 }
-#qcontainer {
+#modesymbol {
+    width: 10%;
     height: 30px;
     font-size: 27px;
+    line-height: 27px;
 }
-#qcancel {
-    font-size: 12px;
+div.spacer_y10 {
+    height: 10px;
 }
-
 div.spacer_y30 {
     height: 30px;
 }
 div.spacer_y50 {
     height: 50px;
-}
-.js {
-    display: none;
-}
-
-fieldset#auth * {
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 10px;
-}
-fieldset#auth label {
-    display: block;
-}
-fieldset#auth input.inp {
-    width: 300px;
-    background-color: #BEBEBE;
-    height: 30px;
-    font-size: 25px;
-    border: none;
-    border-bottom: 1px solid #333;
-}
-
-div#message {
-    text-align: center;
-    margin-top: 15px;
-    padding: 10px;
-    font-size: 16px;
-}
-div#message.message {
-    background-color: green;
-    color: white;
-}
-div#message.error {
-    background-color: red;
-    color: white;
 }

@@ -2,9 +2,6 @@
 
 {% block head %}
   <script src="{{ STATIC_URL }}js/start.js"></script>
-  <script>
-    $(document).ready(start);
-  </script>
 {% endblock %}
 
 {% block title %}start{% endblock %}
@@ -17,20 +14,41 @@
   </div>
 {% endif %}
 
-<div class="spacer_y30"></div>
-<form method="post" action="/">
-  {% csrf_token %}
-  <div id="qcontainer">
-    <span id="modesymbol">&gt;</span>
-    <input type="hidden" id="mode" name="mode" value="unset">
-    <input type="text" id="q" name="q" autocomplete="off">
+<div class="row">
+  <div class="span2 muted">
   </div>
-</form>
+  <div class="span8">
+    <form method="post" action="/">
+      {% csrf_token %}
+      <div class="hero-unit">
+        <h1>
+          springwhiz<br />
+        </h1>
+        <div class="spacer_y30"></div>
+        <div class="input-prepend">
+          <span id="modesymbol" class="add-on">&gt;</span>
+          <input type="hidden" id="mode" name="mode" value="unset">
+          <input type="text" id="q" name="q" class="span6" autocomplete="off">
+        </div>
+        <div class="spacer_y10"></div>
+        <p class="lead muted">
+          <span id="modeinfo">Enter search string or command</span>
+          <a href="#" id="qcancel" class="js">[cancel]</a>
+        </p>
+      </div>
+    </form>
+  </div>
+  <div class="span2 muted">
+    <ul class="unstyled">
+      <li>&gt; search duckduckgo</li>
+      <li>! bang syntax search</li>
+      <li>@ command</li>
+      <li># bookmark</li>
+      <li>\ go to first search result</li>
+    </ul>
+  </div>
+</div>
 
-<div class="spacer_y30"></div>
-<span id="modeinfo">Enter search string or command</span>
-<a href="#" id="qcancel" class="js">[cancel]</a>
-<div class="spacer_y30"></div>
 
 {% include "help.inc.html" %}
 
