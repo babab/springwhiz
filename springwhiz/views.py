@@ -79,7 +79,7 @@ def login_view(request):
             if user.is_active:
                 login(request, user)
                 data.update({'message': 'You have logged in succesfully',
-                        'msg_type': 'message'})
+                        'msg_type': 'success'})
             else:
                 data.update({'message': 'Your account is disabled',
                         'msg_type': 'error'})

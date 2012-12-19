@@ -4,12 +4,6 @@
 
 {% block content %}
 
-{% if message %}
-  <div id="message" class="{{ msg_type }}">
-    {{ message }}
-  </div>
-{% endif %}
-
 <div class="spacer_y30"></div>
 
 <form method="post" action="/{{ auth_type }}/" class="form-horizontal">
