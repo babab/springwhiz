@@ -36,13 +36,13 @@ body {
 #footer a {
     margin-left: 20px;
 }
-#q {
+#start #q {
     width: 85%;
     height: 30px;
     font-size: 27px;
     line-height: 27px;
 }
-#modesymbol {
+#start #modesymbol {
     width: 10%;
     height: 30px;
     font-size: 27px;

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block navbar %}
+  <form method="post" action="/" class="navbar-form pull-left">
+    {% csrf_token %}
+    <div class="input-prepend">
+      <span id="modesymbol" class="add-on">&gt;</span>
+      <input type="hidden" id="mode" name="mode" value="unset">
+      <input type="text" id="q" name="q" class="span3" autocomplete="off"
+             placeholder="Enter search string or command">
+    </div>
+  </form>
+{% endblock %}
+
+{# vim: set et ts=2 sw=2 sts=2 ft=htmldjango: #}

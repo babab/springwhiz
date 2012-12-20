@@ -10,6 +10,7 @@
     <script src="{{ STATIC_URL }}libs/jquery-1.7.2.min.js"></script>
     <script src="{{ STATIC_URL }}libs/bootstrap/js/bootstrap.min.js"></script>
     <script src="{{ STATIC_URL }}js/base.js"></script>
+    <script src="{{ STATIC_URL }}js/start.js"></script>
     {% block head %}{% endblock %}
     <title>{% block title %}{% endblock %} | springwhiz</title>
   </head>
@@ -46,15 +47,7 @@
                 <a id="helplink" class="nav" href="javascript:;">help</a>
               </li>
             </ul>
-            <!-- <form class="navbar-form pull-left"> -->
-            <!--   {% csrf_token %} -->
-            <!--   <div id="qcontainer"> -->
-            <!--     <span id="modesymbol">&gt;</span> -->
-            <!--     <input type="hidden" id="mode" name="mode" value="unset" /> -->
-            <!--     <input type="text" id="q" name="q" class="span3" -->
-            <!--            autocomplete="off" /> -->
-            <!--   </div> -->
-            <!-- </form> -->
+            {% block navbar %}{% endblock %}
           </div>
         </div>
       </div>
