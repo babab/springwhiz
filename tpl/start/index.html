@@ -4,7 +4,6 @@
 
 {% block content %}
 
-
 <div class="row">
   <div class="span2">
   </div>
@@ -29,6 +28,10 @@
         <span id="modeinfo">Enter search string or command</span>
         <a href="#" id="qcancel" class="js">[cancel]</a>
       </p>
+      <div id="js-warning" class="text-error">
+        Javascript seems to be disabled, please enable javascript for a better
+        experience
+      </div>
     </div>
   </div>
   <div class="span2 muted">
@@ -41,7 +44,6 @@
     </ul>
   </div>
 </div>
-
 
 {% include "help.inc.html" %}
 

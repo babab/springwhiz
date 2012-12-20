@@ -18,6 +18,7 @@
 (function ($) {
     $(document).ready(function () {
         $("#help").hide();
+        $("#js-warning").hide();
 
         // Show help when link is clicked
         $("#helplink").click(function(){
