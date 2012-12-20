@@ -16,17 +16,19 @@
 from django.shortcuts import redirect, render_to_response
 from django.template import RequestContext
 
+
 def query_handler(query):
     return redirect('https://duckduckgo.com?q=%s' % query)
+
 
 def index(request):
     data = {}
 
     if request.POST:
-        if request.POST.has_key('mode'):
+        if 'mode' in request.POST:
             mode = request.POST.get('mode')
 
-        if request.POST.has_key('q'):
+        if 'q' in request.POST:
             q = request.POST.get('q')
 
         if mode == 'unset':

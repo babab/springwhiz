@@ -15,6 +15,7 @@
 
 from django.conf.urls import patterns, url
 
-urlpatterns = patterns('',
+urlpatterns = patterns(
+    '',
     url(r'^$', 'start.views.index', name='start'),
 )

@@ -19,6 +19,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import redirect, render_to_response
 from django.template import RequestContext
 
+
 def register(request):
     """Create new user from authenticate form"""
 
@@ -29,28 +30,30 @@ def register(request):
         password = request.POST['password']
         password2 = request.POST['password2']
         email = request.POST['email']
-        error = 0;
+        error = 0
 
         if password != password2:
-            data.update({'message': 'Passwords do not match, please try again.',
-                    'msg_type': 'error'})
+            data.update(
+                {'message': 'Passwords do not match, please try again.',
+                 'msg_type': 'error'}
+            )
             error += 1
 
         try:
             forms.EmailField().clean(email)
         except forms.ValidationError:
             data.update({'message': 'Invalid email address',
-                    'msg_type': 'error'})
+                         'msg_type': 'error'})
             error += 1
 
         if User.objects.filter(username=username):
             data.update({'message': 'That username already exists.',
-                    'msg_type': 'error'})
+                         'msg_type': 'error'})
             error += 1
 
         if User.objects.filter(email=email):
             data.update({'message': 'That email address already exists.',
-                    'msg_type': 'error'})
+                         'msg_type': 'error'})
             error += 1
 
         if not error:
@@ -64,6 +67,7 @@ def register(request):
 
     context = RequestContext(request)
     return render_to_response('authenticate.html', data, context)
+
 
 def login_view(request):
     """Handle logins"""
@@ -79,13 +83,13 @@ def login_view(request):
             if user.is_active:
                 login(request, user)
                 data.update({'message': 'You have logged in succesfully',
-                        'msg_type': 'success'})
+                             'msg_type': 'success'})
             else:
                 data.update({'message': 'Your account is disabled',
-                        'msg_type': 'error'})
+                             'msg_type': 'error'})
         else:
             data.update({'message': 'Invalid username or password',
-                    'msg_type': 'error'})
+                         'msg_type': 'error'})
             context = RequestContext(request)
             return render_to_response('authenticate.html', data, context)
 
@@ -94,6 +98,7 @@ def login_view(request):
 
     context = RequestContext(request)
     return render_to_response('authenticate.html', data, context)
+
 
 def logout_view(request):
     """Handle logging out"""

@@ -24,17 +24,17 @@ except ImportError:
 
 DEPLOY_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-DEBUG           = settings_local.DEBUG
-TEMPLATE_DEBUG  = settings_local.TEMPLATE_DEBUG
-ADMINS          = settings_local.ADMINS
-DATABASES       = settings_local.DATABASES
-TIME_ZONE       = settings_local.TIME_ZONE
-LANGUAGE_CODE   = settings_local.LANGUAGE_CODE
-SITE_ID         = settings_local.SITE_ID
-USE_I18N        = settings_local.USE_I18N
-USE_L10N        = settings_local.USE_L10N
-USE_TZ          = settings_local.USE_TZ
-SECRET_KEY      = settings_local.SECRET_KEY
+DEBUG = settings_local.DEBUG
+TEMPLATE_DEBUG = settings_local.TEMPLATE_DEBUG
+ADMINS = settings_local.ADMINS
+DATABASES = settings_local.DATABASES
+TIME_ZONE = settings_local.TIME_ZONE
+LANGUAGE_CODE = settings_local.LANGUAGE_CODE
+SITE_ID = settings_local.SITE_ID
+USE_I18N = settings_local.USE_I18N
+USE_L10N = settings_local.USE_L10N
+USE_TZ = settings_local.USE_TZ
+SECRET_KEY = settings_local.SECRET_KEY
 
 MANAGERS = ADMINS
 
@@ -67,14 +67,14 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
+    # 'django.template.loaders.eggs.Loader',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -93,7 +93,7 @@ ROOT_URLCONF = 'springwhiz.urls'
 WSGI_APPLICATION = 'springwhiz.wsgi.application'
 
 TEMPLATE_DIRS = (
-        '%s/tpl' % DEPLOY_PATH
+    '%s/tpl' % DEPLOY_PATH
 )
 
 INSTALLED_APPS = (
