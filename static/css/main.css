@@ -36,6 +36,12 @@ body {
 #footer a {
     margin-left: 20px;
 }
+#modesymbol {
+    width: 10%;
+    color: white;
+    background-color: black;
+    border: 1px solid black;
+}
 #start #q {
     width: 85%;
     height: 30px;
@@ -43,7 +49,6 @@ body {
     line-height: 27px;
 }
 #start #modesymbol {
-    width: 10%;
     height: 30px;
     font-size: 27px;
     line-height: 27px;

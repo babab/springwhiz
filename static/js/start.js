@@ -37,7 +37,8 @@
             q = $("#q").val();
 
             $("#mode").val('default');
-            $("#modesymbol").css({'color': 'black'});
+            $("#modesymbol").css({'background-color': 'black',
+                                  'border': '1px solid black'});
             $("#q").css({'color': 'black'});
             if (q == '')
                 modeinfo.innerHTML = 'Enter search string or command';
@@ -91,7 +92,8 @@
             switch (mode) {
                 case 'command':
                     $("#mode").val('command');
-                    $("#modesymbol").css({'color': '#1E90FF'});
+                    $("#modesymbol").css({'background-color': '#1E90FF',
+                                          'border': '1px solid #1E90FF'});
                     $("#q").css({'color': '#1E90FF'});
                     if (!q[0])
                         modeinfo.innerHTML = "Entering command";
@@ -100,7 +102,8 @@
                     break;
                 case 'bookmark':
                     $("#mode").val('bookmark');
-                    $("#modesymbol").css({'color': '#00688b'});
+                    $("#modesymbol").css({'background-color': '#00688b',
+                                          'border': '1px solid #00688b'});
                     $("#q").css({'color': '#00688b'});
                     if (!q[0])
                         modeinfo.innerHTML = "Go to bookmark with label";
@@ -109,7 +112,8 @@
                     break;
                 case 'bang':
                     $("#mode").val('bang');
-                    $("#modesymbol").css({'color': '#8B4513'});
+                    $("#modesymbol").css({'background-color': '#8B4513',
+                                          'border': '1px solid #8B4513'});
                     $("#q").css({'color': '#8B4513'});
                     if (!q[0])
                         modeinfo.innerHTML = 'Searching using bang syntax';
@@ -119,7 +123,8 @@
                     break;
                 case 'ddg1st':
                     $("#mode").val('ddg1st');
-                    $("#modesymbol").css({'color': '#228B22'});
+                    $("#modesymbol").css({'background-color': '#228B22',
+                                          'border': '1px solid #228B22'});
                     $("#q").css({'color': '#228B22'});
                     if (!q[0])
                         modeinfo.innerHTML = 'Go to first result ';
