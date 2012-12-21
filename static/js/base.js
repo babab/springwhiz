@@ -24,5 +24,10 @@
         $("#helplink").click(function(){
             $("#help").show(1200);
         });
+
+        // Remove navbar when link is clicked
+        $("#close-navbar").click(function(){
+          $("#navbar").remove();
+        });
     });
 })(jQuery);
