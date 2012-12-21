@@ -17,13 +17,7 @@
 
 (function ($) {
     $(document).ready(function () {
-        $("#help").hide();
         $("#js-warning").hide();
-
-        // Show help when link is clicked
-        $("#helplink").click(function(){
-            $("#help").show(1200);
-        });
 
         // Remove navbar when link is clicked
         $("#close-navbar").click(function(){

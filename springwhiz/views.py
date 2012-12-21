@@ -20,6 +20,10 @@ from django.shortcuts import redirect, render_to_response
 from django.template import RequestContext
 
 
+def help(request):
+    return render_to_response('help.html', {}, RequestContext(request))
+
+
 def register(request):
     """Create new user from authenticate form"""
 

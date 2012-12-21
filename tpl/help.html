@@ -1,4 +1,8 @@
-<div id="help">
+{% extends "base-qnavbar.html" %}
+
+{% block title %}help{% endblock %}
+
+{% block content %}
 <p>
 Welcome to springwhiz, a free webapplication that aims to enhance your browsing
 experience with a simple command line. It is your personal start page with quick
@@ -56,4 +60,4 @@ bang                                 description
 For more info on Duckduckgo's bang search abilities enter '!bang' or visit
 <a href="https://duckduckgo.com/?q=!bang">this link</a>
 </pre>
-</div>
+{% endblock %}
