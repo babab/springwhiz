@@ -57,3 +57,22 @@ div.spacer_y30 {
 div.spacer_y50 {
     height: 50px;
 }
+#modes-info ul li span.badge {
+   width: 10px;
+   text-align: center;
+}
+.color-default {
+    background-color: #000;
+}
+.color-bang {
+    background-color: #8B4513;
+}
+.color-command {
+    background-color: #1E90FF;
+}
+.color-bookmark {
+    background-color: #00688B;
+}
+.color-ddg1st {
+    background-color: #228B22;
+}
