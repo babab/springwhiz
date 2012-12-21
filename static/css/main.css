@@ -62,8 +62,8 @@ div.spacer_y30 {
 div.spacer_y50 {
     height: 50px;
 }
-#modes-info ul li span.badge {
-   width: 10px;
+#modes-info ul li span.label {
+   width: 20px;
    text-align: center;
 }
 .color-default {
