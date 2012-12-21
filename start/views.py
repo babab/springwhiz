@@ -31,7 +31,7 @@ def index(request):
         if 'q' in request.POST:
             q = request.POST.get('q')
 
-        if mode == 'unset':
+        if mode == 'unset' or mode == 'default':
             return query_handler(q)
         elif mode == 'bang':
             return query_handler('!' + q)
