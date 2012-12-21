@@ -43,7 +43,9 @@
             if (q == '')
                 modeinfo.innerHTML = 'Enter search string or command';
             else
-                modeinfo.innerHTML = 'Searching for: ' + q;
+                modeinfo.innerHTML = 'Searching for: '
+                  + '<span id="modeinfo-inner">' + q + '</span>';
+            $("#modeinfo-inner").css({'color': 'black'});
             modesymbol.innerHTML = "&gt;";
             $("#qcancel").hide();
             mode = 'default';
@@ -98,7 +100,9 @@
                     if (!q[0])
                         modeinfo.innerHTML = "Entering command";
                     else
-                        modeinfo.innerHTML = "Entering command '" + q + "'";
+                        modeinfo.innerHTML = "Entering command '<span "
+                          + 'id="modeinfo-inner">' + q + "</span>'";
+                    $("#modeinfo-inner").css({'color': '#1E90FF'});
                     break;
                 case 'bookmark':
                     $("#mode").val('bookmark');
@@ -108,7 +112,9 @@
                     if (!q[0])
                         modeinfo.innerHTML = "Go to bookmark with label";
                     else
-                        modeinfo.innerHTML = "Go to bookmark with label '" + q + "'";
+                        modeinfo.innerHTML = "Go to bookmark with label '"
+                           + '<span id="modeinfo-inner">' + q + "</span>'";
+                    $("#modeinfo-inner").css({'color': '#00688b'});
                     break;
                 case 'bang':
                     $("#mode").val('bang');
@@ -118,8 +124,10 @@
                     if (!q[0])
                         modeinfo.innerHTML = 'Searching using bang syntax';
                     else
-                        modeinfo.innerHTML = "Searching for '" + q
-                            + "' using bang syntax";
+                        modeinfo.innerHTML = "Searching for '"
+                           + '<span id="modeinfo-inner">' + q + "</span>'";
+                           + 'using bang syntax';
+                    $("#modeinfo-inner").css({'color': '#8B4513'});
                     break;
                 case 'ddg1st':
                     $("#mode").val('ddg1st');
@@ -129,7 +137,9 @@
                     if (!q[0])
                         modeinfo.innerHTML = 'Go to first result ';
                     else
-                        modeinfo.innerHTML = 'Go to the first result for: ' + q;
+                        modeinfo.innerHTML = 'Go to the first result for: '
+                           + '<span id="modeinfo-inner">' + q + '</span>';
+                    $("#modeinfo-inner").css({'color': '#228B22'});
                     break;
                 default:
                     defaultMode();
