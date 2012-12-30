@@ -1,0 +1,38 @@
+{% extends "base-qnavbar.html" %}
+
+{% block title %}notepad{% endblock %}
+
+{% block content %}
+<form id="notepad" method="POST">
+  {% csrf_token %}
+
+  {{ form.non_field_errors }}
+
+  <div class="controls controls-row">
+    {{ form.name.errors }}
+    {{ form.name }}
+
+    {{ form.language.errors }}
+    {{ form.language }}
+
+    {{ form.share.errors }}
+    {{ form.share }}
+
+    <button class="btn btn-small btn-link pull-right">
+      <i class="fam-disk-multiple"></i>
+    </button>
+    <a class="btn btn-small btn-link pull-right"
+       href="/notepad/list/">
+      <i class="fam-application-view-tile"></i>
+    </a>
+  </div>
+
+  <div class="controls controls-row">
+    {{ form.text.errors }}
+    {{ form.text }}
+  </div>
+
+</form>
+{% endblock %}
+
+{# vim: set et ts=2 sw=2 sts=2 ft=htmldjango: #}

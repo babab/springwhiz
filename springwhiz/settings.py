@@ -105,6 +105,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'start',
     'bookmarks',
+    'notepad',
 )
 
 # A sample logging configuration. The only tangible logging

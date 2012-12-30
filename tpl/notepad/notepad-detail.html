@@ -1,0 +1,14 @@
+{% extends "base-qnavbar.html" %}
+
+{% block title %}notepad{% endblock %}
+
+{% block content %}
+<form id="notepad" method="POST" class="form-horizontal">
+  {% csrf_token %}
+
+  <h3>{{ note.name }}</h3>
+  <pre>{{ note.text }}</pre>
+</form>
+{% endblock %}
+
+{# vim: set et ts=2 sw=2 sts=2 ft=htmldjango: #}

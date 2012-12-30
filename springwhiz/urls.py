@@ -15,11 +15,21 @@
 
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
+
+from notepad.views import NotepadCreate, NotepadUpdate
+
 admin.autodiscover()
+
 
 urlpatterns = patterns(
     '',
     url(r'^$', include('start.urls')),
+    url(r'^notepad/$', NotepadCreate.as_view(), name='notepad'),
+    url(r'^notepad/list/$', 'notepad.views.list', name='notepad_list'),
+    url(r'^notepad/(?P<idhash>\w+)/$', 'notepad.views.detail',
+        name='note_detail_short'),
+    url(r'^notepad/(?P<idhash>\w+)/edit/$', NotepadUpdate.as_view(),
+        name='note_edit'),
     url(r'^help/$', 'springwhiz.views.help', name='help'),
     url(r'^register/$', 'springwhiz.views.register', name='register'),
     url(r'^login/$', 'springwhiz.views.login_view', name='login_view'),

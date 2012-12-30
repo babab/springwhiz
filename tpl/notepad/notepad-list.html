@@ -1,0 +1,38 @@
+
+{% extends "base-qnavbar.html" %}
+
+{% block title %}notepad{% endblock %}
+
+{% block content %}
+  <table id="notepad-notes"
+         class="table table-hover table-striped table-condensed">
+    {% for note in notes %}
+      <tr>
+        <td>
+          {% if note.share == 1 %}
+            <a href="/notepad/{{ note.longhash }}/">
+              {{ note.name|truncatechars:"26" }}
+            </a>
+          {% else %}
+            <a href="/notepad/{{ note.shorthash }}/">
+              {{ note.name|truncatechars:"26" }}
+            </a>
+          {% endif %}
+        </td>
+        <td>
+          <a href="/notepad/{{ note.shorthash }}/edit/">
+            <i class="fam-page-error"></i>
+          </a>
+        </td>
+        <td>
+          <i {% if note.share == 0 %}   class="fam-page-lightning"
+             {% elif note.share == 1 %} class="fam-group"
+             {% elif note.share == 2 %} class="fam-world"{% endif %}
+             title="{{ note.get_share_display }}"></i>
+        </td>
+      </tr>
+    {% endfor %}
+  </table>
+{% endblock %}
+
+{# vim: set et ts=2 sw=2 sts=2 ft=htmldjango: #}
