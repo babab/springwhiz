@@ -3,6 +3,15 @@
 {% block title %}notepad{% endblock %}
 
 {% block content %}
+
+<h1>
+  <small class="pull-right">
+    {% block subheading %}new note{% endblock %}
+  </small>
+  springwhiz
+  <small>notepad</small>
+</h1>
+
 <form id="notepad" method="POST">
   {% csrf_token %}
 

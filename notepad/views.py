@@ -90,7 +90,7 @@ class NotepadCreate(CreateView):
 class NotepadUpdate(UpdateView):
     model = Notepad
     form_class = NotepadForm
-    template_name = 'notepad/notepad.html'
+    template_name = 'notepad/notepad-edit.html'
 
     def get_success_url(self):
         return '/notepad/{}/edit/'.format(self.kwargs['idhash'])

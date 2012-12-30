@@ -1,9 +1,12 @@
-
 {% extends "base-qnavbar.html" %}
+{% load humanize %}
 
 {% block title %}notepad{% endblock %}
 
 {% block content %}
+  <h1>springwhiz <small>notepad</small></h1>
+
+  <h3>Notes <small>Your notes</small></h3>
   <table id="notepad-notes"
          class="table table-hover table-striped table-condensed">
     {% for note in notes %}
@@ -23,6 +26,15 @@
           <a href="/notepad/{{ note.shorthash }}/edit/">
             <i class="fam-page-error"></i>
           </a>
+        </td>
+        <td>
+          {{ note.text|truncatechars:"70" }}
+        </td>
+        <td>
+          {{ note.get_language_display }}
+        </td>
+        <td>
+          {{ note.last_edited|naturalday:"D Y-m-d" }}
         </td>
         <td>
           <i {% if note.share == 0 %}   class="fam-page-lightning"
