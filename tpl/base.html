@@ -76,10 +76,20 @@
       {% block content %}{% endblock %}
     </div>
     <div id="footer">
-      <a href="#">Django</a>
-      <strong>1.4.1</strong></a>
-      <a href="#">Python</a>
-      <strong>2.6.6</strong></a>
+      <ul class="inline">
+        <li>
+          <a href="https://github.com/babab/springwhiz/">springwhiz</a>
+          <strong>{{ version_springwhiz }}</strong>
+        </li>
+        <li>
+          <a href="https://www.djangoproject.com">Django</a>
+          <strong>{{ version_django }}</strong>
+        </li>
+        <li>
+          <a href="http://python.org">Python</a>
+          <strong>{{ version_python }}</strong>
+        </li>
+      </ul>
     </div>
   </body>
 </html>
