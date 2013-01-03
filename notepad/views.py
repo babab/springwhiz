@@ -58,7 +58,7 @@ def list(request):
         notes = {}
     else:
         notes = (Notepad.objects.filter(user__pk=request.user.pk)
-                                .order_by('last_edited'))
+                                .order_by('-last_edited'))
     data = {'notes': notes}
 
     context = RequestContext(request)
