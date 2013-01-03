@@ -3,13 +3,17 @@
 {% block title %}notepad{% endblock %}
 
 {% block content %}
-
 <h1>
   <small class="pull-right">
     {% block subheading %}new note{% endblock %}
   </small>
   springwhiz
-  <small>notepad</small>
+  <small>
+    notepad
+    <a href="/notepad/list/" class="btn btn-small btn-link">
+      Show all notes
+    </a>
+  </small>
 </h1>
 
 <form id="notepad" method="POST">
