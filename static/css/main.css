@@ -18,6 +18,11 @@
 body {
     margin-top: 50px;
 }
+.navbar-inner {
+    border: 0px;
+    background-image: none;
+
+}
 body, #q {
     font-family: "Jura", sans-serif;
 }

@@ -18,10 +18,5 @@
 (function ($) {
     $(document).ready(function () {
         $("#js-warning").hide();
-
-        // Remove navbar when link is clicked
-        $("#close-navbar").click(function(){
-          $("#navbar").remove();
-        });
     });
 })(jQuery);
