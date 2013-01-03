@@ -11,7 +11,7 @@
          class="table table-hover table-striped table-condensed">
     {% for note in notes %}
       <tr>
-        <td>
+        <td class="ms">
           {% if note.share == 1 %}
             <a href="/notepad/{{ note.longhash }}/">
               {{ note.name|truncatechars:"26" }}
@@ -27,7 +27,7 @@
             <i class="fam-page-error"></i>
           </a>
         </td>
-        <td>
+        <td class="ms">
           {{ note.text|truncatechars:"70" }}
         </td>
         <td>

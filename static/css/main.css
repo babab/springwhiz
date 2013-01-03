@@ -18,6 +18,16 @@
 body {
     margin-top: 50px;
 }
+body, #q {
+    font-family: "Jura", sans-serif;
+}
+.ms,
+#notepad input,
+#notepad select,
+#notepad textarea {
+    font: 14px Courier, monospace;
+}
+
 .centered {
     text-align: center;
 }
@@ -27,6 +37,7 @@ body {
 .js {
     display: none;
 }
+
 #footer {
     text-align: center;
     font-size: 12px;
@@ -80,9 +91,4 @@ div.spacer_y50 {
 }
 .color-ddg1st {
     background-color: #228B22;
-}
-#notepad input,
-#notepad select,
-#notepad textarea {
-    font: 14px Courier, monospace;
 }
