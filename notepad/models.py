@@ -55,7 +55,7 @@ class Notepad(models.Model):
     )
     SHARE_OPTIONS = (
         (0, u'Private / Not shared'),
-        (1, u'Share using private link'),
+        (1, u'Shared using private link'),
         (2, u'Open / Viewable for everyone'),
     )
 
