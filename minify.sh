@@ -20,9 +20,7 @@ if [ $? -gt 0 ]; then
 fi
 
 $YUI_COMP_EXEC -v --type js static/js/start.js > static/js/start.min.js
-$YUI_COMP_EXEC -v --type css static/css/reset.css > static/css/reset.min.css
 $YUI_COMP_EXEC -v --type css static/css/main.css > static/css/main.min.css
 
 mv static/js/start.min.js static/js/start.js
-mv static/css/reset.min.css static/css/reset.css
 mv static/css/main.min.css static/css/main.css
