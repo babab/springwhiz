@@ -1,5 +1,13 @@
 {% extends "base-qnavbar.html" %}
 
+{% block head %}
+  <link href="{{ STATIC_URL }}libs/google-code-prettify/prettify.css"
+        rel="stylesheet" />
+  <script src="{{STATIC_URL }}libs/google-code-prettify/prettify.js"></script>
+{% endblock %}
+
+{% block bodyargs %}onload="prettyPrint()"{% endblock %}
+
 {% block title %}notepad{% endblock %}
 
 {% block content %}
@@ -48,7 +56,7 @@
     {% endif %}
   </ul>
 
-  <pre>{{ note.text|linenumbers }}</pre>
+  <pre class="prettyprint">{{ note.text|linenumbers }}</pre>
 </form>
 {% endblock %}
 
