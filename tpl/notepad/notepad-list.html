@@ -5,7 +5,15 @@
 {% block content %}
   <h1>springwhiz <small>notepad</small></h1>
 
-  <h3>Your notes</h3>
+  <h3>
+    Your notes
+    {% if user.is_active %}
+      <small>
+        <a class="btn btn-link" href="/notepad/">Create a new note</a>
+      </small>
+    {% endif %}
+  </h3>
+
   <table id="notepad-notes"
          class="table table-hover table-striped table-condensed">
     {% if notes_priv %}
@@ -16,7 +24,7 @@
           <th>Text</th>
           <th>Type</th>
           <th>Last edited</th>
-          <th>Sharing</th>
+          <th>Shared</th>
         </tr>
       </thead>
     {% endif %}
@@ -49,7 +57,7 @@
             {{ note.last_edited|timesince }} ago
           </td>
           <td>
-            <i {% if note.share == 0 %}   class="fam-page-lightning"
+            <i {% if note.share == 0 %}   class="fam-lock-add"
                {% elif note.share == 1 %} class="fam-group"
                {% elif note.share == 2 %} class="fam-world"{% endif %}
                title="{{ note.get_share_display }}"></i>
