@@ -29,6 +29,7 @@
   <ul class="inline">
     <li class="pull-right">
       Last edited {{ note.last_edited|timesince }} ago
+      on {{ note.last_edited|date:"D Y-m-d H:i:s" }}
       {% block deletelink %}
         {% if note.user == user %}
           |

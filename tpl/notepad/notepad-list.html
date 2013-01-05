@@ -1,5 +1,4 @@
 {% extends "base-qnavbar.html" %}
-{% load humanize %}
 
 {% block title %}notepad{% endblock %}
 
@@ -46,8 +45,8 @@
           <td>
             {{ note.get_language_display }}
           </td>
-          <td>
-            {{ note.last_edited|naturalday:"D Y-m-d" }}
+          <td title="Last edited at {{ note.last_edited|date:"D Y-m-d H:i:s" }}">
+            {{ note.last_edited|timesince }} ago
           </td>
           <td>
             <i {% if note.share == 0 %}   class="fam-page-lightning"
@@ -105,8 +104,8 @@
           <td>
             {{ note.get_language_display }}
           </td>
-          <td>
-            {{ note.last_edited|naturalday:"D Y-m-d" }}
+          <td title="Last edited at {{ note.last_edited|date:"D Y-m-d H:i:s" }}">
+            {{ note.last_edited|timesince }} ago
           </td>
           <td>
             {{ note.user }}
