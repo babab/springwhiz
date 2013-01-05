@@ -55,11 +55,16 @@ def detail(request, idhash):
 
 def list(request):
     if isinstance(request.user, AnonymousUser):
-        notes = {}
+        notes_priv = {}
+        notes_open = (Notepad.objects.filter(share=2)
+                                     .order_by('-last_edited'))
     else:
-        notes = (Notepad.objects.filter(user__pk=request.user.pk)
-                                .order_by('-last_edited'))
-    data = {'notes': notes}
+        notes_priv = (Notepad.objects.filter(user__pk=request.user.pk)
+                                     .order_by('-last_edited'))
+        notes_open = (Notepad.objects.filter(share=2)
+                                     .order_by('-last_edited'))
+    data = {'notes_priv': notes_priv,
+            'notes_open': notes_open}
 
     context = RequestContext(request)
     return render_to_response('notepad/notepad-list.html', data, context)
