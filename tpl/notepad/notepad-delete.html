@@ -1,0 +1,19 @@
+{% extends "notepad/notepad-detail.html" %}
+{% load humanize %}
+
+{% block deletenotice %}
+  <form method="POST">
+    {% csrf_token %}
+    <div class="alert alert-error">
+      <p>
+        <button class="btn btn-danger pull-right">
+          Remove note
+        </button>
+        <strong>Are you sure you want to remove the note below?</strong>
+      </p>
+    </div>
+  </form>
+{% endblock %}
+{% block deletelink %}{% endblock %}
+
+{# vim: set et ts=2 sw=2 sts=2 ft=htmldjango: #}

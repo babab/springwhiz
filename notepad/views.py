@@ -21,7 +21,7 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
 from django.utils.decorators import method_decorator
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, DeleteView
 
 from notepad.models import Notepad, NotepadForm
 from notepad.string_generator import stringGenerator
@@ -119,3 +119,24 @@ class NotepadUpdate(UpdateView):
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(NotepadUpdate, self).dispatch(*args, **kwargs)
+
+
+class NotepadDelete(DeleteView):
+    model = Notepad
+    template_name = 'notepad/notepad-delete.html'
+    context_object_name = 'note'
+
+    def get_success_url(self):
+        return '/notepad/list/'
+
+    def get_object(self):
+        kwargs = {'shorthash': self.kwargs['idhash']}
+        obj = get_object_or_404(self.model, **kwargs)
+
+        if obj.user != self.request.user:
+            raise Http404
+        return obj
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(NotepadDelete, self).dispatch(*args, **kwargs)

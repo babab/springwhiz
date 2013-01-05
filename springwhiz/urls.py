@@ -16,7 +16,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 
-from notepad.views import NotepadCreate, NotepadUpdate
+from notepad.views import NotepadCreate, NotepadUpdate, NotepadDelete
 
 admin.autodiscover()
 
@@ -30,6 +30,8 @@ urlpatterns = patterns(
         name='note_detail_short'),
     url(r'^notepad/(?P<idhash>\w+)/edit/$', NotepadUpdate.as_view(),
         name='note_edit'),
+    url(r'^notepad/(?P<idhash>\w+)/delete/$', NotepadDelete.as_view(),
+        name='note_delete'),
     url(r'^help/$', 'springwhiz.views.help', name='help'),
     url(r'^register/$', 'springwhiz.views.register', name='register'),
     url(r'^login/$', 'springwhiz.views.login_view', name='login_view'),

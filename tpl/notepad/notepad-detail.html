@@ -11,8 +11,8 @@
     </a>
   </small>
 </h1>
-<p>
-</p>
+
+{% block deletenotice %}{% endblock %}
 
 <form id="notepad" method="POST" class="form-horizontal">
   {% csrf_token %}
@@ -20,7 +20,7 @@
   <h3>
     {{ note.name|truncatechars:"80" }}
     <small>
-      <a class="btn btn-sma btn-link"
+      <a class="btn btn-link"
         href="/notepad/{{ note.shorthash }}/edit/">
         Edit
       </a>
@@ -28,11 +28,16 @@
   </h3>
   <ul class="inline">
     <li class="pull-right">
-      Last edited {{ note.last_edited|timesince }} ago |
-      <a class="color-red"
-         href="#remove">
-        Remove
-      </a>
+      Last edited {{ note.last_edited|timesince }} ago
+      {% block deletelink %}
+        {% if note.user == user %}
+          |
+          <a class="color-red"
+             href="/notepad/{{ note.shorthash }}/delete/">
+            Remove
+          </a>
+        {% endif %}
+      {% endblock %}
     </li>
     <li>{{ note.text|wordcount }} words / {{ note.text|length }} chars</li>
     <li>|</li>
