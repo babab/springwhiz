@@ -97,6 +97,9 @@ div.spacer_y50 {
 .color-ddg1st {
     background-color: #228B22;
 }
-.color-red {
+.color-red,
+a.color-red:hover,
+a.color-red:visited,
+a.color-red:active {
     color: red;
 }

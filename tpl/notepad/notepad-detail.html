@@ -20,29 +20,32 @@
   <h3>
     {{ note.name|truncatechars:"80" }}
     <small>
-      <a class="btn btn-link"
-        href="/notepad/{{ note.shorthash }}/edit/">
-        Edit
-      </a>
+      {% block actions %}
+        {% if note.user == user %}
+          <a class="btn btn-link"
+            href="/notepad/{{ note.shorthash }}/edit/">
+            Edit
+          </a>
+          <a class="btn btn-link color-red"
+            href="/notepad/{{ note.shorthash }}/delete/">
+            Remove
+          </a>
+        {% else %}
+          Shared by {{ note.user }}
+        {% endif %}
+      {% endblock %}
     </small>
   </h3>
   <ul class="inline">
     <li class="pull-right">
       Last edited {{ note.last_edited|timesince }} ago
       on {{ note.last_edited|date:"D Y-m-d H:i:s" }}
-      {% block deletelink %}
-        {% if note.user == user %}
-          |
-          <a class="color-red"
-             href="/notepad/{{ note.shorthash }}/delete/">
-            Remove
-          </a>
-        {% endif %}
-      {% endblock %}
     </li>
     <li>{{ note.text|wordcount }} words / {{ note.text|length }} chars</li>
-    <li>|</li>
-    <li>{{ note.get_share_display }}</li>
+    {% if note.user == user %}
+      <li>|</li>
+      <li>{{ note.get_share_display }}</li>
+    {% endif %}
   </ul>
 
   <pre>{{ note.text|linenumbers }}</pre>
