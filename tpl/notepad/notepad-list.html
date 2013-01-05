@@ -78,7 +78,6 @@
       <thead>
         <tr>
           <th>Name</th>
-          <th>Edit</th>
           <th>Text</th>
           <th>Type</th>
           <th>Last edited</th>
@@ -99,11 +98,6 @@
                 {{ note.name|truncatechars:"26" }}
               </a>
             {% endif %}
-          </td>
-          <td>
-            <a href="/notepad/{{ note.shorthash }}/edit/">
-              <i class="fam-page-error"></i>
-            </a>
           </td>
           <td class="ms">
             {{ note.text|truncatechars:"70" }}

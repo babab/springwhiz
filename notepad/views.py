@@ -102,7 +102,11 @@ class NotepadUpdate(UpdateView):
 
     def get_object(self):
         kwargs = {'shorthash': self.kwargs['idhash']}
-        return get_object_or_404(self.model, **kwargs)
+        obj = get_object_or_404(self.model, **kwargs)
+
+        if obj.user != self.request.user:
+            raise Http404
+        return obj
 
     def form_valid(self, form):
         instance = self.get_object()
