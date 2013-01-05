@@ -54,15 +54,15 @@ def detail(request, idhash):
 
 
 def list(request):
+    notes_open = (Notepad.objects.filter(share=2)
+                                 .order_by('-last_edited'))
+
     if isinstance(request.user, AnonymousUser):
         notes_priv = {}
-        notes_open = (Notepad.objects.filter(share=2)
-                                     .order_by('-last_edited'))
     else:
-        notes_priv = (Notepad.objects.filter(user__pk=request.user.pk)
+        notes_priv = (Notepad.objects.filter(user=request.user)
                                      .order_by('-last_edited'))
-        notes_open = (Notepad.objects.filter(share=2)
-                                     .order_by('-last_edited'))
+        notes_open = notes_open.exclude(user=request.user)
     data = {'notes_priv': notes_priv,
             'notes_open': notes_open}
 
