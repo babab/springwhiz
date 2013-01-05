@@ -53,14 +53,16 @@
           <td>
             {{ note.get_language_display }}
           </td>
-          <td title="Last edited at {{ note.last_edited|date:"D Y-m-d H:i:s" }}">
-            {{ note.last_edited|timesince }} ago
-          </td>
           <td>
+            <span class="tt"
+                  title="{{ note.last_edited|date:"D Y-m-d H:i:s" }}">
+              {{ note.last_edited|timesince }} ago
+            </span>
+          </td>
+          <td class="tt" title="{{ note.get_share_display }}">
             <i {% if note.share == 0 %}   class="fam-lock-add"
                {% elif note.share == 1 %} class="fam-group"
-               {% elif note.share == 2 %} class="fam-world"{% endif %}
-               title="{{ note.get_share_display }}"></i>
+               {% elif note.share == 2 %} class="fam-world"{% endif %}></i>
           </td>
         </tr>
       {% empty %}
@@ -70,7 +72,8 @@
               No notes yet. Click <a href="/notepad/">here</a> to
               create a new note.
             {% else %}
-              You are not logged in. Please register and login to create a note.
+              You are not logged in. Please register and login to
+              create a note.
             {% endif %}
           </td>
         </tr>
@@ -112,8 +115,11 @@
           <td>
             {{ note.get_language_display }}
           </td>
-          <td title="Last edited at {{ note.last_edited|date:"D Y-m-d H:i:s" }}">
-            {{ note.last_edited|timesince }} ago
+          <td>
+            <span class="tt"
+                  title="{{ note.last_edited|date:"D Y-m-d H:i:s" }}">
+              {{ note.last_edited|timesince }} ago
+            </span>
           </td>
           <td>
             {{ note.user }}

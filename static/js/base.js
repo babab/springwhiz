@@ -18,5 +18,7 @@
 (function ($) {
     $(document).ready(function () {
         $("#js-warning").hide();
+
+        $(".tt").tooltip({'placement': 'left'});
     });
 })(jQuery);
