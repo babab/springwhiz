@@ -24,10 +24,11 @@ except ImportError:
 
 DEPLOY_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SPRINGWHIZ_VERSION = '0.4.0'
+SPRINGWHIZ_VERSION = '0.4.1'
 DEBUG = settings_local.DEBUG
 TEMPLATE_DEBUG = settings_local.TEMPLATE_DEBUG
 ADMINS = settings_local.ADMINS
+BASE_URL = settings_local.BASE_URL
 DATABASES = settings_local.DATABASES
 TIME_ZONE = settings_local.TIME_ZONE
 LANGUAGE_CODE = settings_local.LANGUAGE_CODE
@@ -119,6 +120,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.tz',
     'django.contrib.messages.context_processors.messages',
     'springwhiz.context_processors.platform_version_info',
+    'springwhiz.context_processors.base_url',
 )
 
 # A sample logging configuration. The only tangible logging

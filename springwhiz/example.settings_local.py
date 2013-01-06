@@ -17,8 +17,10 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    ('Benjamin Althues', 'benjamin@babab.nl'),
+    ('Name', 'user@domain.com'),
 )
+
+BASE_URL = 'http://localhost:8000/'  # Use a trailing slash
 
 DATABASES = {
     'default': {

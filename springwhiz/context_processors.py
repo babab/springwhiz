@@ -16,10 +16,14 @@
 from django import get_version as django_version
 from sys import version as python_version
 
-from settings import SPRINGWHIZ_VERSION
+from settings import BASE_URL, SPRINGWHIZ_VERSION
 
 
 def platform_version_info(request):
     return {'version_springwhiz': SPRINGWHIZ_VERSION,
             'version_python': python_version.split()[0],
             'version_django': django_version()}
+
+
+def base_url(request):
+    return {'BASE_URL': BASE_URL}
