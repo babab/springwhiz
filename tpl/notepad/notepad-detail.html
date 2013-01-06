@@ -54,6 +54,18 @@
       <li>|</li>
       <li>{{ note.get_share_display }}</li>
     {% endif %}
+    <li>|</li>
+    <li>
+      {% if note.share == 1 %}
+        <a href="/notepad/{{ note.longhash }}/raw/">
+          View raw
+        </a>
+      {% else %}
+        <a href="/notepad/{{ note.shorthash }}/raw/">
+          View raw
+        </a>
+      {% endif %}
+    </li>
   </ul>
 
   <pre class="prettyprint">{{ note.text|linenumbers }}</pre>

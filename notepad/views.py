@@ -17,7 +17,7 @@ import datetime
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import AnonymousUser
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render_to_response
 from django.template import RequestContext
 from django.utils.decorators import method_decorator
@@ -58,6 +58,29 @@ def detail(request, idhash):
 
     context = RequestContext(request)
     return render_to_response('notepad/notepad-detail.html', data, context)
+
+
+def detail_raw(request, idhash):
+    hashlen = len(idhash)
+
+    if hashlen == 5:
+        note = get_object_or_404(Notepad, shorthash=idhash)
+        if note.share != 2:
+            if isinstance(request.user, AnonymousUser):
+                raise Http404
+            elif note.user.pk != request.user.pk:
+                raise Http404
+    elif hashlen == 20:
+        note = get_object_or_404(Notepad, longhash=idhash)
+        if note.share == 0:
+            if isinstance(request.user, AnonymousUser):
+                raise Http404
+            elif note.user.pk != request.user.pk:
+                raise Http404
+    else:
+        raise Http404
+
+    return HttpResponse(note.text, mimetype='text/plain')
 
 
 def list(request):
