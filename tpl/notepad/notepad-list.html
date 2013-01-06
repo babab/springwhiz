@@ -14,7 +14,7 @@
     {% endif %}
   </h3>
 
-  <table id="notepad-notes"
+  <table id="notes-priv"
          class="table table-hover table-striped table-condensed">
     {% if notes_priv %}
       <thead>
@@ -30,7 +30,8 @@
     {% endif %}
     <tbody>
       {% for note in notes_priv %}
-        <tr>
+      <tr {% if note.share == 1 %} data-href="/notepad/{{ note.longhash }}/"
+          {% else %} data-href="/notepad/{{ note.shorthash }}/" {% endif %}>
           <td class="ms">
             {% if note.share == 1 %}
               <a href="/notepad/{{ note.longhash }}/">
@@ -82,7 +83,7 @@
   </table>
 
   <h3>Open notes shared by other users</h3>
-  <table id="notepad-notes"
+  <table id="notes-open"
          class="table table-hover table-striped table-condensed">
     {% if notes_open %}
       <thead>
@@ -98,6 +99,7 @@
     <tbody>
       {% for note in notes_open %}
         <tr>
+        <tr data-href="/notepad/{{ note.shorthash }}/">
           <td class="ms">
             {% if note.share == 1 %}
               <a href="/notepad/{{ note.longhash }}/">

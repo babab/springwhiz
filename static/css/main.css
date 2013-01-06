@@ -71,6 +71,9 @@ body, #q {
     font-size: 27px;
     line-height: 27px;
 }
+#notes-priv tr, #notes-open tr {
+    cursor: pointer;
+}
 div.spacer_y10 {
     height: 10px;
 }
