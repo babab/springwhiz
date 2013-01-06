@@ -24,7 +24,8 @@ admin.autodiscover()
 urlpatterns = patterns(
     '',
     url(r'^$', include('start.urls')),
-    url(r'^notepad/$', NotepadCreate.as_view(), name='notepad'),
+    url(r'^notepad/$', 'notepad.views.notepad', name='notepad'),
+    url(r'^notepad/new/$', NotepadCreate.as_view(), name='notepad_new'),
     url(r'^notepad/list/$', 'notepad.views.list', name='notepad_list'),
     url(r'^notepad/(?P<idhash>\w+)/$', 'notepad.views.detail',
         name='note_detail_short'),

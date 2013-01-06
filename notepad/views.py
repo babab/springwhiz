@@ -18,13 +18,20 @@ import datetime
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import AnonymousUser
 from django.http import Http404
-from django.shortcuts import get_object_or_404, render_to_response
+from django.shortcuts import get_object_or_404, redirect, render_to_response
 from django.template import RequestContext
 from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, UpdateView, DeleteView
 
 from notepad.models import Notepad, NotepadForm
 from notepad.string_generator import stringGenerator
+
+
+def notepad(request):
+    if request.user.is_active:
+        return redirect('/notepad/new/')
+    else:
+        return redirect('/notepad/list/')
 
 
 def detail(request, idhash):
