@@ -19,6 +19,8 @@ from django.contrib.auth.models import User
 from django.shortcuts import redirect, render_to_response
 from django.template import RequestContext
 
+from springwhiz.settings import BASE_URL
+
 
 def help(request):
     return render_to_response('help.html', {}, RequestContext(request))
@@ -67,7 +69,7 @@ def register(request):
             if user is not None and user.is_active:
                 login(request, user)
 
-            return redirect('http://localhost:8000/')
+            return redirect(BASE_URL)
 
     context = RequestContext(request)
     return render_to_response('authenticate.html', data, context)
@@ -108,4 +110,4 @@ def logout_view(request):
     """Handle logging out"""
 
     logout(request)
-    return redirect('http://localhost:8000/')
+    return redirect(BASE_URL)
