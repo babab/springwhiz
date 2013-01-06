@@ -29,30 +29,31 @@
           </a>
 
           <p class="navbar-text pull-right">
-            <small>
-              {% if user.is_authenticated %}
+            {% if user.is_authenticated %}
+              <small class="text-success">
                 logged in as {{ user.username }}
-              {% else %}
+            {% else %}
+              <small class="text-error">
                 not logged in
-              {% endif %}
+            {% endif %}
             </small>
           </p>
-
-          <a class="brand" href="/">springwhiz</a>
-
-          <div class="nav-collapse collapse">
+          <div class="nav-collapse collapse pull-right">
             <ul class="nav">
+              <li><a class="nav" href="/notepad/">notepad</a></li>
+              <li><a id="helplink" class="nav" href="/help/">help</a></li>
               {% if user.is_authenticated %}
                 <li><a class="nav" href="/logout/">logout</a></li>
-                <li><a class="nav" href="/notepad/">notepad</a></li>
               {% else %}
                 <li><a class="nav" href="/login/">login</a></li>
                 <li><a class="nav" href="/register/">register</a></li>
               {% endif %}
-              <li>
-                <a id="helplink" class="nav" href="/help/">help</a>
-              </li>
             </ul>
+          </div>
+
+          <a class="brand" href="/">springwhiz</a>
+
+          <div class="nav-collapse collapse">
             {% block navbar %}{% endblock %}
           </div>
         </div>
