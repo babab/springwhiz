@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+# Copyright (C) 2012-2013  Benjamin Althues
+#
 # This file is part of springwhiz.
 #
 # springwhiz is free software: you can redistribute it and/or modify
