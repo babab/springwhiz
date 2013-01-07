@@ -25,7 +25,7 @@ admin.autodiscover()
 
 urlpatterns = patterns(
     'springwhiz',
-    url(r'^$', include('springwhiz.start.urls')),
+    url(r'^$', 'views.main', name='main'),
     url(r'^notepad/$', 'notepad.views.notepad', name='notepad'),
     url(r'^notepad/new/$', NotepadCreate.as_view(), name='notepad_new'),
     url(r'^notepad/list/$', 'notepad.views.list', name='notepad_list'),

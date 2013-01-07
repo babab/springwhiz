@@ -24,6 +24,33 @@ from django.template import RequestContext
 from springwhiz.settings import BASE_URL
 
 
+def _query_handler(query):
+    return redirect('https://duckduckgo.com?q=%s' % query)
+
+
+def main(request):
+    data = {}
+
+    if request.POST:
+        if 'mode' in request.POST:
+            mode = request.POST.get('mode')
+
+        if 'q' in request.POST:
+            q = request.POST.get('q')
+
+        if mode == 'unset' or mode == 'default':
+            return _query_handler(q)
+        elif mode == 'bang':
+            return _query_handler('!' + q)
+        elif mode == 'ddg1st':
+            return _query_handler('\\' + q)
+        else:
+            data = {'mode': mode, 'query': q}
+
+    context = RequestContext(request)
+    return render_to_response('start/index.html', data, context)
+
+
 def help(request):
     return render_to_response('help.html', {}, RequestContext(request))
 
