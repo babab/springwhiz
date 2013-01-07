@@ -24,8 +24,8 @@ admin.autodiscover()
 
 
 urlpatterns = patterns(
-    '',
-    url(r'^$', include('start.urls')),
+    'springwhiz',
+    url(r'^$', include('springwhiz.start.urls')),
     url(r'^notepad/$', 'notepad.views.notepad', name='notepad'),
     url(r'^notepad/new/$', NotepadCreate.as_view(), name='notepad_new'),
     url(r'^notepad/list/$', 'notepad.views.list', name='notepad_list'),
@@ -37,9 +37,9 @@ urlpatterns = patterns(
         name='note_edit'),
     url(r'^notepad/(?P<idhash>\w+)/delete/$', NotepadDelete.as_view(),
         name='note_delete'),
-    url(r'^help/$', 'springwhiz.views.help', name='help'),
-    url(r'^register/$', 'springwhiz.views.register', name='register'),
-    url(r'^login/$', 'springwhiz.views.login_view', name='login_view'),
-    url(r'^logout/$', 'springwhiz.views.logout_view', name='logout_view'),
+    url(r'^help/$', 'views.help', name='help'),
+    url(r'^register/$', 'views.register', name='register'),
+    url(r'^login/$', 'views.login_view', name='login_view'),
+    url(r'^logout/$', 'views.logout_view', name='logout_view'),
     url(r'^admin/', include(admin.site.urls)),
 )

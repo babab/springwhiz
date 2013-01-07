@@ -19,5 +19,5 @@ from django.conf.urls import patterns, url
 
 urlpatterns = patterns(
     '',
-    url(r'^$', 'start.views.index', name='start'),
+    url(r'^$', 'springwhiz.start.views.index', name='start'),
 )

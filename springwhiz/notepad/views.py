@@ -25,8 +25,8 @@ from django.template import RequestContext
 from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, UpdateView, DeleteView
 
-from notepad.models import Notepad, NotepadForm
-from notepad.string_generator import stringGenerator
+from models import Notepad, NotepadForm
+from string_generator import stringGenerator
 
 
 def notepad(request):

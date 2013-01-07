@@ -15,7 +15,8 @@
 # You should have received a copy of the GNU General Public License
 # along with springwhiz.  If not, see <http://www.gnu.org/licenses/>.
 
-from notepad.models import Notepad
 from django.contrib import admin
+
+from models import Notepad
 
 admin.site.register(Notepad)

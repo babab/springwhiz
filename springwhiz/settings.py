@@ -63,7 +63,7 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    '%s/static' % DEPLOY_PATH,
+    '%s/springwhiz/static' % DEPLOY_PATH,
 )
 
 # List of finder classes that know how to find static files in
@@ -97,7 +97,7 @@ ROOT_URLCONF = 'springwhiz.urls'
 WSGI_APPLICATION = 'springwhiz.wsgi.application'
 
 TEMPLATE_DIRS = (
-    '%s/tpl' % DEPLOY_PATH
+    '%s/springwhiz/tpl' % DEPLOY_PATH
 )
 
 INSTALLED_APPS = (
@@ -108,9 +108,9 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'django.contrib.humanize',
-    'start',
-    'bookmarks',
-    'notepad',
+    'springwhiz.start',
+    'springwhiz.bookmarks',
+    'springwhiz.notepad',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
