@@ -2,6 +2,10 @@
 
 {% block title %}notepad{% endblock %}
 
+{% block head %}
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/syntaxhl.css">
+{% endblock %}
+
 {% block content %}
 <h1>springwhiz
   <small>
@@ -77,9 +81,8 @@
       {% endif %}
     </li>
   </ul>
-
-  <pre>{{ note.text|linenumbers }}</pre>
 </form>
+{{ note.text_highlighted|safe }}
 {% endblock %}
 
 {# vim: set et ts=2 sw=2 sts=2 ft=htmldjango: #}

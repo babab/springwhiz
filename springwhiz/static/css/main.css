@@ -109,3 +109,9 @@ a.color-red:visited,
 a.color-red:active {
     color: red;
 }
+
+.linenodiv pre,
+.syntaxhl pre {
+  background-color: #FFF;
+  border: none;
+}

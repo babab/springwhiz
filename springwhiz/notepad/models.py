@@ -17,6 +17,10 @@
 
 import datetime
 
+from pygments import highlight
+from pygments.lexers import get_lexer_by_name, ClassNotFound
+from pygments.formatters import HtmlFormatter
+
 from django.contrib.auth.models import User
 from django.db import models
 from django.forms import ModelForm
@@ -66,12 +70,22 @@ class Notepad(models.Model):
     language = models.CharField(max_length=20, choices=LANGUAGES,
                                 default=u'txt')
     text = models.TextField()
+    text_highlighted = models.TextField()
     last_edited = models.DateTimeField(default=datetime.datetime.now())
     shorthash = models.CharField(max_length=5, unique=True,
                                  default=stringGenerator(5))
     longhash = models.CharField(max_length=20, unique=True,
                                 default=stringGenerator(20))
     share = models.SmallIntegerField(choices=SHARE_OPTIONS, default=0)
+
+    def save(self):
+        try:
+            lexer = get_lexer_by_name(self.language, stripall=True)
+        except ClassNotFound:
+            lexer = get_lexer_by_name('text', stripall=True)
+        formatter = HtmlFormatter(linenos=True, cssclass="syntaxhl")
+        self.text_highlighted = highlight(self.text, lexer, formatter)
+        super(Notepad, self).save()
 
     def __unicode__(self):
         return '%s - %s' % (self.user, self.name)
