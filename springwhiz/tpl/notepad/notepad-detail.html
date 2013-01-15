@@ -63,11 +63,11 @@
       Last edited {{ note.last_edited|timesince }} ago
       on {{ note.last_edited|date:"D Y-m-d H:i:s" }}
     </li>
+    <li>{{ note.get_language_display }}</li>
+    <li>|</li>
     <li>{{ note.text|wordcount }} words / {{ note.text|length }} chars</li>
-    {% if note.user == user %}
-      <li>|</li>
-      <li>{{ note.get_share_display }}</li>
-    {% endif %}
+    <li>|</li>
+    <li>{{ note.get_share_display }}</li>
     <li>|</li>
     <li>
       {% if note.share == 1 %}
