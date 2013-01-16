@@ -43,10 +43,10 @@
               <li><a class="nav" href="/notepad/">notepad</a></li>
               <li><a id="helplink" class="nav" href="/help/">help</a></li>
               {% if user.is_authenticated %}
-                <li><a class="nav" href="/logout/">logout</a></li>
+                <li><a class="nav" href="/accounts/logout/">logout</a></li>
               {% else %}
-                <li><a class="nav" href="/login/">login</a></li>
-                <li><a class="nav" href="/register/">register</a></li>
+                <li><a class="nav" href="/accounts/login/">login</a></li>
+                <li><a class="nav" href="/accounts/register/">register</a></li>
               {% endif %}
             </ul>
           </div>

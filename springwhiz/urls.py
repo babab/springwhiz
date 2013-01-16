@@ -38,8 +38,8 @@ urlpatterns = patterns(
     url(r'^notepad/(?P<idhash>\w+)/delete/$', NotepadDelete.as_view(),
         name='note_delete'),
     url(r'^help/$', 'views.help', name='help'),
-    url(r'^register/$', 'views.register', name='register'),
-    url(r'^login/$', 'views.login_view', name='login_view'),
-    url(r'^logout/$', 'views.logout_view', name='logout_view'),
+    url(r'^accounts/register/$', 'views.register', name='register'),
+    url(r'^accounts/login/$', 'views.login_view', name='login_view'),
+    url(r'^accounts/logout/$', 'views.logout_view', name='logout_view'),
     url(r'^admin/', include(admin.site.urls)),
 )
