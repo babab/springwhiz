@@ -33,6 +33,8 @@ urlpatterns = patterns(
         name='note_detail'),
     url(r'^notepad/(?P<idhash>\w+)/raw/$', 'notepad.views.detail_raw',
         name='note_detail_raw'),
+    url(r'^notepad/(?P<idhash>\w+)/rendered/$',
+        'notepad.views.detail_rendered', name='note_detail_rendered'),
     url(r'^notepad/(?P<idhash>\w+)/edit/$', NotepadUpdate.as_view(),
         name='note_edit'),
     url(r'^notepad/(?P<idhash>\w+)/delete/$', NotepadDelete.as_view(),

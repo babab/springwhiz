@@ -85,6 +85,32 @@ def detail_raw(request, idhash):
     return HttpResponse(note.text, mimetype='text/plain')
 
 
+def detail_rendered(request, idhash):
+    hashlen = len(idhash)
+
+    if hashlen == 5:
+        note = get_object_or_404(Notepad, shorthash=idhash)
+        if note.share != 2:
+            if isinstance(request.user, AnonymousUser):
+                raise Http404
+            elif note.user.pk != request.user.pk:
+                raise Http404
+    elif hashlen == 20:
+        note = get_object_or_404(Notepad, longhash=idhash)
+        if note.share == 0:
+            if isinstance(request.user, AnonymousUser):
+                raise Http404
+            elif note.user.pk != request.user.pk:
+                raise Http404
+    else:
+        raise Http404
+
+    data = {'note': note}
+
+    context = RequestContext(request)
+    return render_to_response('notepad/notepad-rendered.html', data, context)
+
+
 def list(request):
     notes_open = (Notepad.objects.filter(share=2)
                                  .order_by('-last_edited'))

@@ -32,10 +32,9 @@ from string_generator import stringGenerator
 class Notepad(models.Model):
     LANGUAGES = (
         ('text', 'Plain text'),
-        ('Renderable - (N/A yet)', (
-            ('html', 'HTML'),
+        ('Renderable', (
             ('markdown', 'Markdown'),
-            ('rst', 'reStructuredText'))),
+            ('restructuredtext', 'reStructuredText'))),
         ('Popular', (
             ('apacheconf', 'ApacheConf'),
             ('bash', 'Bash'),
@@ -49,6 +48,7 @@ class Notepad(models.Model):
             ('diff', 'Diff'),
             ('django', 'Django/Jinja'),
             ('go', 'Go'),
+            ('html', 'HTML'),
             ('irc', 'IRC logs'),
             ('java', 'Java'),
             ('js', 'JavaScript'),

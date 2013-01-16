@@ -80,6 +80,20 @@
         </a>
       {% endif %}
     </li>
+    {% if note.language == "markdown" or note.language == "restructuredtext" %}
+      <li>|</li>
+      <li>
+        {% if note.share == 1 %}
+          <a href="/notepad/{{ note.longhash }}/rendered/">
+            View rendered
+          </a>
+        {% else %}
+          <a href="/notepad/{{ note.shorthash }}/rendered/">
+            View rendered
+          </a>
+        {% endif %}
+      </li>
+    {% endif %}
   </ul>
 </form>
 {{ note.text_highlighted|safe }}
