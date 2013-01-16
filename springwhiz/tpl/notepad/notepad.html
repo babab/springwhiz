@@ -22,26 +22,22 @@
   {{ form.non_field_errors }}
 
   <div class="controls controls-row">
-    {{ form.name.errors }}
+    <div class="text-error"><strong>{{ form.name.errors|join:" " }}</strong></div>
     {{ form.name }}
 
-    {{ form.language.errors }}
+    <div class="text-error"><strong>{{ form.language.errors|join:" " }}</strong></div>
     {{ form.language }}
 
-    {{ form.share.errors }}
+    <div class="text-error"><strong>{{ form.share.errors|join:" " }}</strong></div>
     {{ form.share }}
 
     <button class="btn btn-small btn-link pull-right">
       <i class="fam-disk-multiple"></i>
     </button>
-    <a class="btn btn-small btn-link pull-right"
-       href="/notepad/list/">
-      <i class="fam-application-view-tile"></i>
-    </a>
   </div>
 
   <div class="controls controls-row">
-    {{ form.text.errors }}
+    <div class="text-error"><strong>{{ form.text.errors|join:" " }}</strong></div>
     {{ form.text }}
   </div>
 
