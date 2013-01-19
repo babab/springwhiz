@@ -28,7 +28,7 @@ def _query_handler(query):
     return redirect('https://duckduckgo.com?q=%s' % query)
 
 
-def main(request):
+def index(request):
     data = {}
 
     if request.POST:
@@ -48,7 +48,7 @@ def main(request):
             data = {'mode': mode, 'query': q}
 
     context = RequestContext(request)
-    return render_to_response('start/index.html', data, context)
+    return render_to_response('index.html', data, context)
 
 
 def help(request):
@@ -129,7 +129,7 @@ def login_view(request):
             return render_to_response('authenticate.html', data, context)
 
         context = RequestContext(request)
-        return render_to_response('start/index.html', data, context)
+        return render_to_response('index.html', data, context)
 
     context = RequestContext(request)
     return render_to_response('authenticate.html', data, context)
