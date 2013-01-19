@@ -16,13 +16,17 @@
 # along with springwhiz.  If not, see <http://www.gnu.org/licenses/>.
 
 YUI_COMP_EXEC="`which yui-compressor`"
+STATIC_PATH="springwhiz/static"
 
 if [ $? -gt 0 ]; then
+    echo "Could not find yui-compressor"
     exit 1
 fi
 
-$YUI_COMP_EXEC -v --type js static/js/start.js > static/js/start.min.js
-$YUI_COMP_EXEC -v --type css static/css/main.css > static/css/main.min.css
+${YUI_COMP_EXEC} -v --type js ${STATIC_PATH}/js/start.js > \
+                                 ${STATIC_PATH}/js/start.min.js
+${YUI_COMP_EXEC} -v --type css ${STATIC_PATH}/css/main.css > \
+                                ${STATIC_PATH}/css/main.min.css
 
-mv static/js/start.min.js static/js/start.js
-mv static/css/main.min.css static/css/main.css
+mv ${STATIC_PATH}/js/start.min.js ${STATIC_PATH}/js/start.js
+mv ${STATIC_PATH}/css/main.min.css ${STATIC_PATH}/css/main.css
