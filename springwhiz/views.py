@@ -18,6 +18,8 @@
 from django import forms
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
+from django.http import HttpResponse
 from django.shortcuts import redirect, render_to_response
 from django.template import RequestContext
 
@@ -25,30 +27,49 @@ from springwhiz.settings import BASE_URL
 
 
 def _query_handler(query):
-    return redirect('https://duckduckgo.com?q=%s' % query)
+    if query[0] == '@':
+        return _command_handler(query[1:])
+    elif query[0] == '#':
+        return HttpResponse('Bookmarks are not supported yet',
+                            mimetype='text/plain')
+    else:
+        return redirect('https://duckduckgo.com?q=%s' % query)
+
+
+def _command_handler(query):
+    if query == 'reg' or query == 'register':
+        return redirect(reverse('register'))
+    elif query == 'li' or query == 'login':
+        return redirect(reverse('login'))
+    elif query == 'lo' or query == 'logout':
+        return redirect(reverse('logout'))
+    elif query == 'np' or query == 'notepad':
+        return redirect(reverse('notepad'))
+    elif query == 'bm' or query == 'bookmark':
+        return HttpResponse('Bookmarks are not supported yet',
+                            mimetype='text/plain')
 
 
 def index(request):
-    data = {}
-
-    if request.POST:
+    if request.method == 'POST':
         if 'mode' in request.POST:
             mode = request.POST.get('mode')
 
         if 'q' in request.POST:
             q = request.POST.get('q')
 
-        if mode == 'unset' or mode == 'default':
-            return _query_handler(q)
-        elif mode == 'bang':
+        if mode == 'bang':
             return _query_handler('!' + q)
         elif mode == 'ddg1st':
             return _query_handler('\\' + q)
+        elif mode == 'command':
+            return _query_handler('@' + q)
+        elif mode == 'bookmark':
+            return _query_handler('#' + q)
         else:
-            data = {'mode': mode, 'query': q}
+            return _query_handler(q)
 
-    context = RequestContext(request)
-    return render_to_response('index.html', data, context)
+    return render_to_response('index.html', {}, RequestContext(request))
 
 
 def help(request):
