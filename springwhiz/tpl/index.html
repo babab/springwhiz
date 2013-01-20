@@ -15,6 +15,12 @@
       </h1>
       <div class="spacer_y30"></div>
 
+      {% if error %}
+        <div class="text-error">{{ error }}</div>
+        Your query was '{{ query }}'
+        <div class="spacer_y30"></div>
+      {% endif %}
+
       <form method="post" action="/">
         {% csrf_token %}
         <div class="input-prepend">
