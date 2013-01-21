@@ -32,6 +32,13 @@
         modeinfo = document.getElementById('modeinfo');
         modesymbol = document.getElementById('modesymbol');
 
+        // Activate typeahead
+        typeahead_list = [];
+        $("#q").typeahead({
+            'items': 15,
+            'source': function(){return typeahead_list},
+        });
+
         var mode = 'default';
 
         function defaultMode() {
@@ -50,6 +57,7 @@
             modesymbol.innerHTML = "&gt;";
             $("#qcancel").hide();
             mode = 'default';
+            typeahead_list = [];
         }
 
         $("#qcancel").click(function(){
@@ -104,6 +112,7 @@
                         modeinfo.innerHTML = "Entering command '<span "
                           + 'id="modeinfo-inner">' + q + "</span>'";
                     $("#modeinfo-inner").css({'color': '#1E90FF'});
+                    typeahead_list = typeahead_command_list;
                     break;
                 case 'bookmark':
                     $("#mode").val('bookmark');
@@ -116,6 +125,7 @@
                         modeinfo.innerHTML = "Go to bookmark with label '"
                            + '<span id="modeinfo-inner">' + q + "</span>'";
                     $("#modeinfo-inner").css({'color': '#00688b'});
+                    typeahead_list = [];
                     break;
                 case 'bang':
                     $("#mode").val('bang');
@@ -129,6 +139,7 @@
                            + '<span id="modeinfo-inner">' + q + "</span>'";
                            + 'using bang syntax';
                     $("#modeinfo-inner").css({'color': '#8B4513'});
+                    typeahead_list = typeahead_bang_list;
                     break;
                 case 'ddg1st':
                     $("#mode").val('ddg1st');
@@ -141,6 +152,7 @@
                         modeinfo.innerHTML = 'Go to the first result for: '
                            + '<span id="modeinfo-inner">' + q + '</span>';
                     $("#modeinfo-inner").css({'color': '#228B22'});
+                    typeahead_list = [];
                     break;
                 default:
                     defaultMode();

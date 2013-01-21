@@ -23,10 +23,14 @@ if [ $? -gt 0 ]; then
     exit 1
 fi
 
+${YUI_COMP_EXEC} -v --type js ${STATIC_PATH}/js/typeahead-lists.js > \
+                                 ${STATIC_PATH}/js/typeahead-lists.min.js
 ${YUI_COMP_EXEC} -v --type js ${STATIC_PATH}/js/start.js > \
                                  ${STATIC_PATH}/js/start.min.js
 ${YUI_COMP_EXEC} -v --type css ${STATIC_PATH}/css/main.css > \
                                 ${STATIC_PATH}/css/main.min.css
 
+mv ${STATIC_PATH}/js/typeahead-lists.min.js \
+    ${STATIC_PATH}/js/typeahead-lists.js
 mv ${STATIC_PATH}/js/start.min.js ${STATIC_PATH}/js/start.js
 mv ${STATIC_PATH}/css/main.min.css ${STATIC_PATH}/css/main.css
