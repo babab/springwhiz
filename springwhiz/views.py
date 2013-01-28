@@ -126,7 +126,7 @@ def register(request):
             if user is not None and user.is_active:
                 login(request, user)
 
-            return redirect(BASE_URL)
+            return redirect('index')
 
     context = RequestContext(request)
     return render_to_response('authenticate.html', data, context)

@@ -9,7 +9,7 @@
     Your notes
     {% if user.is_active %}
       <small>
-        <a class="btn btn-link" href="/notepad/">Create a new note</a>
+        <a class="btn btn-link" href="{% url notepad %}">Create a new note</a>
       </small>
     {% endif %}
   </h3>
@@ -30,21 +30,24 @@
     {% endif %}
     <tbody>
       {% for note in notes_priv %}
-      <tr {% if note.share == 1 %} data-href="/notepad/{{ note.longhash }}/"
-          {% else %} data-href="/notepad/{{ note.shorthash }}/" {% endif %}>
+      <tr {% if note.share == 1 %}
+            data-href="{% url notepad_detail note.longhash %}"
+          {% else %}
+            data-href="{% url notepad_detail note.shorthash %}"
+          {% endif %}>
           <td class="ms">
             {% if note.share == 1 %}
-              <a href="/notepad/{{ note.longhash }}/">
+              <a href="{% url notepad_detail note.longhash %}">
                 {{ note.name|truncatechars:"26" }}
               </a>
             {% else %}
-              <a href="/notepad/{{ note.shorthash }}/">
+              <a href="{% url notepad_detail note.shorthash %}">
                 {{ note.name|truncatechars:"26" }}
               </a>
             {% endif %}
           </td>
           <td>
-            <a href="/notepad/{{ note.shorthash }}/edit/">
+            <a href="{% url notepad_update note.shorthash %}">
               <i class="fam-page-error"></i>
             </a>
           </td>
@@ -70,7 +73,7 @@
         <tr>
           <td colspan="6">
             {% if user.is_active %}
-              No notes yet. Click <a href="/notepad/">here</a> to
+            No notes yet. Click <a href="{% url notepad %}">here</a> to
               create a new note.
             {% else %}
               You are not logged in. Please register and login to
@@ -99,17 +102,11 @@
     <tbody>
       {% for note in notes_open %}
         <tr>
-        <tr data-href="/notepad/{{ note.shorthash }}/">
+          <tr data-href="{% url notepad_detail note.shorthash %}">
           <td class="ms">
-            {% if note.share == 1 %}
-              <a href="/notepad/{{ note.longhash }}/">
-                {{ note.name|truncatechars:"26" }}
-              </a>
-            {% else %}
-              <a href="/notepad/{{ note.shorthash }}/">
-                {{ note.name|truncatechars:"26" }}
-              </a>
-            {% endif %}
+            <a href="{% url notepad_detail note.shorthash %}">
+              {{ note.name|truncatechars:"26" }}
+            </a>
           </td>
           <td class="ms">
             {{ note.text|truncatechars:"70" }}

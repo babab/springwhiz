@@ -19,6 +19,7 @@ import datetime
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import AnonymousUser
+from django.core.urlresolvers import reverse
 from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render_to_response
 from django.template import RequestContext
@@ -31,9 +32,9 @@ from string_generator import stringGenerator
 
 def notepad(request):
     if request.user.is_active:
-        return redirect('/notepad/new/')
+        return redirect(reverse('notepad_create'))
     else:
-        return redirect('/notepad/list/')
+        return redirect(reverse('notepad_list'))
 
 
 def detail(request, idhash):
@@ -134,7 +135,7 @@ class NotepadCreate(CreateView):
     template_name = 'notepad/notepad.html'
 
     def get_success_url(self):
-        return '/notepad/list/'
+        return reverse('notepad_list')
 
     def form_valid(self, form):
         form.instance.user_id = self.request.user.pk
@@ -156,7 +157,8 @@ class NotepadUpdate(UpdateView):
     template_name = 'notepad/notepad-edit.html'
 
     def get_success_url(self):
-        return '/notepad/{}/edit/'.format(self.kwargs['idhash'])
+        return reverse('notepad_update',
+                       kwargs={'idhash': self.kwargs['idhash']})
 
     def get_object(self):
         kwargs = {'shorthash': self.kwargs['idhash']}
@@ -185,7 +187,7 @@ class NotepadDelete(DeleteView):
     context_object_name = 'note'
 
     def get_success_url(self):
-        return '/notepad/list/'
+        return reverse('notepad_list')
 
     def get_object(self):
         kwargs = {'shorthash': self.kwargs['idhash']}

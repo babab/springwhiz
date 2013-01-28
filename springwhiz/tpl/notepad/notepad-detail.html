@@ -10,7 +10,7 @@
 <h1>springwhiz
   <small>
     notepad
-    <a href="/notepad/list/" class="btn btn-small btn-link">
+    <a href="{% url notepad_list %}" class="btn btn-small btn-link">
       Show all notes
     </a>
   </small>
@@ -26,11 +26,11 @@
       {% block actions %}
         {% if note.user == user %}
           <a class="btn btn-link"
-            href="/notepad/{{ note.shorthash }}/edit/">
+            href="{% url notepad_update note.shorthash %}">
             Edit
           </a>
           <a class="btn btn-link color-red"
-            href="/notepad/{{ note.shorthash }}/delete/">
+            href="{% url notepad_delete note.shorthash %}">
             Remove
           </a>
         {% else %}
@@ -71,11 +71,11 @@
     <li>|</li>
     <li>
       {% if note.share == 1 %}
-        <a href="/notepad/{{ note.longhash }}/raw/">
+        <a href="{% url notepad_detail_raw note.longhash %}">
           View raw
         </a>
       {% else %}
-        <a href="/notepad/{{ note.shorthash }}/raw/">
+        <a href="{% url notepad_detail_raw note.shorthash %}">
           View raw
         </a>
       {% endif %}
@@ -84,11 +84,11 @@
       <li>|</li>
       <li>
         {% if note.share == 1 %}
-          <a href="/notepad/{{ note.longhash }}/rendered/">
+          <a href="{% url notepad_detail_rendered note.longhash %}">
             View rendered
           </a>
         {% else %}
-          <a href="/notepad/{{ note.shorthash }}/rendered/">
+          <a href="{% url notepad_detail_rendered note.shorthash %}">
             View rendered
           </a>
         {% endif %}
