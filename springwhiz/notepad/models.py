@@ -301,8 +301,17 @@ class Notepad(models.Model):
         self.text_highlighted = highlight(self.text, lexer, formatter)
         super(Notepad, self).save()
 
+    @models.permalink
+    def get_absolute_url(self):
+        if self.share == 1:
+            return ('notepad_detail', [str(self.longhash)])
+        else:
+            return ('notepad_detail', [str(self.shorthash)])
+
     def __unicode__(self):
-        return '%s - %s' % (self.user, self.name)
+        return ('{} - {} - {} - {} - {}'
+                .format(self.user, self.get_language_display(),
+                        self.get_share_display(), self.name, self.text[:80]))
 
 
 class NotepadForm(ModelForm):

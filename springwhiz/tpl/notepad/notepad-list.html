@@ -30,21 +30,11 @@
     {% endif %}
     <tbody>
       {% for note in notes_priv %}
-      <tr {% if note.share == 1 %}
-            data-href="{% url notepad_detail note.longhash %}"
-          {% else %}
-            data-href="{% url notepad_detail note.shorthash %}"
-          {% endif %}>
+      <tr data-href="{{ note.get_absolute_url }}">
           <td class="ms">
-            {% if note.share == 1 %}
-              <a href="{% url notepad_detail note.longhash %}">
-                {{ note.name|truncatechars:"26" }}
-              </a>
-            {% else %}
-              <a href="{% url notepad_detail note.shorthash %}">
-                {{ note.name|truncatechars:"26" }}
-              </a>
-            {% endif %}
+            <a href="{{ note.get_absolute_url }}">
+              {{ note.name|truncatechars:"26" }}
+            </a>
           </td>
           <td>
             <a href="{% url notepad_update note.shorthash %}">
@@ -102,9 +92,9 @@
     <tbody>
       {% for note in notes_open %}
         <tr>
-          <tr data-href="{% url notepad_detail note.shorthash %}">
+          <tr data-href="{{ note.get_absolute_url }}">
           <td class="ms">
-            <a href="{% url notepad_detail note.shorthash %}">
+            <a href="{{ note.get_absolute_url }}">
               {{ note.name|truncatechars:"26" }}
             </a>
           </td>

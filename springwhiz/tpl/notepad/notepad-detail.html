@@ -44,15 +44,15 @@
       <p>
         {% if note.share == 1 %}
           <strong>This note is shared at url:</strong>
-          <a href="{{ BASE_URL }}notepad/{{ note.longhash}}/">
-            {{ BASE_URL }}notepad/{{ note.longhash}}/
+          <a href="{{ note.get_absolute_url }}">
+            {{ note.get_absolute_url }}
           </a>
           <br>
           <strong>Only people that know this url can view the note.</strong>
         {% elif note.share == 2 %}
           <strong>This note is publicly shared at url:</strong>
-          <a href="{{ BASE_URL }}notepad/{{ note.shorthash}}/">
-            {{ BASE_URL }}notepad/{{ note.shorthash}}/
+          <a href="{{ note.get_absolute_url }}">
+            {{ note.get_absolute_url }}
           </a>
         {% endif %}
       </p>
