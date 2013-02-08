@@ -23,6 +23,7 @@ from django.shortcuts import redirect, render_to_response
 from django.template import RequestContext
 
 from springwhiz.settings import BASE_URL
+from springwhiz.notepad.models import Notepad
 
 
 def _query_handler(request, query):
@@ -76,7 +77,16 @@ def index(request):
         else:
             return _query_handler(request, q)
 
-    return render_to_response('index.html', {}, RequestContext(request))
+    notes_open = (Notepad.objects.filter(share=2)
+                                 .order_by('-last_edited'))
+    if request.user.is_active:
+        notes_priv = (Notepad.objects.filter(user=request.user)
+                      .order_by('-last_edited')[:5])
+        notes_open = notes_open.exclude(user=request.user)[:5]
+    else:
+        notes_priv = {}
+    data = {'notes_priv': notes_priv, 'notes_open': notes_open}
+    return render_to_response('index.html', data, RequestContext(request))
 
 
 def help(request):

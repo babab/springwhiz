@@ -11,7 +11,37 @@
 
 <div class="spacer_y30"></div>
 <div class="row">
-  <div class="span2">
+  <div id="last-entries" class="span2">
+
+    {% if notes_priv %}
+      <ul class="unstyled">
+        <li><strong>Your last notes</strong></li>
+        {% for note in notes_priv %}
+          <li>
+            <i {% if note.share == 0 %}   class="fam-lock-add"
+               {% elif note.share == 1 %} class="fam-group"
+               {% elif note.share == 2 %} class="fam-world"{% endif %}></i>
+
+            <a href="{{ note.get_absolute_url }}">
+              {{ note.name|truncatechars:"18" }}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    {% if notes_open %}
+      <ul class="unstyled">
+        <li><strong>Last open notes</strong></li>
+        {% for note in notes_open %}
+          <li>
+            <i class="fam-world"></i>
+            <a href="{{ note.get_absolute_url }}">
+              {{ note.name|truncatechars:"18" }}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
   </div>
   <div class="span8">
     <div id="start" class="white centered hero-unit">
