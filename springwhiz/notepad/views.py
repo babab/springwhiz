@@ -18,7 +18,6 @@
 import datetime
 
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import AnonymousUser
 from django.core.urlresolvers import reverse
 from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render_to_response
@@ -43,14 +42,14 @@ def detail(request, idhash):
     if hashlen == 5:
         note = get_object_or_404(Notepad, shorthash=idhash)
         if note.share != 2:
-            if isinstance(request.user, AnonymousUser):
+            if not request.user.is_active:
                 raise Http404
             elif note.user.pk != request.user.pk:
                 raise Http404
     elif hashlen == 20:
         note = get_object_or_404(Notepad, longhash=idhash)
         if note.share == 0:
-            if isinstance(request.user, AnonymousUser):
+            if not request.user.is_active:
                 raise Http404
             elif note.user.pk != request.user.pk:
                 raise Http404
@@ -69,14 +68,14 @@ def detail_raw(request, idhash):
     if hashlen == 5:
         note = get_object_or_404(Notepad, shorthash=idhash)
         if note.share != 2:
-            if isinstance(request.user, AnonymousUser):
+            if not request.user.is_active:
                 raise Http404
             elif note.user.pk != request.user.pk:
                 raise Http404
     elif hashlen == 20:
         note = get_object_or_404(Notepad, longhash=idhash)
         if note.share == 0:
-            if isinstance(request.user, AnonymousUser):
+            if not request.user.is_active:
                 raise Http404
             elif note.user.pk != request.user.pk:
                 raise Http404
@@ -92,14 +91,14 @@ def detail_rendered(request, idhash):
     if hashlen == 5:
         note = get_object_or_404(Notepad, shorthash=idhash)
         if note.share != 2:
-            if isinstance(request.user, AnonymousUser):
+            if not request.user.is_active:
                 raise Http404
             elif note.user.pk != request.user.pk:
                 raise Http404
     elif hashlen == 20:
         note = get_object_or_404(Notepad, longhash=idhash)
         if note.share == 0:
-            if isinstance(request.user, AnonymousUser):
+            if not request.user.is_active:
                 raise Http404
             elif note.user.pk != request.user.pk:
                 raise Http404
@@ -115,13 +114,12 @@ def detail_rendered(request, idhash):
 def list(request):
     notes_open = (Notepad.objects.filter(share=2)
                                  .order_by('-last_edited'))
-
-    if isinstance(request.user, AnonymousUser):
-        notes_priv = {}
-    else:
+    if request.user.is_active:
         notes_priv = (Notepad.objects.filter(user=request.user)
                                      .order_by('-last_edited'))
         notes_open = notes_open.exclude(user=request.user)
+    else:
+        notes_priv = {}
     data = {'notes_priv': notes_priv,
             'notes_open': notes_open}
 
