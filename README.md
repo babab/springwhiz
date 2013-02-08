@@ -25,6 +25,25 @@ These features are currently working and stable. Although small improvements
 may still be done.
 
 
+### Notepad / Pastebin
+
+- Create private, secret or open notes
+- Syntax higlighting for 236 (mixtures of) programming and markup languages
+- Render markdown and/or reStructuredText to HTML
+- Raw output in text/plain format
+
+Create notes, which can be any content or textfile you like. You can keep your
+notes private, share them via a secret url (much like Github gists) or create
+'open' notes, which are listed and viewable for everybody.
+
+View notes in raw format or with added linenumbers and optional syntax
+highlighting. Syntax highlighting is added using Pygments which has great
+support for a huge array of languages.
+
+When the type is set to **markdown** or **reStructuredText** the note can be
+rendered to HTML using Django's built-in support for these markup languages.
+
+
 ### Search / command box
 
 Enhance your browsing experience with a simple command line. Prefix your query
@@ -57,25 +76,6 @@ navigate to the first page that duckduck has found.
     !synonyms <string>                   Search thesaurus.com
 
 For more info on Duckduckgo's bang search abilities enter `!bang`
-
-
-### Notepad / Pastebin
-
-- Create private, secret or open notes
-- Syntax higlighting for 236 (mixtures of) programming and markup languages
-- Render markdown and/or reStructuredText to HTML
-- Raw output in text/plain format
-
-Create notes, which can be any content or textfile you like. You can keep your
-notes private, share them via a secret url (much like Github gists) or create
-'open' notes, which are listed and viewable for everybody.
-
-View notes in raw format or with added linenumbers and optional syntax
-highlighting. Syntax highlighting is added using Pygments which has great
-support for a huge array of languages.
-
-When the type is set to **markdown** or **reStructuredText** the note can be
-rendered to HTML using Django's built-in support for these markup languages.
 
 
 ## Features to be added (most probably)
