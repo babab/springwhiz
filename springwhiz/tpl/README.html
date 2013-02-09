@@ -1,0 +1,85 @@
+<h2>What is springwhiz?</h2>
+<p>springwhiz is a collection of well-known web-tools such as a
+notepad/pastebin and bookmarks app. It has a unique search box that allows
+commands and quick navigation to bookmarks to be entered while passing 'normal'
+searches to the duckduckgo.com search engine.</p>
+<p>springwhiz is currectly in the initial stages of development, a demo version is
+available at http://sprwz.babab.nl. Since this is a demo environment, accounts
+and content will be reset periodically.</p>
+<p>springwhiz proudly uses https://duckduckgo.com for searching the web and has
+some support for it's tools. It must be made clear though, that springwhiz is
+not endorsed by duckduckgo or affiliated with them.</p>
+<p>springwhiz is free, open source software released under the GPL license. It is
+written in Django, and can therefore easily be deployed and extended or altered
+to suit your needs.</p>
+<h2>Current features</h2>
+<p>These features are currently working and stable. Although small improvements
+may still be done.</p>
+<h3>Notepad / Pastebin</h3>
+<ul>
+<li>Create private, secret or open notes</li>
+<li>Syntax higlighting for 236 (mixtures of) programming and markup languages</li>
+<li>Render markdown and/or reStructuredText to HTML</li>
+<li>Raw output in text/plain format</li>
+</ul>
+<p>Create notes, which can be any content or textfile you like. You can keep your
+notes private, share them via a secret url (much like Github gists) or create
+'open' notes, which are listed and viewable for everybody.</p>
+<p>View notes in raw format or with added linenumbers and optional syntax
+highlighting. Syntax highlighting is added using Pygments which has great
+support for a huge array of languages.</p>
+<p>When the type is set to <strong>markdown</strong> or <strong>reStructuredText</strong> the note can be
+rendered to HTML using Django's built-in support for these markup languages.</p>
+<h3>Search / command box</h3>
+<p>Enhance your browsing experience with a simple command line. Prefix your query
+with an <code>@</code> and springwhiz will run a command / navigate to a page.</p>
+<pre><code>Basic commands
+
+command                      alias   description
+---------------------------- ------- --------------------------------------
+@register                    @reg    Will bring you to the register dialog
+@login                       @li     Will bring you to the login dialog
+@logout                      @lo     Log out (from all your sessions)
+@notepad                     @np     Open notepad
+</code></pre>
+<p>Without these prefixes your query will be send directly to the duckduckgo.com
+search engine. This means you can use the awesome !bang syntax duckduckgo
+offers to search on hundreds of sites directly. Or use the <code>\</code> prefix to
+navigate to the first page that duckduck has found.</p>
+<pre><code>Duckduckgo.com bang syntax search
+
+bang                                 description
+------------------------------------ --------------------------------------
+\&lt;string&gt;                            Browse to 1st result for string
+!yt &lt;string&gt;                         Search YouTube
+!g &lt;string&gt;                          Search Google
+!i &lt;string&gt;                          Search Google Images
+!m &lt;string&gt;                          Search Google Maps
+!synonyms &lt;string&gt;                   Search thesaurus.com
+</code></pre>
+<p>For more info on Duckduckgo's bang search abilities enter <code>!bang</code></p>
+<h2>Features to be added (most probably)</h2>
+<ul>
+<li>Manage bookmarks and optionally share them</li>
+<li>TODO application</li>
+</ul>
+<h2>License</h2>
+<p>springwhiz is free, open source software licensed as follows:</p>
+<pre><code>Copyright (C) 2012-2013  Benjamin Althues
+
+springwhiz is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+springwhiz is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with springwhiz.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+</code></pre>
+<p>Additionally, springwhiz includes and uses the excellent silk icon set created
+by Mark James. The icons are licensed under a Creative Commons Attribution 2.5
+License. See http://famfamfam.com/lab/icons/silk/ for more information.</p>
