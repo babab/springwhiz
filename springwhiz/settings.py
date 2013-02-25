@@ -26,7 +26,7 @@ except ImportError:
 
 DEPLOY_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SPRINGWHIZ_VERSION = '0.5.0'
+SPRINGWHIZ_VERSION = '0.5.2'
 DEBUG = settings_local.DEBUG
 TEMPLATE_DEBUG = settings_local.TEMPLATE_DEBUG
 ADMINS = settings_local.ADMINS

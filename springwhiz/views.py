@@ -16,6 +16,7 @@
 # along with springwhiz.  If not, see <http://www.gnu.org/licenses/>.
 
 from django import forms
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
@@ -95,7 +96,6 @@ def help(request):
 
 def register(request):
     """Create new user from authenticate form"""
-
     data = {'auth_type': 'register'}
 
     if request.POST:
@@ -106,27 +106,23 @@ def register(request):
         error = 0
 
         if password != password2:
-            data.update(
-                {'message': 'Passwords do not match, please try again.',
-                 'msg_type': 'error'}
+            messages.error(
+                request, 'Passwords do not match, please try again.'
             )
             error += 1
 
         try:
             forms.EmailField().clean(email)
         except forms.ValidationError:
-            data.update({'message': 'Invalid email address',
-                         'msg_type': 'error'})
+            messages.error(request, 'Invalid email address.')
             error += 1
 
         if User.objects.filter(username=username):
-            data.update({'message': 'That username already exists.',
-                         'msg_type': 'error'})
+            messages.error(request, 'That username already exists.')
             error += 1
 
         if User.objects.filter(email=email):
-            data.update({'message': 'That email address already exists.',
-                         'msg_type': 'error'})
+            messages.error(request, 'That email address already exists.')
             error += 1
 
         if not error:
@@ -134,18 +130,21 @@ def register(request):
             user = authenticate(username=username, password=password)
 
             if user is not None and user.is_active:
+                messages.success(
+                    request, 'You have registered and logged in successfully.'
+                )
                 login(request, user)
 
-            return redirect('index')
+            return redirect(reverse('index'))
 
-    context = RequestContext(request)
-    return render_to_response('authenticate.html', data, context)
+    return render_to_response('authenticate.html', data,
+                              RequestContext(request))
 
 
 def login_view(request):
     """Handle logins"""
-
     data = {'auth_type': 'login'}
+    context = RequestContext(request)
 
     if request.POST:
         username = request.POST['username']
@@ -155,21 +154,13 @@ def login_view(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                data.update({'message': 'You have logged in succesfully',
-                             'msg_type': 'success'})
+                messages.success(request, 'You have logged in successfully.')
             else:
-                data.update({'message': 'Your account is disabled',
-                             'msg_type': 'error'})
+                messages.error(request, 'Your account is disabled')
+            return redirect(reverse('index'))
         else:
-            data.update({'message': 'Invalid username or password',
-                         'msg_type': 'error'})
-            context = RequestContext(request)
-            return render_to_response('authenticate.html', data, context)
+            messages.error(request, 'Invalid username or password')
 
-        context = RequestContext(request)
-        return render_to_response('index.html', data, context)
-
-    context = RequestContext(request)
     return render_to_response('authenticate.html', data, context)
 
 
@@ -177,4 +168,5 @@ def logout_view(request):
     """Handle logging out"""
 
     logout(request)
+    messages.success(request, 'You have logged out successfully.')
     return redirect(BASE_URL)

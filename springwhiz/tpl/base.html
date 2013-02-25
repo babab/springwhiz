@@ -61,10 +61,12 @@
       </div>
     </div>
     <div class="container">
-      {% if message %}
-        <div id="message" class="alert alert-{{ msg_type }}">
-          {{ message }}
-        </div>
+      {% if messages %}
+        {% for msg in messages %}
+          <div id="message" class="alert alert-{{ msg.tags }}">
+            {{ msg }}
+          </div>
+        {% endfor %}
         <div class="spacer_y30"></div>
       {% endif %}
 
