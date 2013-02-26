@@ -26,7 +26,7 @@ except ImportError:
 
 DEPLOY_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SPRINGWHIZ_VERSION = '0.5.2'
+SPRINGWHIZ_VERSION = '0.6.0-dev'
 DEBUG = settings_local.DEBUG
 TEMPLATE_DEBUG = settings_local.TEMPLATE_DEBUG
 ADMINS = settings_local.ADMINS
@@ -111,6 +111,7 @@ INSTALLED_APPS = (
     'django.contrib.markup',
     'springwhiz.bookmarks',
     'springwhiz.notepad',
+    'springwhiz.tyd',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
