@@ -39,6 +39,8 @@ urlpatterns = patterns(
         name='notepad_update'),
     url(r'^notepad/(?P<idhash>\w+)/delete/$', NotepadDelete.as_view(),
         name='notepad_delete'),
+    url(r'^tyd/start/$', 'tyd.views.start', name='tyd_start'),
+    url(r'^tyd/end/$', 'tyd.views.end', name='tyd_end'),
     url(r'^help/$', 'views.help', name='help'),
     url(r'^accounts/register/$', 'views.register', name='register'),
     url(r'^accounts/login/$', 'views.login_view', name='login'),

@@ -101,6 +101,35 @@
       <!--   <span style="color:#00688B">bookmark</span> -->
       <!-- </li> -->
     </ul>
+
+    <div class="spacer_y30"></div>
+
+    {% if user.is_superuser %}{# temporarily #}
+
+    <div>
+      {% for item in active_tyd %}
+        <strong>Currently working on</strong>
+        {{ item.task }}<br />
+        <a href="{% url tyd_end %}" class="btn btn-mini btn-danger pull-right">
+          Stop timer
+        </a>
+        {{ item.start|timesince }}
+      {% empty %}
+        <strong>Tyd Tasks</strong>
+        <form method="POST" action="{% url tyd_start %}">
+          {% csrf_token %}
+          <select class="span2" id="tydtask" name="tydtask">
+            {% for item in tyd_tasks %}
+              <option value="{{ item.pk }}">{{ item }}</option>
+            {% endfor %}
+          </select>
+          <input type="submit" class="span2 btn btn-success"
+                 value="Start Timer" />
+        </form>
+      {% endfor %}
+    </div>
+
+    {% endif %}{# temporarily #}
   </div>
 </div>
 {% endblock %}

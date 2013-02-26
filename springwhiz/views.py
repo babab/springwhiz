@@ -25,6 +25,7 @@ from django.template import RequestContext
 
 from springwhiz.settings import BASE_URL
 from springwhiz.notepad.models import Notepad
+from springwhiz.tyd.models import Task as TydTask, Entry as TydEntry
 
 
 def _query_handler(request, query):
@@ -84,9 +85,19 @@ def index(request):
         notes_priv = (Notepad.objects.filter(user=request.user)
                       .order_by('-last_edited')[:5])
         notes_open = notes_open.exclude(user=request.user)[:5]
+        active_tyd = TydEntry.objects.filter(
+            task__project__main_category__user=request.user, current=True
+        )
+        tyd_tasks = TydTask.objects.filter(
+            project__main_category__user=request.user
+        )
     else:
         notes_priv = {}
-    data = {'notes_priv': notes_priv, 'notes_open': notes_open}
+        active_tyd = {}
+        tyd_tasks = {}
+
+    data = {'notes_priv': notes_priv, 'notes_open': notes_open,
+            'active_tyd': active_tyd, 'tyd_tasks': tyd_tasks}
     return render_to_response('index.html', data, RequestContext(request))
 
 
