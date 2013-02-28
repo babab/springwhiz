@@ -116,16 +116,20 @@
         {{ item.start|timesince }}
       {% empty %}
         <strong>Tyd Tasks</strong>
-        <form method="POST" action="{% url tyd_start %}">
-          {% csrf_token %}
-          <select class="span2" id="tydtask" name="tydtask">
-            {% for item in tyd_tasks %}
-              <option value="{{ item.pk }}">{{ item }}</option>
-            {% endfor %}
-          </select>
-          <input type="submit" class="span2 btn btn-success"
-                 value="Start Timer" />
-        </form>
+        {% if tyd_tasks %}
+          <form method="POST" action="{% url tyd_start %}">
+            {% csrf_token %}
+            <select class="span2" id="tydtask" name="tydtask">
+              {% for item in tyd_tasks %}
+                <option value="{{ item.pk }}">{{ item }}</option>
+              {% endfor %}
+            </select>
+            <input type="submit" class="span2 btn btn-success"
+                   value="Start Timer" />
+          </form>
+        {% else %}
+          <div>No tasks created yet...</div>
+        {% endif %}
       {% endfor %}
     </div>
 
