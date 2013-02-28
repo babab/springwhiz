@@ -25,7 +25,7 @@ from django.template import RequestContext
 
 from springwhiz.settings import BASE_URL
 from springwhiz.notepad.models import Notepad
-from springwhiz.tyd.models import Task as TydTask, Entry as TydEntry
+from springwhiz.tyd.models import TydTask, TydEntry
 
 
 def _query_handler(request, query):
@@ -55,8 +55,8 @@ def _command_handler(request, query):
                                    'query': query},
                                   RequestContext(request))
     else:
-        return render_to_response('index.html', {'error': 'Invalid command',
-                                                 'query': query},
+        return render_to_response('index.html',
+                                  {'error': 'Invalid command', 'query': query},
                                   RequestContext(request))
 
 
@@ -77,6 +77,7 @@ def index(request):
         elif mode == 'bookmark':
             return _query_handler(request, '#' + q)
         else:
+            # Normal search or javascript is disabled
             return _query_handler(request, q)
 
     notes_open = (Notepad.objects.filter(share=2)
@@ -86,10 +87,10 @@ def index(request):
                       .order_by('-last_edited')[:5])
         notes_open = notes_open.exclude(user=request.user)[:5]
         active_tyd = TydEntry.objects.filter(
-            task__project__main_category__user=request.user, current=True
+            task__project__category__user=request.user, current=True
         )
         tyd_tasks = TydTask.objects.filter(
-            project__main_category__user=request.user
+            project__category__user=request.user
         )
     else:
         notes_priv = {}

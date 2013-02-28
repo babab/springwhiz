@@ -21,7 +21,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect
 
-from springwhiz.tyd.models import Task as TydTask, Entry as TydEntry
+from springwhiz.tyd.models import TydTask, TydEntry
 
 
 @login_required
@@ -29,7 +29,7 @@ def start(request):
     if request.method == 'POST':
         task_id = request.POST['tydtask']
         task = TydTask.objects.get(
-            project__main_category__user=request.user, pk=task_id
+            project__category__user=request.user, pk=task_id
         )
         TydEntry(task=task, current=True).save()
     return redirect(reverse('index'))
@@ -38,6 +38,6 @@ def start(request):
 @login_required
 def end(request):
     TydEntry.objects.filter(
-        task__project__main_category__user=request.user, current=True
+        task__project__category__user=request.user, current=True
     ).update(current=False, end=datetime.datetime.now())
     return redirect(reverse('index'))

@@ -18,41 +18,30 @@
 from django.contrib.auth.models import User
 from django.db import models
 
-
-class ModelBase(models.Model):
-    name = models.CharField(max_length=100)
-
-    def __unicode__(self):
-        return self.name
-
-    class Meta:
-        abstract = True
+from springwhiz.bases import ModelBase
 
 
-class MainCategory(ModelBase):
+class TydCategory(ModelBase):
     user = models.ForeignKey(User)
 
 
-class Project(ModelBase):
-    main_category = models.ForeignKey('MainCategory')
+class TydProject(ModelBase):
+    category = models.ForeignKey('TydCategory')
+
+
+class TydTask(ModelBase):
+    project = models.ForeignKey('TydProject')
 
     def __unicode__(self):
-        return '{} - {}'.format(self.main_category, self.name)
+        return '{0} - {1}'.format(self.project, self.name)
 
 
-class Task(ModelBase):
-    project = models.ForeignKey('Project')
-
-    def __unicode__(self):
-        return '{} - {}'.format(self.project, self.name)
-
-
-class Entry(models.Model):
-    task = models.ForeignKey('Task')
+class TydEntry(models.Model):
+    task = models.ForeignKey('TydTask')
     start = models.DateTimeField(auto_now_add=True)
     end = models.DateTimeField(null=True, blank=True)
     current = models.BooleanField(default=False)
 
     def __unicode__(self):
-        return '{} - {} - {} - {}'.format(self.task, self.start, self.end,
-                                          self.current)
+        return ('{0} - {1} - {2} - {3}'
+                .format(self.task, self.start, self.end, self.current))

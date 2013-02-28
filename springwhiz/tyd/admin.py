@@ -17,9 +17,9 @@
 
 from django.contrib import admin
 
-from models import MainCategory, Project, Task, Entry
+from models import TydCategory, TydProject, TydTask, TydEntry
 
-admin.site.register(MainCategory)
-admin.site.register(Project)
-admin.site.register(Task)
-admin.site.register(Entry)
+admin.site.register(TydCategory)
+admin.site.register(TydProject)
+admin.site.register(TydTask)
+admin.site.register(TydEntry)
