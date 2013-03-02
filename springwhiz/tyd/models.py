@@ -67,6 +67,10 @@ class TydCategoryForm(ModelForm):
 class TydProjectForm(ModelForm):
     class Meta:
         model = TydProject
+        widgets = {
+            'name': TextInput(attrs={'class': 'span2',
+                                     'placeholder': 'project name'}),
+        }
 
 
 class TydTaskForm(ModelForm):

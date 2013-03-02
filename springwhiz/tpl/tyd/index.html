@@ -13,18 +13,22 @@
     <div class="span9">
       <ul class="inline">
         {% for item in categories %}
-        <li>
-        <span class="label label-info">
-          {{ item.name }}
-          <i class="fam-cross"></i>
-        </span>
-        </li>
+          <li>
+            <span class="label label-info">
+              {{ item.name }}
+              <a href="javascript:;">
+                <i class="fam-cross"></i>
+              </a>
+            </span>
+          </li>
+        {% empty %}
+          <li>Add a category to proceed...</li>
         {% endfor %}
       </ul>
     </div>
     <div class="span3">
       {{ category_form.non_field_errors }}
-      <form method="POST">
+      <form method="POST" action="{% url tyd_index %}">
         {% csrf_token  %}
         <ul class="unstyled">
           {% if category_form.name.errors %}
@@ -35,11 +39,74 @@
             </li>
           {% endif %}
           <li>
+            <input type="submit" class="btn btn-link" value="add" />
             {{ category_form.name }}
           </li>
+        </ul>
+      </form>
+    </div>
+  </div>
+
+  {% regroup projects by category as rprojects %}
+
+  <h2>Projects</h2>
+  <div class="row">
+    <div class="span9">
+
+      <table>
+        {% for project in rprojects %}
+          <tr>
+            <th>
+              {{ project.grouper }}
+            </th>
+            <td>
+              <ul class="inline">
+                {% for item in project.list %}
+                  <li>
+                    <span class="label label-info">
+                      {{ item.name }}
+                      <a href="javascript:;">
+                        <i class="fam-cross"></i>
+                      </a>
+                    </span>
+                  </li>
+                {% endfor %}
+              </ul>
+            </td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="2">
+              Add a project to proceed...
+            </td>
+          </tr>
+        {% endfor %}
+    </div>
+    <div class="span3">
+      {{ project_form.non_field_errors }}
+      <form method="POST" action="{% url tyd_project_add %}">
+        {% csrf_token  %}
+        <ul class="unstyled">
+          {% if project_form.category.errors %}
+            <li>
+              <span class="text-error">
+                {{ project_form.category.errors|join:";" }}
+              </span>
+            </li>
+          {% endif %}
           <li>
-            <input type="submit" class="btn btn-success span2"
-                   value="add category" />
+            {{ project_form.category }}
+          </li>
+          {% if project_form.name.errors %}
+            <li>
+              <span class="text-error">
+                {{ project_form.name.errors|join:";" }}
+              </span>
+            </li>
+          {% endif %}
+          <li>
+            <input type="submit" class="btn btn-link" value="add" />
+            {{ project_form.name }}
           </li>
         </ul>
       </form>
