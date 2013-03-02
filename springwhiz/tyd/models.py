@@ -26,6 +26,9 @@ from springwhiz.bases import ModelBase
 class TydCategory(ModelBase):
     user = models.ForeignKey(User, editable=False)
 
+    class Meta:
+        verbose_name_plural = 'Tyd categories'
+
 
 class TydProject(ModelBase):
     category = models.ForeignKey('TydCategory')
@@ -47,6 +50,9 @@ class TydEntry(models.Model):
     def __unicode__(self):
         return ('{0} - {1} - {2} - {3}'
                 .format(self.task, self.start, self.end, self.current))
+
+    class Meta:
+        verbose_name_plural = 'Tyd entries'
 
 
 class TydCategoryForm(ModelForm):
