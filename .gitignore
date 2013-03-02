@@ -1,4 +1,5 @@
 springwhiz/static/libs/*
+static_collected
 
 settings_local.py
 *.pyc

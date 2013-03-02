@@ -39,6 +39,7 @@ USE_I18N = settings_local.USE_I18N
 USE_L10N = settings_local.USE_L10N
 USE_TZ = settings_local.USE_TZ
 SECRET_KEY = settings_local.SECRET_KEY
+STATIC_ROOT = settings_local.STATIC_ROOT
 
 MANAGERS = ADMINS
 
@@ -50,12 +51,6 @@ MEDIA_ROOT = ''
 # trailing slash.
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
 MEDIA_URL = ''
-
-# Absolute path to the directory static files should be collected to.
-# Don't put anything in this directory yourself; store your static files
-# in apps' "static/" subdirectories and in STATICFILES_DIRS.
-# Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = ''
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
