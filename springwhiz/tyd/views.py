@@ -19,9 +19,15 @@ import datetime
 
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render_to_response
+from django.template import RequestContext
 
-from springwhiz.tyd.models import TydTask, TydEntry
+from springwhiz.tyd.models import (
+    TydCategory,
+    TydCategoryForm,
+    TydEntry,
+    TydTask,
+)
 
 
 @login_required
@@ -41,3 +47,21 @@ def end(request):
         task__project__category__user=request.user, current=True
     ).update(current=False, end=datetime.datetime.now())
     return redirect(reverse('index'))
+
+
+def index(request):
+    categories = TydCategory.objects.filter(user=request.user).order_by('name')
+
+    if request.method == 'POST':
+        category_form = TydCategoryForm(request.POST)
+        if category_form.is_valid():
+            if not category_form.instance.name in [i.name for i in categories]:
+                category_form.instance.user = request.user
+                category_form.save()
+                return redirect(reverse('tyd_index'))
+    else:
+        category_form = TydCategoryForm()
+
+    data = {'categories': categories,
+            'category_form': category_form}
+    return render_to_response('tyd/index.html', data, RequestContext(request))

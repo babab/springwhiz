@@ -17,12 +17,14 @@
 
 from django.contrib.auth.models import User
 from django.db import models
+from django.forms import ModelForm
+from django.forms.widgets import TextInput
 
 from springwhiz.bases import ModelBase
 
 
 class TydCategory(ModelBase):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, editable=False)
 
 
 class TydProject(ModelBase):
@@ -45,3 +47,22 @@ class TydEntry(models.Model):
     def __unicode__(self):
         return ('{0} - {1} - {2} - {3}'
                 .format(self.task, self.start, self.end, self.current))
+
+
+class TydCategoryForm(ModelForm):
+    class Meta:
+        model = TydCategory
+        widgets = {
+            'name': TextInput(attrs={'class': 'span2',
+                                     'placeholder': 'category name'}),
+        }
+
+
+class TydProjectForm(ModelForm):
+    class Meta:
+        model = TydProject
+
+
+class TydTaskForm(ModelForm):
+    class Meta:
+        model = TydTask

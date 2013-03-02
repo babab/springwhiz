@@ -299,7 +299,7 @@ class Notepad(models.Model):
             lexer = get_lexer_by_name('text', stripall=True)
         formatter = HtmlFormatter(linenos=True, cssclass="syntaxhl")
         self.text_highlighted = highlight(self.text, lexer, formatter)
-        super(Notepad, self).save()
+        return super(Notepad, self).save()
 
     @models.permalink
     def get_absolute_url(self):

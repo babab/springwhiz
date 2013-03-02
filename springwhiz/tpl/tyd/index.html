@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}tyd{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+  <h1>springwhiz <small>tyd [time management application]</small></h1>
+
+  <h2>Categories</h2>
+  <div class="row">
+    <div class="span9">
+      <ul class="inline">
+        {% for item in categories %}
+        <li>
+        <span class="label label-info">
+          {{ item.name }}
+          <i class="fam-cross"></i>
+        </span>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="span3">
+      {{ category_form.non_field_errors }}
+      <form method="POST">
+        {% csrf_token  %}
+        <ul class="unstyled">
+          {% if category_form.name.errors %}
+            <li>
+              <span class="text-error">
+                {{ category_form.name.errors|join:";" }}
+              </span>
+            </li>
+          {% endif %}
+          <li>
+            {{ category_form.name }}
+          </li>
+          <li>
+            <input type="submit" class="btn btn-success span2"
+                   value="add category" />
+          </li>
+        </ul>
+      </form>
+    </div>
+  </div>
+{% endblock %}
+
+{# vim: set et ts=2 sw=2 sts=2 ft=htmldjango: #}
