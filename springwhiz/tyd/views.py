@@ -58,9 +58,9 @@ def end(request):
     return redirect(reverse('index'))
 
 
-def index(request):
+def manage(request):
     if not request.user.is_active:
-        return render_to_response('tyd/index.html', {},
+        return render_to_response('tyd/manage.html', {},
                                   RequestContext(request))
 
     data = _getdata(request)
@@ -81,7 +81,7 @@ def index(request):
     data.update({'category_form': category_form,
                  'project_form': project_form,
                  'task_form': task_form})
-    return render_to_response('tyd/index.html', data, RequestContext(request))
+    return render_to_response('tyd/manage.html', data, RequestContext(request))
 
 
 @login_required
@@ -101,5 +101,5 @@ def project_add(request):
         category_form = TydCategoryForm(prefix='category')
         data.update({'category_form': category_form,
                      'project_form': project_form})
-        return render_to_response('tyd/index.html', data,
+        return render_to_response('tyd/manage.html', data,
                                   RequestContext(request))

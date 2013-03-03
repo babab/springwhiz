@@ -35,7 +35,7 @@
     </div>
     <div class="span3">
       {{ category_form.non_field_errors }}
-      <form method="POST" action="{% url tyd_index %}">
+      <form method="POST" action="{% url tyd_manage %}">
         {% csrf_token  %}
         <ul class="unstyled">
           {% if category_form.name.errors %}
