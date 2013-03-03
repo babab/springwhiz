@@ -52,7 +52,6 @@
   <h2>Projects</h2>
   <div class="row">
     <div class="span9">
-
       <table>
         {% for project in rprojects %}
           <tr>
@@ -81,6 +80,7 @@
             </td>
           </tr>
         {% endfor %}
+      </table>
     </div>
     <div class="span3">
       {{ project_form.non_field_errors }}
