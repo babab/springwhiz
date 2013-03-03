@@ -15,6 +15,77 @@
     </li>
   </ul>
 
+  <div class="accordion" id="accordion2">
+    <div class="accordion-group">
+      <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse"
+           data-parent="#accordion2" href="#log">
+          Log of the 10 latest time recordings
+        </a>
+      </div>
+      <div id="log" class="accordion-body collapse in">
+        <div class="accordion-inner">
+          <table class="table table-condensed table-hover table-striped">
+            <tr>
+              <th>Task</th>
+              <th>Start</th>
+              <th>End</th>
+              <th>Duration</th>
+            </tr>
+            {% for item in entries %}
+              <tr>
+                <td>{{ item.task }}</td>
+                <td>
+                  <span class="tt" title="{{ item.start|date:"D d H:i:s" }}">
+                    {{ item.start|timesince }} ago
+                  </span>
+                </td>
+
+                {% if item.current %}
+                  <td>
+                    <span class="text-success">
+                      Currently working on this task
+                    </span>
+                  </td>
+                {% else %}
+                  <td>
+                    <span class="tt" title="{{ item.end|date:"D d H:i:s" }}">
+                      {{ item.end|timesince }} ago
+                    </span>
+                  </td>
+                {% endif %}
+                <td>{{ item.duration }}</td>
+              </tr>
+            {% endfor %}
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-group">
+      <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse"
+           data-parent="#accordion2" href="#calendar">
+          Calendar (N/A yet)
+        </a>
+      </div>
+      <div id="calendar" class="accordion-body collapse">
+        <div class="accordion-inner">
+          <table class="table table-hover table-striped">
+            <tr>
+              <th>Tasks</th>
+              <th>{{ dates.0|date:"D d" }}</th>
+              <th>{{ dates.1|date:"D d" }}</th>
+              <th>{{ dates.2|date:"D d" }}</th>
+              <th>{{ dates.3|date:"D d" }}</th>
+              <th>{{ dates.4|date:"D d" }}</th>
+              <th>{{ dates.5|date:"D d" }}</th>
+              <th>{{ dates.6|date:"D d" }}</th>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}
 
 {# vim: set et ts=2 sw=2 sts=2 ft=htmldjango: #}

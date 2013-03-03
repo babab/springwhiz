@@ -15,10 +15,13 @@
 # You should have received a copy of the GNU General Public License
 # along with springwhiz.  If not, see <http://www.gnu.org/licenses/>.
 
+import datetime
+
 from django.contrib.auth.models import User
 from django.db import models
 from django.forms import ModelForm
 from django.forms.widgets import TextInput
+from django.template.defaultfilters import timesince
 
 from springwhiz.bases import ModelBase
 
@@ -56,6 +59,18 @@ class TydEntry(models.Model):
     def __unicode__(self):
         return ('{0} - {1} - {2} - {3}'
                 .format(self.task, self.start, self.end, self.current))
+
+    def seconds(self):
+        return (self.end - self.start).total_seconds()
+
+    def duration(self):
+        if self.current:
+            return timesince(self.start)
+
+        timediff = self.end - self.start
+        if timediff.total_seconds() < 60:
+            return '%0.0f seconds' % timediff.total_seconds()
+        return timesince(datetime.datetime.now() - timediff)
 
     class Meta:
         verbose_name_plural = 'Tyd entries'
