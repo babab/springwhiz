@@ -58,6 +58,11 @@ def end(request):
     return redirect(reverse('index'))
 
 
+def index(request):
+    return render_to_response('tyd/index.html', {}, RequestContext(request))
+
+
+@login_required
 def manage(request):
     if not request.user.is_active:
         return render_to_response('tyd/manage.html', {},

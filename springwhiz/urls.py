@@ -39,6 +39,7 @@ urlpatterns = patterns(
         name='notepad_update'),
     url(r'^notepad/(?P<idhash>\w+)/delete/$', NotepadDelete.as_view(),
         name='notepad_delete'),
+    url(r'^tyd/$', 'tyd.views.index', name='tyd_index'),
     url(r'^tyd/manage/$', 'tyd.views.manage', name='tyd_manage'),
     url(r'^tyd/start/$', 'tyd.views.start', name='tyd_start'),
     url(r'^tyd/projects/add/$', 'tyd.views.project_add',
