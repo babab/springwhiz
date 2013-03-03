@@ -8,6 +8,13 @@
 {% block content %}
   <h1>springwhiz <small>tyd [time management application]</small></h1>
 
+  <ul class="nav nav-pills">
+    <li><a href="#">Dashboard</a></li>
+    <li class="active">
+      <a href="{#% url tyd_manage %#}">Manage categories/projects/tasks</a>
+    </li>
+  </ul>
+
   <h2>Categories</h2>
   <div class="row">
     <div class="span9">
@@ -107,6 +114,75 @@
           <li>
             <input type="submit" class="btn btn-link" value="add" />
             {{ project_form.name }}
+          </li>
+        </ul>
+      </form>
+    </div>
+  </div>
+
+  {% regroup tasks by project as rtasks %}
+
+  <h2>Tasks</h2>
+  <div class="row">
+    <div class="span9">
+      <table>
+        {% for task in rtasks %}
+          <tr>
+            <th>
+              {{ task.grouper.category }}
+            </th>
+            <td>
+              {{ task.grouper.name }}
+            </td>
+            <td>
+              <ul class="inline">
+                {% for item in task.list %}
+                  <li>
+                    <span class="label label-info">
+                      {{ item.name }}
+                      <a href="javascript:;">
+                        <i class="fam-cross"></i>
+                      </a>
+                    </span>
+                  </li>
+                {% endfor %}
+              </ul>
+            </td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="2">
+              Finally, add a task to start managing your time...
+            </td>
+          </tr>
+        {% endfor %}
+      </table>
+    </div>
+    <div class="span3">
+      {{ task_form.non_field_errors }}
+      <form method="GET" action="">
+        {% csrf_token  %}
+        <ul class="unstyled">
+          {% if task_form.project.errors %}
+            <li>
+              <span class="text-error">
+                {{ task_form.project.errors|join:";" }}
+              </span>
+            </li>
+          {% endif %}
+          <li>
+            {{ task_form.project }}
+          </li>
+          {% if task_form.name.errors %}
+            <li>
+              <span class="text-error">
+                {{ task_form.name.errors|join:";" }}
+              </span>
+            </li>
+          {% endif %}
+          <li>
+            <input type="submit" class="btn btn-link" value="add" />
+            {{ task_form.name }}
           </li>
         </ul>
       </form>

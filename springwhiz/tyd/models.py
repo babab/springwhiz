@@ -33,12 +33,18 @@ class TydCategory(ModelBase):
 class TydProject(ModelBase):
     category = models.ForeignKey('TydCategory')
 
+    def __unicode__(self):
+        return '{0} - {1}'.format(self.category, self.name)
+
 
 class TydTask(ModelBase):
     project = models.ForeignKey('TydProject')
 
     def __unicode__(self):
         return '{0} - {1}'.format(self.project, self.name)
+
+    class Meta:
+        ordering = ['project__category', 'project', 'name']
 
 
 class TydEntry(models.Model):
@@ -53,6 +59,8 @@ class TydEntry(models.Model):
 
     class Meta:
         verbose_name_plural = 'Tyd entries'
+        ordering = ['task__project__category', 'task__project',
+                    'task', '-start']
 
 
 class TydCategoryForm(ModelForm):
@@ -76,3 +84,7 @@ class TydProjectForm(ModelForm):
 class TydTaskForm(ModelForm):
     class Meta:
         model = TydTask
+        widgets = {
+            'name': TextInput(attrs={'class': 'span2',
+                                     'placeholder': 'task name'}),
+        }

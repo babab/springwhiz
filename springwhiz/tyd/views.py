@@ -23,12 +23,10 @@ from django.shortcuts import redirect, render_to_response
 from django.template import RequestContext
 
 from springwhiz.tyd.models import (
-    TydCategory,
-    TydCategoryForm,
-    TydProject,
-    TydProjectForm,
+    TydCategory, TydCategoryForm,
+    TydProject, TydProjectForm,
+    TydTask, TydTaskForm,
     TydEntry,
-    TydTask,
 )
 
 
@@ -36,8 +34,9 @@ def _getdata(request):
     categories = TydCategory.objects.filter(user=request.user).order_by('name')
     projects = (TydProject.objects.filter(category__user=request.user)
                                   .order_by('category', 'name'))
-    return {'categories': categories,
-            'projects': projects}
+    tasks = (TydTask.objects.filter(project__category__user=request.user)
+                            .order_by('project__category', 'project', 'name'))
+    return {'categories': categories, 'projects': projects, 'tasks': tasks}
 
 
 @login_required
@@ -66,6 +65,7 @@ def index(request):
 
     data = _getdata(request)
     project_form = TydProjectForm(prefix='project')
+    task_form = TydTaskForm(prefix='task')
 
     if request.method == 'POST':
         category_form = TydCategoryForm(request.POST)
@@ -79,7 +79,8 @@ def index(request):
         category_form = TydCategoryForm(prefix='category')
 
     data.update({'category_form': category_form,
-                 'project_form': project_form})
+                 'project_form': project_form,
+                 'task_form': task_form})
     return render_to_response('tyd/index.html', data, RequestContext(request))
 
 
