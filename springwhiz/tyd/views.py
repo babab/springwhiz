@@ -62,11 +62,8 @@ def end(request):
     return redirect(reverse('index'))
 
 
+@login_required
 def index(request):
-    if not request.user.is_active:
-        return render_to_response('tyd/manage.html', {},
-                                  RequestContext(request))
-
     entries = TydEntry.objects.filter(
         task__project__category__user=request.user
     ).order_by('-start')[:10]
@@ -78,7 +75,6 @@ def index(request):
              4: datetime.date.today() - datetime.timedelta(days=2),
              5: datetime.date.today() - datetime.timedelta(days=1),
              6: datetime.date.today()}
-
     data = {'entries': entries, 'dates': dates}
     return render_to_response('tyd/index.html', data, RequestContext(request))
 

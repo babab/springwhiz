@@ -39,7 +39,16 @@
           </p>
           <div class="nav-collapse collapse pull-right">
             <ul class="nav">
-              <li><a class="nav" href="{% url tyd_index %}">tyd</a></li>
+
+              {% if user.is_active %}
+                <li><a class="nav" href="{% url tyd_index %}">tyd</a></li>
+              {% else %}
+                <li>
+                  <a href="javascript:;" class="tt nav"
+                     title="You need to login to use tyd">tyd</a>
+                </li>
+              {% endif %}
+
               <li><a class="nav" href="{% url notepad %}">notepad</a></li>
               <li>
                 <a id="helplink" class="nav" href="{% url help %}">help</a>
