@@ -55,6 +55,10 @@ def end(request):
     TydEntry.objects.filter(
         task__project__category__user=request.user, current=True
     ).update(current=False, end=datetime.datetime.now())
+
+    referer = request.META['HTTP_REFERER']
+    if referer:
+        return redirect(referer)
     return redirect(reverse('index'))
 
 
