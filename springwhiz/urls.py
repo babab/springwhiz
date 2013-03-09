@@ -42,8 +42,6 @@ urlpatterns = patterns(
     url(r'^tyd/$', 'tyd.views.index', name='tyd_index'),
     url(r'^tyd/manage/$', 'tyd.views.manage', name='tyd_manage'),
     url(r'^tyd/start/$', 'tyd.views.start', name='tyd_start'),
-    url(r'^tyd/projects/add/$', 'tyd.views.project_add',
-        name='tyd_project_add'),
     url(r'^tyd/end/$', 'tyd.views.end', name='tyd_end'),
     url(r'^help/$', 'views.help', name='help'),
     url(r'^accounts/register/$', 'views.register', name='register'),

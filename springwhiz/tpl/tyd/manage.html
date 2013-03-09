@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block content %}
-  <h1>springwhiz <small>tyd [time management application]</small></h1>
+  <h1>springwhiz <small>tyd [time recording application]</small></h1>
 
   <ul class="nav nav-pills">
     <li><a href="{% url tyd_index %}">Dashboard</a></li>
@@ -35,7 +35,7 @@
     </div>
     <div class="span3">
       {{ category_form.non_field_errors }}
-      <form method="POST" action="{% url tyd_manage %}">
+      <form method="POST">
         {% csrf_token  %}
         <ul class="unstyled">
           {% if category_form.name.errors %}
@@ -46,7 +46,8 @@
             </li>
           {% endif %}
           <li>
-            <input type="submit" class="btn btn-link" value="add" />
+            <input type="submit" name="category_submit" class="btn btn-link"
+                   value="add" />
             {{ category_form.name }}
           </li>
         </ul>
@@ -91,7 +92,7 @@
     </div>
     <div class="span3">
       {{ project_form.non_field_errors }}
-      <form method="POST" action="{% url tyd_project_add %}">
+      <form method="POST">
         {% csrf_token  %}
         <ul class="unstyled">
           {% if project_form.category.errors %}
@@ -112,7 +113,8 @@
             </li>
           {% endif %}
           <li>
-            <input type="submit" class="btn btn-link" value="add" />
+            <input type="submit" name="project_submit" class="btn btn-link"
+                   value="add" />
             {{ project_form.name }}
           </li>
         </ul>

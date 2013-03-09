@@ -114,42 +114,33 @@ def index(request):
 @login_required
 def manage(request):
     data = _getdata(request)
-    project_form = TydProjectForm(prefix='project')
     task_form = TydTaskForm(prefix='task')
 
     if request.method == 'POST':
-        category_form = TydCategoryForm(request.POST)
-        if category_form.is_valid():
-            if (not category_form.instance.name in
-                    [i.name for i in data['categories']]):
-                category_form.instance.user = request.user
-                category_form.save()
-                return redirect(reverse('tyd_index'))
+        if 'category_submit' in request.POST:
+            category_form = TydCategoryForm(request.POST, prefix='category')
+            if category_form.is_valid():
+                if (not category_form.instance.name in
+                        [i.name for i in data['categories']]):
+                    category_form.instance.user = request.user
+                    category_form.save()
+                    return redirect(reverse('tyd_manage'))
+            project_form = TydProjectForm(prefix='project')
+        elif 'project_submit' in request.POST:
+            project_form = TydProjectForm(request.POST, prefix='project')
+            if project_form.is_valid():
+                flt = data['projects'].filter(
+                    category=project_form.instance.category
+                )
+                if not project_form.instance.name in [i.name for i in flt]:
+                    project_form.save()
+                return redirect(reverse('tyd_manage'))
+            category_form = TydCategoryForm(prefix='category')
     else:
         category_form = TydCategoryForm(prefix='category')
+        project_form = TydProjectForm(prefix='project')
 
     data.update({'category_form': category_form,
                  'project_form': project_form,
                  'task_form': task_form})
     return render_to_response('tyd/manage.html', data, RequestContext(request))
-
-
-@login_required
-def project_add(request):
-    data = _getdata(request)
-
-    if request.method == 'POST':
-        project_form = TydProjectForm(request.POST, prefix='project')
-        if project_form.is_valid():
-            flt = data['projects'].filter(
-                category=project_form.instance.category
-            )
-            if not project_form.instance.name in [i.name for i in flt]:
-                project_form.save()
-            return redirect(reverse('tyd_manage'))
-
-        category_form = TydCategoryForm(prefix='category')
-        data.update({'category_form': category_form,
-                     'project_form': project_form})
-        return render_to_response('tyd/manage.html', data,
-                                  RequestContext(request))
