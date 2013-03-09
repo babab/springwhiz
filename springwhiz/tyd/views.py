@@ -48,6 +48,10 @@ def start(request):
             project__category__user=request.user, pk=task_id
         )
         TydEntry(task=task, current=True).save()
+
+    referer = request.META['HTTP_REFERER']
+    if referer:
+        return redirect(referer)
     return redirect(reverse('index'))
 
 
@@ -118,7 +122,7 @@ def project_add(request):
             )
             if not project_form.instance.name in [i.name for i in flt]:
                 project_form.save()
-            return redirect(reverse('tyd_index'))
+            return redirect(reverse('tyd_manage'))
 
         category_form = TydCategoryForm(prefix='category')
         data.update({'category_form': category_form,
