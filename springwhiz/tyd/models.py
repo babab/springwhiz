@@ -15,13 +15,12 @@
 # You should have received a copy of the GNU General Public License
 # along with springwhiz.  If not, see <http://www.gnu.org/licenses/>.
 
-import datetime
-
 from django.contrib.auth.models import User
 from django.db import models
 from django.forms import ModelForm
 from django.forms.widgets import TextInput
 from django.template.defaultfilters import timesince
+from django.utils import timezone
 
 from springwhiz.bases import ModelBase
 
@@ -34,14 +33,14 @@ class TydCategory(ModelBase):
 
 
 class TydProject(ModelBase):
-    category = models.ForeignKey('TydCategory')
+    category = models.ForeignKey('TydCategory', related_name='project')
 
     def __unicode__(self):
         return '{0} - {1}'.format(self.category, self.name)
 
 
 class TydTask(ModelBase):
-    project = models.ForeignKey('TydProject')
+    project = models.ForeignKey('TydProject', related_name='task')
 
     def __unicode__(self):
         return '{0} - {1}'.format(self.project, self.name)
@@ -51,17 +50,15 @@ class TydTask(ModelBase):
 
 
 class TydEntry(models.Model):
-    task = models.ForeignKey('TydTask')
+    task = models.ForeignKey('TydTask', related_name='entry')
     start = models.DateTimeField(auto_now_add=True)
     end = models.DateTimeField(null=True, blank=True)
     current = models.BooleanField(default=False)
+    seconds = models.IntegerField(default=0)
 
     def __unicode__(self):
         return ('{0} - {1} - {2} - {3}'
                 .format(self.task, self.start, self.end, self.current))
-
-    def seconds(self):
-        return (self.end - self.start).total_seconds()
 
     def duration(self):
         if self.current:
@@ -70,7 +67,15 @@ class TydEntry(models.Model):
         timediff = self.end - self.start
         if timediff.total_seconds() < 60:
             return '%0.0f seconds' % timediff.total_seconds()
-        return timesince(datetime.datetime.now() - timediff)
+        return timesince(timezone.now() - timediff)
+
+    def save(self):
+        '''Calculate total number of seconds and update in DB'''
+        if self.start:
+            self.seconds = (timezone.now() - self.start).total_seconds()
+        else:
+            self.seconds = 0
+        return super(TydEntry, self).save()
 
     class Meta:
         verbose_name_plural = 'Tyd entries'

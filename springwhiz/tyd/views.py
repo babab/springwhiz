@@ -21,6 +21,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect, render_to_response
 from django.template import RequestContext
+from django.utils import timezone
 
 from springwhiz.tyd.models import (
     TydCategory, TydCategoryForm,
@@ -52,9 +53,12 @@ def start(request):
 
 @login_required
 def end(request):
-    TydEntry.objects.filter(
+    entry = TydEntry.objects.get(
         task__project__category__user=request.user, current=True
-    ).update(current=False, end=datetime.datetime.now())
+    )
+    entry.current = False
+    entry.end = timezone.now()
+    entry.save()
 
     referer = request.META['HTTP_REFERER']
     if referer:
