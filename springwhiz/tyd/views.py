@@ -114,7 +114,6 @@ def index(request):
 @login_required
 def manage(request):
     data = _getdata(request)
-    task_form = TydTaskForm(prefix='task')
 
     if request.method == 'POST':
         if 'category_submit' in request.POST:
@@ -126,6 +125,7 @@ def manage(request):
                     category_form.save()
                     return redirect(reverse('tyd_manage'))
             project_form = TydProjectForm(prefix='project')
+            task_form = TydTaskForm(prefix='task')
         elif 'project_submit' in request.POST:
             project_form = TydProjectForm(request.POST, prefix='project')
             if project_form.is_valid():
@@ -136,9 +136,22 @@ def manage(request):
                     project_form.save()
                 return redirect(reverse('tyd_manage'))
             category_form = TydCategoryForm(prefix='category')
+            task_form = TydTaskForm(prefix='task')
+        elif 'task_submit' in request.POST:
+            task_form = TydTaskForm(request.POST, prefix='task')
+            if task_form.is_valid():
+                flt = data['tasks'].filter(
+                    project=task_form.instance.project
+                )
+                if not task_form.instance.name in [i.name for i in flt]:
+                    task_form.save()
+                return redirect(reverse('tyd_manage'))
+            category_form = TydCategoryForm(prefix='category')
+            project_form = TydProjectForm(prefix='project')
     else:
         category_form = TydCategoryForm(prefix='category')
         project_form = TydProjectForm(prefix='project')
+        task_form = TydTaskForm(prefix='task')
 
     data.update({'category_form': category_form,
                  'project_form': project_form,

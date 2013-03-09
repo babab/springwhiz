@@ -162,7 +162,7 @@
     </div>
     <div class="span3">
       {{ task_form.non_field_errors }}
-      <form method="GET" action="">
+      <form method="POST">
         {% csrf_token  %}
         <ul class="unstyled">
           {% if task_form.project.errors %}
@@ -183,7 +183,8 @@
             </li>
           {% endif %}
           <li>
-            <input type="submit" class="btn btn-link" value="add" />
+            <input type="submit" name="task_submit" class="btn btn-link"
+                   value="add" />
             {{ task_form.name }}
           </li>
         </ul>
