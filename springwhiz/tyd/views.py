@@ -19,6 +19,7 @@ import datetime
 
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
+from django.db.models import Sum
 from django.shortcuts import redirect, render_to_response
 from django.template import RequestContext
 from django.utils import timezone
@@ -72,9 +73,26 @@ def end(request):
 
 @login_required
 def index(request):
-    entries = TydEntry.objects.filter(
+    tyd_categories = (TydCategory.objects.filter(user=request.user)
+                                 .order_by('name')
+                                 .annotate(seconds=Sum(
+                                     'project__task__entry__seconds')))
+    tyd_projects = (TydProject.objects.filter(category__user=request.user)
+                              .order_by('name')
+                              .annotate(seconds=Sum(
+                                  'task__entry__seconds')))
+
+    tyd_tasks = TydTask.objects.filter(
+        project__category__user=request.user
+    ).annotate(seconds=Sum('entry__seconds'))
+
+    tyd_entries = TydEntry.objects.filter(
         task__project__category__user=request.user
     ).order_by('-start')[:10]
+
+    active_tyd = TydEntry.objects.filter(
+        task__project__category__user=request.user, current=True
+    )
 
     dates = {0: datetime.date.today() - datetime.timedelta(days=6),
              1: datetime.date.today() - datetime.timedelta(days=5),
@@ -83,7 +101,13 @@ def index(request):
              4: datetime.date.today() - datetime.timedelta(days=2),
              5: datetime.date.today() - datetime.timedelta(days=1),
              6: datetime.date.today()}
-    data = {'entries': entries, 'dates': dates}
+
+    data = {'active_tyd': active_tyd,
+            'dates': dates,
+            'tyd_categories': tyd_categories,
+            'tyd_entries': tyd_entries,
+            'tyd_projects': tyd_projects,
+            'tyd_tasks': tyd_tasks}
     return render_to_response('tyd/index.html', data, RequestContext(request))
 
 

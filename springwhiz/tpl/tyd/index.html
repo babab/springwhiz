@@ -3,10 +3,88 @@
 {% block title %}tyd{% endblock %}
 
 {% block head %}
+  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+  <script type="text/javascript">
+    {% if tyd_tasks %}
+        google.load('visualization', '1.0',
+                    {'packages':['corechart', 'table']});
+        google.setOnLoadCallback(drawCharts);
+    {% endif %}
+
+    function drawCharts() {
+        categoryCharts();
+        projectCharts();
+        taskCharts();
+    }
+
+    function SToM(secs) {
+        return Math.floor(secs / 60)
+    }
+
+    function categoryCharts() {
+      var data = new google.visualization.arrayToDataTable([
+          ['Category', 'Minutes'],
+          {% for cat in tyd_categories %}
+              {% if cat.seconds %}
+                  ['{{ cat.name }}', SToM({{ cat.seconds }})],
+              {% endif %}
+          {% endfor %}
+      ]);
+      new google.visualization.ColumnChart(
+          document.getElementById('category-chart-cols')
+      ).draw(data, {});
+      new google.visualization.PieChart(
+          document.getElementById('category-chart-pie')
+      ).draw(data, {});
+      new google.visualization.Table(
+          document.getElementById('category-chart-table')
+      ).draw(data, {});
+    }
+
+    function projectCharts() {
+      var data = new google.visualization.arrayToDataTable([
+          ['Project', 'Minutes'],
+          {% for project in tyd_projects %}
+              {% if project.seconds %}
+                  ['{{ project.name }}', SToM({{ project.seconds }})],
+              {% endif %}
+          {% endfor %}
+      ]);
+      new google.visualization.ColumnChart(
+          document.getElementById('project-chart-cols')
+      ).draw(data, {});
+      new google.visualization.PieChart(
+          document.getElementById('project-chart-pie')
+      ).draw(data, {});
+      new google.visualization.Table(
+          document.getElementById('project-chart-table')
+          ).draw(data, {});
+    }
+
+    function taskCharts() {
+      var data = new google.visualization.arrayToDataTable([
+          ['Task', 'Minutes'],
+          {% for task in tyd_tasks %}
+              {% if task.seconds %}
+                  ['{{ task }}', SToM({{ task.seconds }})],
+              {% endif %}
+          {% endfor %}
+      ]);
+      new google.visualization.ColumnChart(
+          document.getElementById('task-chart-cols')
+      ).draw(data, {});
+      new google.visualization.PieChart(
+          document.getElementById('task-chart-pie')
+      ).draw(data, {});
+      new google.visualization.Table(
+          document.getElementById('task-chart-table')
+          ).draw(data, {});
+    }
+  </script>
 {% endblock %}
 
 {% block content %}
-  <h1>springwhiz <small>tyd [time management application]</small></h1>
+  <h1>springwhiz <small>tyd [time recording application]</small></h1>
 
   <ul class="nav nav-pills">
     <li class="active"><a href="#">Dashboard</a></li>
@@ -15,15 +93,72 @@
     </li>
   </ul>
 
-  <div class="accordion" id="accordion2">
+  <div>
+    {% include "tyd/current.inc.html" %}
+  </div>
+  <div class="spacer_y30"></div>
+  <div class="accordion" id="tyd-index-accordion">
     <div class="accordion-group">
       <div class="accordion-heading">
         <a class="accordion-toggle" data-toggle="collapse"
-           data-parent="#accordion2" href="#log">
+           data-parent="#tyd-index-accordion" href="#charts">
+          Charts of totals
+        </a>
+      </div>
+      <div id="charts" class="accordion-body collapse in">
+        <div class="accordion-inner">
+
+          <h3>Category totals</h3>
+          <div class="row">
+            <div class="span4">
+              <div id="category-chart-cols"></div>
+            </div>
+            <div class="span4">
+              <div id="category-chart-pie"></div>
+            </div>
+            <div class="span3">
+              <div id="category-chart-table"></div>
+            </div>
+          </div>
+
+          <h3>Project totals</h3>
+          <div class="row">
+            <div class="span4">
+              <div id="project-chart-cols"></div>
+            </div>
+            <div class="span4">
+              <div id="project-chart-pie"></div>
+            </div>
+            <div class="span3">
+              <div id="project-chart-table"></div>
+            </div>
+          </div>
+
+          <h3>Task totals</h3>
+          <div class="row">
+            <div class="span4">
+              <div id="task-chart-cols"></div>
+            </div>
+            <div class="span4">
+              <div id="task-chart-pie"></div>
+            </div>
+            <div class="span3">
+              <div id="task-chart-table"></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse"
+           data-parent="#tyd-index-accordion" href="#log">
           Log of the 10 latest time recordings
         </a>
       </div>
-      <div id="log" class="accordion-body collapse in">
+      <div id="log" class="accordion-body collapse">
         <div class="accordion-inner">
           <table class="table table-condensed table-hover table-striped">
             <tr>
@@ -32,7 +167,7 @@
               <th>End</th>
               <th>Duration</th>
             </tr>
-            {% for item in entries %}
+            {% for item in tyd_entries %}
               <tr>
                 <td>{{ item.task }}</td>
                 <td>
@@ -40,7 +175,6 @@
                     {{ item.start|timesince }} ago
                   </span>
                 </td>
-
                 {% if item.current %}
                   <td>
                     <span class="text-success">
@@ -50,7 +184,6 @@
                        class="btn btn-mini btn-danger pull-right">
                       Stop timer
                     </a>
-
                   </td>
                 {% else %}
                   <td>
@@ -66,10 +199,11 @@
         </div>
       </div>
     </div>
+
     <div class="accordion-group">
       <div class="accordion-heading">
         <a class="accordion-toggle" data-toggle="collapse"
-           data-parent="#accordion2" href="#calendar">
+           data-parent="#tyd-index-accordion" href="#calendar">
           Calendar (N/A yet)
         </a>
       </div>
@@ -90,6 +224,7 @@
         </div>
       </div>
     </div>
+
   </div>
 {% endblock %}
 
