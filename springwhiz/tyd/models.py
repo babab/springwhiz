@@ -18,7 +18,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.forms import ModelForm
-from django.forms.widgets import TextInput
+from django.forms.widgets import TextInput, Select
 from django.template.defaultfilters import timesince
 from django.utils import timezone
 
@@ -87,7 +87,7 @@ class TydCategoryForm(ModelForm):
     class Meta:
         model = TydCategory
         widgets = {
-            'name': TextInput(attrs={'class': 'span2',
+            'name': TextInput(attrs={'class': 'span3',
                                      'placeholder': 'category name'}),
         }
 
@@ -96,7 +96,8 @@ class TydProjectForm(ModelForm):
     class Meta:
         model = TydProject
         widgets = {
-            'name': TextInput(attrs={'class': 'span2',
+            'category': Select(attrs={'class': 'span3'}),
+            'name': TextInput(attrs={'class': 'span3',
                                      'placeholder': 'project name'}),
         }
 
@@ -105,6 +106,7 @@ class TydTaskForm(ModelForm):
     class Meta:
         model = TydTask
         widgets = {
-            'name': TextInput(attrs={'class': 'span2',
+            'project': Select(attrs={'class': 'span3'}),
+            'name': TextInput(attrs={'class': 'span3',
                                      'placeholder': 'task name'}),
         }
