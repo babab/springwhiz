@@ -3,229 +3,229 @@
 {% block title %}tyd{% endblock %}
 
 {% block head %}
-  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-  <script type="text/javascript">
-    {% if tyd_tasks %}
-        google.load('visualization', '1.0',
-                    {'packages':['corechart', 'table']});
-        google.setOnLoadCallback(drawCharts);
-    {% endif %}
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+  {% if tyd_tasks %}
+      google.load('visualization', '1.0',
+                  {'packages':['corechart', 'table']});
+      google.setOnLoadCallback(drawCharts);
+  {% endif %}
 
-    function drawCharts() {
-        categoryCharts();
-        projectCharts();
-        taskCharts();
-    }
+  function drawCharts() {
+      categoryCharts();
+      projectCharts();
+      taskCharts();
+  }
 
-    function SToM(secs) {
-        return Math.floor(secs / 60)
-    }
+  function SToM(secs) {
+      return Math.floor(secs / 60)
+  }
 
-    function categoryCharts() {
-      var data = new google.visualization.arrayToDataTable([
-          ['Category', 'Minutes'],
-          {% for cat in tyd_categories %}
-              {% if cat.seconds %}
-                  ['{{ cat.name }}', SToM({{ cat.seconds }})],
-              {% endif %}
-          {% endfor %}
-      ]);
-      new google.visualization.ColumnChart(
-          document.getElementById('category-chart-cols')
-      ).draw(data, {});
-      new google.visualization.PieChart(
-          document.getElementById('category-chart-pie')
-      ).draw(data, {});
-      new google.visualization.Table(
-          document.getElementById('category-chart-table')
-      ).draw(data, {});
-    }
+  function categoryCharts() {
+    var data = new google.visualization.arrayToDataTable([
+        ['Category', 'Minutes'],
+        {% for cat in tyd_categories %}
+            {% if cat.seconds %}
+                ['{{ cat.name }}', SToM({{ cat.seconds }})],
+            {% endif %}
+        {% endfor %}
+    ]);
+    new google.visualization.ColumnChart(
+        document.getElementById('category-chart-cols')
+    ).draw(data, {});
+    new google.visualization.PieChart(
+        document.getElementById('category-chart-pie')
+    ).draw(data, {});
+    new google.visualization.Table(
+        document.getElementById('category-chart-table')
+    ).draw(data, {});
+  }
 
-    function projectCharts() {
-      var data = new google.visualization.arrayToDataTable([
-          ['Project', 'Minutes'],
-          {% for project in tyd_projects %}
-              {% if project.seconds %}
-                  ['{{ project.name }}', SToM({{ project.seconds }})],
-              {% endif %}
-          {% endfor %}
-      ]);
-      new google.visualization.ColumnChart(
-          document.getElementById('project-chart-cols')
-      ).draw(data, {});
-      new google.visualization.PieChart(
-          document.getElementById('project-chart-pie')
-      ).draw(data, {});
-      new google.visualization.Table(
-          document.getElementById('project-chart-table')
-          ).draw(data, {});
-    }
+  function projectCharts() {
+    var data = new google.visualization.arrayToDataTable([
+        ['Project', 'Minutes'],
+        {% for project in tyd_projects %}
+            {% if project.seconds %}
+                ['{{ project.name }}', SToM({{ project.seconds }})],
+            {% endif %}
+        {% endfor %}
+    ]);
+    new google.visualization.ColumnChart(
+        document.getElementById('project-chart-cols')
+    ).draw(data, {});
+    new google.visualization.PieChart(
+        document.getElementById('project-chart-pie')
+    ).draw(data, {});
+    new google.visualization.Table(
+        document.getElementById('project-chart-table')
+        ).draw(data, {});
+  }
 
-    function taskCharts() {
-      var data = new google.visualization.arrayToDataTable([
-          ['Task', 'Minutes'],
-          {% for task in tyd_tasks %}
-              {% if task.seconds %}
-                  ['{{ task }}', SToM({{ task.seconds }})],
-              {% endif %}
-          {% endfor %}
-      ]);
-      new google.visualization.ColumnChart(
-          document.getElementById('task-chart-cols')
-      ).draw(data, {});
-      new google.visualization.PieChart(
-          document.getElementById('task-chart-pie')
-      ).draw(data, {});
-      new google.visualization.Table(
-          document.getElementById('task-chart-table')
-          ).draw(data, {});
-    }
-  </script>
+  function taskCharts() {
+    var data = new google.visualization.arrayToDataTable([
+        ['Task', 'Minutes'],
+        {% for task in tyd_tasks %}
+            {% if task.seconds %}
+                ['{{ task }}', SToM({{ task.seconds }})],
+            {% endif %}
+        {% endfor %}
+    ]);
+    new google.visualization.ColumnChart(
+        document.getElementById('task-chart-cols')
+    ).draw(data, {});
+    new google.visualization.PieChart(
+        document.getElementById('task-chart-pie')
+    ).draw(data, {});
+    new google.visualization.Table(
+        document.getElementById('task-chart-table')
+        ).draw(data, {});
+  }
+</script>
 {% endblock %}
 
 {% block content %}
-  <h1>springwhiz <small>tyd [time recording application]</small></h1>
+<h1>springwhiz <small>tyd [time recording application]</small></h1>
 
-  <ul class="nav nav-pills">
-    <li class="active"><a href="#">Dashboard</a></li>
-    <li>
-      <a href="{% url tyd_manage %}">Manage categories/projects/tasks</a>
-    </li>
-  </ul>
+<ul class="nav nav-pills">
+  <li class="active"><a href="#">Dashboard</a></li>
+  <li>
+    <a href="{% url tyd_manage %}">Manage categories/projects/tasks</a>
+  </li>
+</ul>
 
-  <div>
-    {% include "tyd/current.inc.html" %}
-  </div>
-  <div class="spacer_y30"></div>
-  <div class="accordion" id="tyd-index-accordion">
-    <div class="accordion-group">
-      <div class="accordion-heading">
-        <a class="accordion-toggle" data-toggle="collapse"
-           data-parent="#tyd-index-accordion" href="#charts">
-          Charts of totals
-        </a>
-      </div>
-      <div id="charts" class="accordion-body collapse in">
-        <div class="accordion-inner">
+<div>
+  {% include "tyd/current.inc.html" %}
+</div>
+<div class="spacer_y30"></div>
+<div class="accordion" id="tyd-index-accordion">
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse"
+         data-parent="#tyd-index-accordion" href="#charts">
+        Charts of totals
+      </a>
+    </div>
+    <div id="charts" class="accordion-body collapse in">
+      <div class="accordion-inner">
 
-          <h3>Category totals</h3>
-          <div class="row">
-            <div class="span4">
-              <div id="category-chart-cols"></div>
-            </div>
-            <div class="span4">
-              <div id="category-chart-pie"></div>
-            </div>
-            <div class="span3">
-              <div id="category-chart-table"></div>
-            </div>
+        <h3>Category totals</h3>
+        <div class="row">
+          <div class="span4">
+            <div id="category-chart-cols"></div>
           </div>
-
-          <h3>Project totals</h3>
-          <div class="row">
-            <div class="span4">
-              <div id="project-chart-cols"></div>
-            </div>
-            <div class="span4">
-              <div id="project-chart-pie"></div>
-            </div>
-            <div class="span3">
-              <div id="project-chart-table"></div>
-            </div>
+          <div class="span4">
+            <div id="category-chart-pie"></div>
           </div>
-
-          <h3>Task totals</h3>
-          <div class="row">
-            <div class="span4">
-              <div id="task-chart-cols"></div>
-            </div>
-            <div class="span4">
-              <div id="task-chart-pie"></div>
-            </div>
-            <div class="span3">
-              <div id="task-chart-table"></div>
-            </div>
+          <div class="span3">
+            <div id="category-chart-table"></div>
           </div>
-
         </div>
+
+        <h3>Project totals</h3>
+        <div class="row">
+          <div class="span4">
+            <div id="project-chart-cols"></div>
+          </div>
+          <div class="span4">
+            <div id="project-chart-pie"></div>
+          </div>
+          <div class="span3">
+            <div id="project-chart-table"></div>
+          </div>
+        </div>
+
+        <h3>Task totals</h3>
+        <div class="row">
+          <div class="span4">
+            <div id="task-chart-cols"></div>
+          </div>
+          <div class="span4">
+            <div id="task-chart-pie"></div>
+          </div>
+          <div class="span3">
+            <div id="task-chart-table"></div>
+          </div>
+        </div>
+
       </div>
     </div>
+  </div>
 
-    <div class="accordion-group">
-      <div class="accordion-heading">
-        <a class="accordion-toggle" data-toggle="collapse"
-           data-parent="#tyd-index-accordion" href="#log">
-          Log of the 10 latest time recordings
-        </a>
-      </div>
-      <div id="log" class="accordion-body collapse">
-        <div class="accordion-inner">
-          <table class="table table-condensed table-hover table-striped">
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse"
+         data-parent="#tyd-index-accordion" href="#log">
+        Log of the 10 latest time recordings
+      </a>
+    </div>
+    <div id="log" class="accordion-body collapse">
+      <div class="accordion-inner">
+        <table class="table table-condensed table-hover table-striped">
+          <tr>
+            <th>Task</th>
+            <th>Start</th>
+            <th>End</th>
+            <th>Duration</th>
+          </tr>
+          {% for item in tyd_entries %}
             <tr>
-              <th>Task</th>
-              <th>Start</th>
-              <th>End</th>
-              <th>Duration</th>
-            </tr>
-            {% for item in tyd_entries %}
-              <tr>
-                <td>{{ item.task }}</td>
+              <td>{{ item.task }}</td>
+              <td>
+                <span class="tt" title="{{ item.start|date:"D d H:i:s" }}">
+                  {{ item.start|timesince }} ago
+                </span>
+              </td>
+              {% if item.current %}
                 <td>
-                  <span class="tt" title="{{ item.start|date:"D d H:i:s" }}">
-                    {{ item.start|timesince }} ago
+                  <span class="text-success">
+                    Currently working on this task
+                  </span>
+                  <a href="{% url tyd_end %}"
+                     class="btn btn-mini btn-danger pull-right">
+                    Stop timer
+                  </a>
+                </td>
+              {% else %}
+                <td>
+                  <span class="tt" title="{{ item.end|date:"D d H:i:s" }}">
+                    {{ item.end|timesince }} ago
                   </span>
                 </td>
-                {% if item.current %}
-                  <td>
-                    <span class="text-success">
-                      Currently working on this task
-                    </span>
-                    <a href="{% url tyd_end %}"
-                       class="btn btn-mini btn-danger pull-right">
-                      Stop timer
-                    </a>
-                  </td>
-                {% else %}
-                  <td>
-                    <span class="tt" title="{{ item.end|date:"D d H:i:s" }}">
-                      {{ item.end|timesince }} ago
-                    </span>
-                  </td>
-                {% endif %}
-                <td>{{ item.duration }}</td>
-              </tr>
-            {% endfor %}
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <div class="accordion-group">
-      <div class="accordion-heading">
-        <a class="accordion-toggle" data-toggle="collapse"
-           data-parent="#tyd-index-accordion" href="#calendar">
-          Calendar (N/A yet)
-        </a>
-      </div>
-      <div id="calendar" class="accordion-body collapse">
-        <div class="accordion-inner">
-          <table class="table table-hover table-striped">
-            <tr>
-              <th>Tasks</th>
-              <th>{{ dates.0|date:"D d" }}</th>
-              <th>{{ dates.1|date:"D d" }}</th>
-              <th>{{ dates.2|date:"D d" }}</th>
-              <th>{{ dates.3|date:"D d" }}</th>
-              <th>{{ dates.4|date:"D d" }}</th>
-              <th>{{ dates.5|date:"D d" }}</th>
-              <th>{{ dates.6|date:"D d" }}</th>
+              {% endif %}
+              <td>{{ item.duration }}</td>
             </tr>
-          </table>
-        </div>
+          {% endfor %}
+        </table>
       </div>
     </div>
-
   </div>
+
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse"
+         data-parent="#tyd-index-accordion" href="#calendar">
+        Calendar (N/A yet)
+      </a>
+    </div>
+    <div id="calendar" class="accordion-body collapse">
+      <div class="accordion-inner">
+        <table class="table table-hover table-striped">
+          <tr>
+            <th>Tasks</th>
+            <th>{{ dates.0|date:"D d" }}</th>
+            <th>{{ dates.1|date:"D d" }}</th>
+            <th>{{ dates.2|date:"D d" }}</th>
+            <th>{{ dates.3|date:"D d" }}</th>
+            <th>{{ dates.4|date:"D d" }}</th>
+            <th>{{ dates.5|date:"D d" }}</th>
+            <th>{{ dates.6|date:"D d" }}</th>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
 {% endblock %}
 
 {# vim: set et ts=2 sw=2 sts=2 ft=htmldjango: #}
