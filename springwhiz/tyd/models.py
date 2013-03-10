@@ -34,6 +34,7 @@ class TydCategory(ModelBase):
 
 class TydProject(ModelBase):
     category = models.ForeignKey('TydCategory', related_name='project')
+    hours_reserved = models.FloatField(default=0.0)
 
     def __unicode__(self):
         return '{0} - {1}'.format(self.category, self.name)
@@ -41,6 +42,9 @@ class TydProject(ModelBase):
 
 class TydTask(ModelBase):
     project = models.ForeignKey('TydProject', related_name='task')
+    hours_reserved = models.FloatField(default=0.0)
+    rate = models.FloatField(default=0.0, help_text='value / hour')
+    done = models.BooleanField(default=False)
 
     def __unicode__(self):
         return '{0} - {1}'.format(self.project, self.name)
@@ -59,6 +63,9 @@ class TydEntry(models.Model):
     def __unicode__(self):
         return ('{0} - {1} - {2} - {3}'
                 .format(self.task, self.start, self.end, self.current))
+
+    def earned(self):
+        return (self.seconds / 3600) * self.task.rate
 
     def duration(self):
         if self.current:
@@ -99,6 +106,7 @@ class TydProjectForm(ModelForm):
             'category': Select(attrs={'class': 'span3'}),
             'name': TextInput(attrs={'class': 'span3',
                                      'placeholder': 'project name'}),
+            'hours_reserved': TextInput(attrs={'class': 'span3'}),
         }
 
 
@@ -109,4 +117,6 @@ class TydTaskForm(ModelForm):
             'project': Select(attrs={'class': 'span3'}),
             'name': TextInput(attrs={'class': 'span3',
                                      'placeholder': 'task name'}),
+            'hours_reserved': TextInput(attrs={'class': 'span3'}),
+            'rate': TextInput(attrs={'class': 'span3'}),
         }

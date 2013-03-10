@@ -29,6 +29,7 @@
           </li>
         {% endif %}
         <li>
+          Category name
           {{ category_form.name }}
           <input type="submit" name="category_submit"
                  class="btn btn-success span3" value="add" />
@@ -54,6 +55,9 @@
     </ul>
   </div>
 </div>
+
+<hr />
+
 <h3>Projects</h3>
 {% regroup projects by category as rprojects %}
 <div class="row">
@@ -71,8 +75,10 @@
           </li>
         {% endif %}
         <li>
+          Category
           {{ project_form.category }}
         </li>
+
         {% if project_form.name.errors %}
           <li>
             <span class="text-error">
@@ -81,7 +87,20 @@
           </li>
         {% endif %}
         <li>
+          Project name
           {{ project_form.name }}
+        </li>
+
+        {% if project_form.hours_reserved.errors %}
+          <li>
+            <span class="text-error">
+              {{ project_form.hours_reserved.errors|join:";" }}
+            </span>
+          </li>
+        {% endif %}
+        <li>
+          Hours reserved for project
+          {{ project_form.hours_reserved }}
           <input type="submit" name="project_submit"
                  class="btn btn-success span3"
                  value="add" />
@@ -123,6 +142,7 @@
   </div>
 </div>
 
+<hr />
 
 <h3>Tasks</h3>
 {% regroup tasks by project as rtasks %}
@@ -141,8 +161,10 @@
           </li>
         {% endif %}
         <li>
+          Category - Project
           {{ task_form.project }}
         </li>
+
         {% if task_form.name.errors %}
           <li>
             <span class="text-error">
@@ -151,7 +173,34 @@
           </li>
         {% endif %}
         <li>
+          Task name
           {{ task_form.name }}
+        </li>
+
+        {% if task_form.hours_reserved.errors %}
+          <li>
+            <span class="text-error">
+              {{ task_form.hours_reserved.errors|join:";" }}
+            </span>
+          </li>
+        {% endif %}
+        <li>
+          Hours reserved for project
+          {{ task_form.hours_reserved }}
+        </li>
+
+        {% if task_form.rate.errors %}
+          <li>
+            <span class="text-error">
+              {{ task_form.rate.errors|join:";" }}
+            </span>
+          </li>
+        {% endif %}
+        <li>
+          Rate per hour
+          {{ task_form.rate }}
+        </li>
+        <li>
           <input type="submit" name="task_submit"
                  class="btn btn-success span3" value="add" />
         </li>
