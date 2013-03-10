@@ -18,3 +18,7 @@
 help: README.md
 	markdown_py -o html5 README.md > springwhiz/tpl/README.html
 	sed -i '1d' springwhiz/tpl/README.html
+
+db-reset:
+	cp devdb.sqlite-bak devdb.sqlite
+	./manage.py syncdb
