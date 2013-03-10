@@ -97,110 +97,86 @@
   {% include "tyd/current.inc.html" %}
 </div>
 <div class="spacer_y30"></div>
-<div class="accordion" id="tyd-index-accordion">
-  <div class="accordion-group">
-    <div class="accordion-heading">
-      <a class="accordion-toggle" data-toggle="collapse"
-         data-parent="#tyd-index-accordion" href="#charts">
-        Charts of totals
-      </a>
-    </div>
-    <div id="charts" class="accordion-body collapse in">
-      <div class="accordion-inner">
 
-        <h3>Category totals</h3>
-        <div class="row">
-          <div class="span4">
-            <div id="category-chart-cols"></div>
-          </div>
-          <div class="span4">
-            <div id="category-chart-pie"></div>
-          </div>
-          <div class="span3">
-            <div id="category-chart-table"></div>
-          </div>
-        </div>
+<h2>Charts of totals</h2>
 
-        <h3>Project totals</h3>
-        <div class="row">
-          <div class="span4">
-            <div id="project-chart-cols"></div>
-          </div>
-          <div class="span4">
-            <div id="project-chart-pie"></div>
-          </div>
-          <div class="span3">
-            <div id="project-chart-table"></div>
-          </div>
-        </div>
-
-        <h3>Task totals</h3>
-        <div class="row">
-          <div class="span4">
-            <div id="task-chart-cols"></div>
-          </div>
-          <div class="span4">
-            <div id="task-chart-pie"></div>
-          </div>
-          <div class="span3">
-            <div id="task-chart-table"></div>
-          </div>
-        </div>
-
-      </div>
-    </div>
+<h3>Category totals</h3>
+<div class="row">
+  <div class="span4">
+    <div id="category-chart-cols"></div>
   </div>
-
-  <div class="accordion-group">
-    <div class="accordion-heading">
-      <a class="accordion-toggle" data-toggle="collapse"
-         data-parent="#tyd-index-accordion" href="#log">
-        Log of the 10 latest time recordings
-      </a>
-    </div>
-    <div id="log" class="accordion-body collapse">
-      <div class="accordion-inner">
-        <table class="table table-condensed table-hover table-striped">
-          <tr>
-            <th>Task</th>
-            <th>Start</th>
-            <th>End</th>
-            <th>Duration</th>
-          </tr>
-          {% for item in tyd_entries %}
-            <tr>
-              <td>{{ item.task }}</td>
-              <td>
-                <span class="tt" title="{{ item.start|date:"D d H:i:s" }}">
-                  {{ item.start|timesince }} ago
-                </span>
-              </td>
-              {% if item.current %}
-                <td>
-                  <span class="text-success">
-                    Currently working on this task
-                  </span>
-                  <a href="{% url tyd_end %}"
-                     class="btn btn-mini btn-danger pull-right">
-                    Stop timer
-                  </a>
-                </td>
-              {% else %}
-                <td>
-                  <span class="tt" title="{{ item.end|date:"D d H:i:s" }}">
-                    {{ item.end|timesince }} ago
-                  </span>
-                </td>
-              {% endif %}
-              <td>{{ item.duration }}</td>
-            </tr>
-          {% endfor %}
-        </table>
-      </div>
-    </div>
+  <div class="span4">
+    <div id="category-chart-pie"></div>
   </div>
-
+  <div class="span3">
+    <div id="category-chart-table"></div>
+  </div>
 </div>
+
+<h3>Project totals</h3>
+<div class="row">
+  <div class="span4">
+    <div id="project-chart-cols"></div>
+  </div>
+  <div class="span4">
+    <div id="project-chart-pie"></div>
+  </div>
+  <div class="span3">
+    <div id="project-chart-table"></div>
+  </div>
+</div>
+
+<h3>Task totals</h3>
+<div class="row">
+  <div class="span4">
+    <div id="task-chart-cols"></div>
+  </div>
+  <div class="span4">
+    <div id="task-chart-pie"></div>
+  </div>
+  <div class="span3">
+    <div id="task-chart-table"></div>
+  </div>
+</div>
+
+<h2>Log of the 10 latest time recordings</h2>
+
+<table class="table table-condensed table-hover table-striped">
+  <tr>
+    <th>Task</th>
+    <th>Start</th>
+    <th>End</th>
+    <th>Duration</th>
+  </tr>
+  {% for item in tyd_entries %}
+    <tr>
+      <td>{{ item.task }}</td>
+      <td>
+        <span class="tt" title="{{ item.start|date:"D d H:i:s" }}">
+          {{ item.start|timesince }} ago
+        </span>
+      </td>
+      {% if item.current %}
+        <td>
+          <span class="text-success">
+            Currently working on this task
+          </span>
+          <a href="{% url tyd_end %}"
+             class="btn btn-mini btn-danger pull-right">
+            Stop timer
+          </a>
+        </td>
+      {% else %}
+        <td>
+          <span class="tt" title="{{ item.end|date:"D d H:i:s" }}">
+            {{ item.end|timesince }} ago
+          </span>
+        </td>
+      {% endif %}
+      <td>{{ item.duration }}</td>
+    </tr>
+  {% endfor %}
+</table>
 {% endblock %}
 
 {# vim: set et ts=2 sw=2 sts=2 ft=htmldjango: #}

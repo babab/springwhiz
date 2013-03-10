@@ -12,44 +12,94 @@
   </li>
 </ul>
 
-<div class="accordion" id="tyd-manage-accordion">
 {# Categories #}
-  <div class="accordion-group">
-    <div class="accordion-heading">
-      <a class="accordion-toggle" data-toggle="collapse"
-         data-parent="#tyd-manage-accordion" href="#categories">
-        <h3>Categories</h3>
-      </a>
-    </div>
-    <div id="categories"
-         class="accordion-body collapse {% if not categories %}in{% endif %}">
-      <div class="accordion-inner">
-        <div class="row">
-          <div class="span3">
-            <h4>add a new category</h4>
-            {{ category_form.non_field_errors }}
-            <form method="POST">
-              {% csrf_token  %}
-              <ul class="inline">
-                {% if category_form.name.errors %}
-                  <li>
-                    <span class="text-error">
-                      {{ category_form.name.errors|join:";" }}
-                    </span>
-                  </li>
-                {% endif %}
-                <li>
-                  {{ category_form.name }}
-                  <input type="submit" name="category_submit"
-                         class="btn btn-success span3" value="add" />
-                </li>
-              </ul>
-            </form>
-          </div>
-          <div class="span8">
-            <h4>category list</h4>
+<h3>Categories</h3>
+<div class="row">
+  <div class="span3">
+    <h4>add a new category</h4>
+    {{ category_form.non_field_errors }}
+    <form method="POST">
+      {% csrf_token  %}
+      <ul class="inline">
+        {% if category_form.name.errors %}
+          <li>
+            <span class="text-error">
+              {{ category_form.name.errors|join:";" }}
+            </span>
+          </li>
+        {% endif %}
+        <li>
+          {{ category_form.name }}
+          <input type="submit" name="category_submit"
+                 class="btn btn-success span3" value="add" />
+        </li>
+      </ul>
+    </form>
+  </div>
+  <div class="span8">
+    <h4>category list</h4>
+    <ul class="inline">
+      {% for item in categories %}
+        <li>
+          <span class="label label-info">
+            {{ item.name }}
+            <a href="javascript:;">
+              <i class="fam-cross"></i>
+            </a>
+          </span>
+        </li>
+      {% empty %}
+        <li>Add a category to proceed...</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+<h3>Projects</h3>
+{% regroup projects by category as rprojects %}
+<div class="row">
+  <div class="span3">
+    <h4>add a new project</h4>
+    {{ project_form.non_field_errors }}
+    <form method="POST">
+      {% csrf_token  %}
+      <ul class="unstyled">
+        {% if project_form.category.errors %}
+          <li>
+            <span class="text-error">
+              {{ project_form.category.errors|join:";" }}
+            </span>
+          </li>
+        {% endif %}
+        <li>
+          {{ project_form.category }}
+        </li>
+        {% if project_form.name.errors %}
+          <li>
+            <span class="text-error">
+              {{ project_form.name.errors|join:";" }}
+            </span>
+          </li>
+        {% endif %}
+        <li>
+          {{ project_form.name }}
+          <input type="submit" name="project_submit"
+                 class="btn btn-success span3"
+                 value="add" />
+        </li>
+      </ul>
+    </form>
+  </div>
+  <div class="span8">
+    <h4>project list</h4>
+    <table class="table table-hover">
+      {% for project in rprojects %}
+        <tr>
+          <th>
+            {{ project.grouper }}
+          </th>
+          <td>
             <ul class="inline">
-              {% for item in categories %}
+              {% for item in project.list %}
                 <li>
                   <span class="label label-info">
                     {{ item.name }}
@@ -58,179 +108,91 @@
                     </a>
                   </span>
                 </li>
-              {% empty %}
-                <li>Add a category to proceed...</li>
               {% endfor %}
             </ul>
-          </div>
-        </div>
-      </div>
-    </div>
+          </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="2">
+            Add a project to proceed...
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
   </div>
-{# Projects #}
-  <div class="accordion-group">
-    <div class="accordion-heading">
-      <a class="accordion-toggle" data-toggle="collapse"
-         data-parent="#tyd-manage-accordion" href="#projects">
-        <h3>Projects</h3>
-      </a>
-    </div>
-    <div id="projects"
-         class="accordion-body collapse {% if not projects %}in{% endif %}">
-      <div class="accordion-inner">
-        {% regroup projects by category as rprojects %}
-        <div class="row">
-          <div class="span3">
-            <h4>add a new project</h4>
-            {{ project_form.non_field_errors }}
-            <form method="POST">
-              {% csrf_token  %}
-              <ul class="unstyled">
-                {% if project_form.category.errors %}
-                  <li>
-                    <span class="text-error">
-                      {{ project_form.category.errors|join:";" }}
-                    </span>
-                  </li>
-                {% endif %}
-                <li>
-                  {{ project_form.category }}
-                </li>
-                {% if project_form.name.errors %}
-                  <li>
-                    <span class="text-error">
-                      {{ project_form.name.errors|join:";" }}
-                    </span>
-                  </li>
-                {% endif %}
-                <li>
-                  {{ project_form.name }}
-                  <input type="submit" name="project_submit"
-                         class="btn btn-success span3"
-                         value="add" />
-                </li>
-              </ul>
-            </form>
-          </div>
-          <div class="span8">
-            <h4>project list</h4>
-            <table class="table table-hover">
-              {% for project in rprojects %}
-                <tr>
-                  <th>
-                    {{ project.grouper }}
-                  </th>
-                  <td>
-                    <ul class="inline">
-                      {% for item in project.list %}
-                        <li>
-                          <span class="label label-info">
-                            {{ item.name }}
-                            <a href="javascript:;">
-                              <i class="fam-cross"></i>
-                            </a>
-                          </span>
-                        </li>
-                      {% endfor %}
-                    </ul>
-                  </td>
-                </tr>
-              {% empty %}
-                <tr>
-                  <td colspan="2">
-                    Add a project to proceed...
-                  </td>
-                </tr>
-              {% endfor %}
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-{# Tasks #}
-  <div class="accordion-group">
-    <div class="accordion-heading">
-      <a class="accordion-toggle" data-toggle="collapse"
-         data-parent="#tyd-manage-accordion" href="#tasks">
-        <h3>Tasks</h3>
-      </a>
-    </div>
-    <div id="tasks" class="accordion-body collapse {% if projects %}in{% endif %}">
-      <div class="accordion-inner">
-        {% regroup tasks by project as rtasks %}
-        <div class="row">
-          <div class="span3">
-            <h4>add a new task</h4>
-            {{ task_form.non_field_errors }}
-            <form method="POST">
-              {% csrf_token  %}
-              <ul class="unstyled">
-                {% if task_form.project.errors %}
-                  <li>
-                    <span class="text-error">
-                      {{ task_form.project.errors|join:";" }}
-                    </span>
-                  </li>
-                {% endif %}
-                <li>
-                  {{ task_form.project }}
-                </li>
-                {% if task_form.name.errors %}
-                  <li>
-                    <span class="text-error">
-                      {{ task_form.name.errors|join:";" }}
-                    </span>
-                  </li>
-                {% endif %}
-                <li>
-                  {{ task_form.name }}
-                  <input type="submit" name="task_submit"
-                         class="btn btn-success span3" value="add" />
-                </li>
-              </ul>
-            </form>
-          </div>
-          <div class="span8">
-            <h4>task list</h4>
-            <table class="table table-hover">
-              {% for task in rtasks %}
-                <tr>
-                  <th>
-                    {{ task.grouper.category }}
-                  </th>
-                  <td>
-                    {{ task.grouper.name }}
-                  </td>
-                  <td>
-                    <ul class="inline">
-                      {% for item in task.list %}
-                        <li>
-                          <span class="label label-info">
-                            {{ item.name }}
-                            <a href="javascript:;">
-                              <i class="fam-cross"></i>
-                            </a>
-                          </span>
-                        </li>
-                      {% endfor %}
-                    </ul>
-                  </td>
-                </tr>
-              {% empty %}
-                <tr>
-                  <td colspan="2">
-                    Finally, add a task to start recording your time...
-                  </td>
-                </tr>
-              {% endfor %}
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+</div>
 
+
+<h3>Tasks</h3>
+{% regroup tasks by project as rtasks %}
+<div class="row">
+  <div class="span3">
+    <h4>add a new task</h4>
+    {{ task_form.non_field_errors }}
+    <form method="POST">
+      {% csrf_token  %}
+      <ul class="unstyled">
+        {% if task_form.project.errors %}
+          <li>
+            <span class="text-error">
+              {{ task_form.project.errors|join:";" }}
+            </span>
+          </li>
+        {% endif %}
+        <li>
+          {{ task_form.project }}
+        </li>
+        {% if task_form.name.errors %}
+          <li>
+            <span class="text-error">
+              {{ task_form.name.errors|join:";" }}
+            </span>
+          </li>
+        {% endif %}
+        <li>
+          {{ task_form.name }}
+          <input type="submit" name="task_submit"
+                 class="btn btn-success span3" value="add" />
+        </li>
+      </ul>
+    </form>
+  </div>
+  <div class="span8">
+    <h4>task list</h4>
+    <table class="table table-hover">
+      {% for task in rtasks %}
+        <tr>
+          <th>
+            {{ task.grouper.category }}
+          </th>
+          <td>
+            {{ task.grouper.name }}
+          </td>
+          <td>
+            <ul class="inline">
+              {% for item in task.list %}
+                <li>
+                  <span class="label label-info">
+                    {{ item.name }}
+                    <a href="javascript:;">
+                      <i class="fam-cross"></i>
+                    </a>
+                  </span>
+                </li>
+              {% endfor %}
+            </ul>
+          </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="2">
+            Finally, add a task to start recording your time...
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+  </div>
 </div>
 {% endblock %}
 
