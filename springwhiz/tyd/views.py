@@ -94,16 +94,7 @@ def index(request):
         task__project__category__user=request.user, current=True
     )
 
-    dates = {0: datetime.date.today() - datetime.timedelta(days=6),
-             1: datetime.date.today() - datetime.timedelta(days=5),
-             2: datetime.date.today() - datetime.timedelta(days=4),
-             3: datetime.date.today() - datetime.timedelta(days=3),
-             4: datetime.date.today() - datetime.timedelta(days=2),
-             5: datetime.date.today() - datetime.timedelta(days=1),
-             6: datetime.date.today()}
-
     data = {'active_tyd': active_tyd,
-            'dates': dates,
             'tyd_categories': tyd_categories,
             'tyd_entries': tyd_entries,
             'tyd_projects': tyd_projects,
