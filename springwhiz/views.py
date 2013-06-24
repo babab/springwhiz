@@ -23,10 +23,15 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import redirect, render_to_response
 from django.template import RequestContext
 
-from springwhiz.settings import BASE_URL
+from springwhiz.settings import BASE_URL, SUBDIRECTORY_USE, SUBDIRECTORY_PATH
 from springwhiz.notepad.models import Notepad
 from springwhiz.tyd.models import TydTask, TydEntry
 
+def _prefix():
+    if SUBDIRECTORY_USE:
+        return SUBDIRECTORY_PATH
+    else:
+        return '/'
 
 def _query_handler(request, query):
     if query[0] == '@':
@@ -108,7 +113,7 @@ def help(request):
 
 def register(request):
     """Create new user from authenticate form"""
-    data = {'auth_type': 'register'}
+    data = {'auth_type': 'register', 'url_prefix': _prefix()}
 
     if request.POST:
         username = request.POST['username']
@@ -155,7 +160,7 @@ def register(request):
 
 def login_view(request):
     """Handle logins"""
-    data = {'auth_type': 'login'}
+    data = {'auth_type': 'login', 'url_prefix': _prefix()}
     context = RequestContext(request)
 
     if request.POST:

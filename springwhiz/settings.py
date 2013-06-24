@@ -41,12 +41,20 @@ USE_TZ = settings_local.USE_TZ
 SECRET_KEY = settings_local.SECRET_KEY
 STATIC_ROOT = settings_local.STATIC_ROOT
 STATIC_URL = settings_local.STATIC_URL
-LOGIN_URL = settings_local.LOGIN_URL
-LOGOUT_URL = settings_local.LOGOUT_URL
-LOGIN_REDIRECT_URL = settings_local.LOGIN_REDIRECT_URL
 ALLOWED_HOSTS = settings_local.ALLOWED_HOSTS
+SUBDIRECTORY_USE = settings_local.SUBDIRECTORY_USE
+SUBDIRECTORY_PATH = settings_local.SUBDIRECTORY_PATH
 
 MANAGERS = ADMINS
+
+if SUBDIRECTORY_USE:
+    LOGIN_URL = '{0}accounts/login/'.format(SUBDIRECTORY_PATH)
+    LOGOUT_URL = '{0}accounts/logout/'.format(SUBDIRECTORY_PATH)
+    LOGIN_REDIRECT_URL = SUBDIRECTORY_PATH
+else:
+    LOGIN_URL = '/accounts/login/'
+    LOGOUT_URL = '/accounts/logout/'
+    LOGIN_REDIRECT_URL = '/'
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"

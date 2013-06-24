@@ -32,11 +32,10 @@ STATIC_ROOT = ''
 # Example: "http://media.lawrence.com/static/"
 STATIC_URL = '/static/'
 
-LOGIN_URL = '/accounts/login/'
-LOGOUT_URL = '/accounts/logout/'
-LOGIN_REDIRECT_URL = '/'
-
 ALLOWED_HOSTS = []
+
+SUBDIRECTORY_USE = False
+SUBDIRECTORY_PATH = '/sprwz/'  # Must begin and end with '/'
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'CHANGE-THIS-TO-SOMETHING-UNIQUE'
