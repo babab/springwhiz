@@ -58,7 +58,7 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    '%s/springwhiz/static' % DEPLOY_PATH,
+    '%s/static' % DEPLOY_PATH,
 )
 
 # List of finder classes that know how to find static files in
