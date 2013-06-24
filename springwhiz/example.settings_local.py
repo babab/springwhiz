@@ -1,4 +1,7 @@
+# Change this to False and edit ALLOWED_HOSTS when
+# deploying springwhiz to a production environment
 DEBUG = True
+
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -25,8 +28,18 @@ DATABASES = {
 # Example: "/home/media/media.lawrence.com/static/"
 STATIC_ROOT = ''
 
+# URL prefix for static files.
+# Example: "http://media.lawrence.com/static/"
+STATIC_URL = '/static/'
+
+LOGIN_URL = '/accounts/login/'
+LOGOUT_URL = '/accounts/logout/'
+LOGIN_REDIRECT_URL = '/'
+
+ALLOWED_HOSTS = []
+
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = 'ldw96=r0wm+y*d$i^-a&amp;%jdhi+8+f3v#f2yq8yv8%-vdtm(7g9'
+SECRET_KEY = 'CHANGE-THIS-TO-SOMETHING-UNIQUE'
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name

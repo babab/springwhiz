@@ -40,6 +40,11 @@ USE_L10N = settings_local.USE_L10N
 USE_TZ = settings_local.USE_TZ
 SECRET_KEY = settings_local.SECRET_KEY
 STATIC_ROOT = settings_local.STATIC_ROOT
+STATIC_URL = settings_local.STATIC_URL
+LOGIN_URL = settings_local.LOGIN_URL
+LOGOUT_URL = settings_local.LOGOUT_URL
+LOGIN_REDIRECT_URL = settings_local.LOGIN_REDIRECT_URL
+ALLOWED_HOSTS = settings_local.ALLOWED_HOSTS
 
 MANAGERS = ADMINS
 
@@ -51,10 +56,6 @@ MEDIA_ROOT = ''
 # trailing slash.
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
 MEDIA_URL = ''
-
-# URL prefix for static files.
-# Example: "http://media.lawrence.com/static/"
-STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
