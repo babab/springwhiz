@@ -56,7 +56,7 @@
         <div class="spacer_y30"></div>
       {% endif %}
 
-      <form method="post" action="{% url index %}">
+      <form method="post" action="{% url 'index' %}">
         {% csrf_token %}
         <div class="input-prepend">
           <span id="modesymbol" class="add-on">&gt;</span>

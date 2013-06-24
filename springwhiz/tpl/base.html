@@ -41,7 +41,7 @@
             <ul class="nav">
 
               {% if user.is_active %}
-                <li><a class="nav" href="{% url tyd_index %}">tyd</a></li>
+                <li><a class="nav" href="{% url 'tyd_index' %}">tyd</a></li>
               {% else %}
                 <li>
                   <a href="javascript:;" class="tt nav"
@@ -49,20 +49,20 @@
                 </li>
               {% endif %}
 
-              <li><a class="nav" href="{% url notepad %}">notepad</a></li>
+              <li><a class="nav" href="{% url 'notepad' %}">notepad</a></li>
               <li>
-                <a id="helplink" class="nav" href="{% url help %}">help</a>
+                <a id="helplink" class="nav" href="{% url 'help' %}">help</a>
               </li>
               {% if user.is_authenticated %}
-                <li><a class="nav" href="{% url logout %}">logout</a></li>
+                <li><a class="nav" href="{% url 'logout' %}">logout</a></li>
               {% else %}
-                <li><a class="nav" href="{% url login %}">login</a></li>
-                <li><a class="nav" href="{% url register %}">register</a></li>
+                <li><a class="nav" href="{% url 'login' %}">login</a></li>
+                <li><a class="nav" href="{% url 'register' %}">register</a></li>
               {% endif %}
             </ul>
           </div>
 
-          <a class="brand" href="{% url index %}">springwhiz</a>
+          <a class="brand" href="{% url 'index' %}">springwhiz</a>
 
           <div class="nav-collapse collapse">
             {% block navbar %}{% endblock %}

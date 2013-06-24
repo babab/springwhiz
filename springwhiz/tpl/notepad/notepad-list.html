@@ -9,7 +9,7 @@
     Your notes
     {% if user.is_active %}
       <small>
-        <a class="btn btn-link" href="{% url notepad %}">Create a new note</a>
+        <a class="btn btn-link" href="{% url 'notepad' %}">Create a new note</a>
       </small>
     {% endif %}
   </h3>
@@ -37,7 +37,7 @@
             </a>
           </td>
           <td>
-            <a href="{% url notepad_update note.shorthash %}">
+            <a href="{% url 'notepad_update' note.shorthash %}">
               <i class="fam-page-error"></i>
             </a>
           </td>
@@ -63,7 +63,7 @@
         <tr>
           <td colspan="6">
             {% if user.is_active %}
-            No notes yet. Click <a href="{% url notepad %}">here</a> to
+            No notes yet. Click <a href="{% url 'notepad' %}">here</a> to
               create a new note.
             {% else %}
               You are not logged in. Please register and login to

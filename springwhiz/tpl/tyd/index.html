@@ -89,7 +89,7 @@
 <ul class="nav nav-pills">
   <li class="active"><a href="#">Dashboard</a></li>
   <li>
-    <a href="{% url tyd_manage %}">Manage categories/projects/tasks</a>
+    <a href="{% url 'tyd_manage' %}">Manage categories/projects/tasks</a>
   </li>
 </ul>
 
@@ -164,7 +164,7 @@
           <span class="text-success">
             Currently working on this task
           </span>
-          <a href="{% url tyd_end %}"
+          <a href="{% url 'tyd_end' %}"
              class="btn btn-mini btn-danger pull-right">
             Stop timer
           </a>
@@ -185,7 +185,7 @@
 
 <div class="alert">
   No data to show yet. Please add categories, project and/or tasks
-  <a href="{% url tyd_manage %}">here</a>.
+  <a href="{% url 'tyd_manage' %}">here</a>.
 </div>
 
 {% endif %}

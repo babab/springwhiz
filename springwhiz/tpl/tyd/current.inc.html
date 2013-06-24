@@ -1,14 +1,14 @@
 {% for item in active_tyd %}
   <strong>Currently working on</strong>
   {{ item.task }}<br />
-  <a href="{% url tyd_end %}" class="btn btn-mini btn-danger pull-right">
+  <a href="{% url 'tyd_end' %}" class="btn btn-mini btn-danger pull-right">
     Stop timer
   </a>
   {{ item.start|timesince }}
 {% empty %}
   <strong>Tyd Tasks</strong>
   {% if tyd_tasks %}
-    <form method="POST" action="{% url tyd_start %}">
+    <form method="POST" action="{% url 'tyd_start' %}">
       {% csrf_token %}
       <select class="span2" id="tydtask" name="tydtask">
         {% for item in tyd_tasks %}
