@@ -1,4 +1,4 @@
-django==1.4.3
+django==1.11.28
 docutils==0.10
 markdown==2.2.1
 pygments==1.6rc1
